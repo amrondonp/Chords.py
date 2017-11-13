@@ -20,8 +20,9 @@ def generate_csv(pitch):
 
 def plot_test(file):
     pitch_class_profiler = PitchClassProfiler(CHORDS_FOLDER + "/" + file)
+    print(pitch_class_profiler.get_profile())
     pitch_class_profiler.plot_profile()
 
-plot_test("husky_frame.wav")
+plot_test("am/am14.wav")
 #generate_csv("c")
 #https://ccrma.stanford.edu/~joshua79/220a/final-proj.html

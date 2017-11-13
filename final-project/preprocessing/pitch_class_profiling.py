@@ -41,7 +41,8 @@ class PitchClassProfiler():
         fs = self.frecuency()
         X = self.fourier()
         #fref = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
-        fref = [130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.00, 196.00, 207.65, 220.00, 233.08, 246.94]
+        #fref = [130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.00, 196.00, 207.65, 220.00, 233.08, 246.94]
+        fref = 130.81
 
         N = len(X)
         #assert(N % 2 == 0)
@@ -49,7 +50,7 @@ class PitchClassProfiler():
         def M(l, p):
             if l == 0:
                 return -1
-            return round(12 * log2( (fs * l)/(N * fref[p] )  ) ) % 12
+            return round(12 * log2( (fs * l)/(N * fref )  ) ) % 12
 
         pcp = [0 for p in range(12)]
         
