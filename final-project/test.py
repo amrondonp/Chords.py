@@ -5,7 +5,7 @@ from util import config
 CHORDS_FOLDER = config()["chords_path"] 
 
 def generate_csv(pitch):
-    with open(pitch + ".csv", "w") as f: 
+    with open("dataset/" + pitch + ".csv", "w") as f: 
         for i in range(1,201):
             name = "/" + pitch + "/" + pitch + str(i) + ".wav"
             print(name)
@@ -23,6 +23,6 @@ def plot_test(file):
     print(pitch_class_profiler.get_profile())
     pitch_class_profiler.plot_profile()
 
-plot_test("am/am14.wav")
-#generate_csv("c")
+#plot_test("d/d200.wav")
+generate_csv("c")
 #https://ccrma.stanford.edu/~joshua79/220a/final-proj.html
