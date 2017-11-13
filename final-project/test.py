@@ -23,6 +23,10 @@ def plot_test(file):
     print(pitch_class_profiler.get_profile())
     pitch_class_profiler.plot_profile()
 
-#plot_test("d/d200.wav")
-generate_csv("em")
+#plot_test("c/c50.wav")
+#generate_csv("em")
 #https://ccrma.stanford.edu/~joshua79/220a/final-proj.html
+
+from neural_network.train import Trainer
+trainer = Trainer()
+trainer.train()
