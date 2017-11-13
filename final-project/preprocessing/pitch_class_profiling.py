@@ -53,6 +53,7 @@ class PitchClassProfiler():
 
         pcp = [0 for p in range(12)]
         
+        print("Computing pcp...")
         for p in range(12):
             for l in range(N//2):
                 if p == M(l, p):
@@ -62,6 +63,7 @@ class PitchClassProfiler():
         pcp_norm = [0 for p in range(12)]
         for p in range(12):
             pcp_norm[p] = (pcp[p] / sum(pcp))
+        print("finished pcp")
 
         return pcp_norm
 

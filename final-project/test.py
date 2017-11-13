@@ -6,7 +6,7 @@ CHORDS_FOLDER = config()["chords_path"]
 
 def generate_csv(pitch):
     with open(pitch + ".csv", "w") as f: 
-        for i in range(1,6):
+        for i in range(1,201):
             name = "/" + pitch + "/" + pitch + str(i) + ".wav"
             print(name)
             pitch_class_profiler = PitchClassProfiler(CHORDS_FOLDER + name)
@@ -22,4 +22,5 @@ def plot_test(file):
     pitch_class_profiler = PitchClassProfiler(CHORDS_FOLDER + "/" + file)
     pitch_class_profiler.plot_profile()
 
-plot_test("g/gMauro.wav")
+#plot_test("g/gMauro.wav")
+generate_csv("c")
