@@ -17,7 +17,7 @@ class Trainer():
         list_ = []
 
         for pitch in self.pitches:
-            file_data = pandas.read_csv("dataset/" + pitch + ".csv", header=None)
+            file_data = pandas.read_csv("dataset/train/" + pitch + ".csv", header=None)
             list_.append(file_data)
         data = pandas.concat(list_)
         return data

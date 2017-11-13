@@ -32,12 +32,12 @@ trainer = Trainer()
 #trainer.save()
 
 
-trainer.load()
+trainer.train()
 #prediction = trainer.predict(CHORDS_FOLDER + "/a/a2.wav")
 #print(prediction.tolist()[0])
 #trainer.plot_prediction(CHORDS_FOLDER + "/g/gMauro.wav")
 
 #trainer.plot_prediction("C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Piano/bm/bm2.wav")
 
-from preprocessing.csv_generator import CsvGenerator
-a = CsvGenerator()
+#from preprocessing.csv_generator import CsvGenerator
+#a = CsvGenerator()
