@@ -29,6 +29,7 @@ def plot_test(file):
 
 from neural_network.train import Trainer
 trainer = Trainer()
+trainer.load()
 #prediction = trainer.predict(CHORDS_FOLDER + "/a/a2.wav")
 #print(prediction.tolist()[0])
-trainer.plot_prediction(CHORDS_FOLDER + "/a/a2.wav")
+trainer.plot_prediction(CHORDS_FOLDER + "/gMauro.wav")

@@ -2,14 +2,15 @@ import pandas
 import numpy as np
 import keras
 import matplotlib.pyplot as plt
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense
 from preprocessing.pitch_class_profiling import PitchClassProfiler
 
 class Trainer():
-    def __init__(self):
+    def __init__(self, file_name="my_model.h5"):
         self.pitches = ["c", "d", "dm", "e", "em", "f", "g", "a", "am", "bm"]
         self.trained = False
+        self.file_name = file_name
 
     def input_data(self):
         data = pandas.DataFrame()
@@ -37,6 +38,13 @@ class Trainer():
         if not self.trained:
             self.train()
         return self._model
+
+    def save(self):
+        self.model().save(self.file_name)
+
+    def load(self):
+        self._model = load_model(self.file_name)
+        self.trained = True
 
     def train(self):
         self._model = Sequential()
