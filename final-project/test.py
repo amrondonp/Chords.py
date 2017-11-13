@@ -24,5 +24,5 @@ def plot_test(file):
     pitch_class_profiler.plot_profile()
 
 #plot_test("d/d200.wav")
-generate_csv("c")
+generate_csv("em")
 #https://ccrma.stanford.edu/~joshua79/220a/final-proj.html
