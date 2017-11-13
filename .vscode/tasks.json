@@ -4,14 +4,17 @@
         {
             "label": "Build shared DLL",
             "type": "shell",
-            "command": "g++",
+            "command": "env/Scripts/python.exe",
             "args": [
-                "final-project/cpp_code/zoo.cpp"
+                "test.py"
             ],
             "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/final_project"
             }
         }
     ]
