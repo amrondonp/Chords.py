@@ -22,5 +22,6 @@ def plot_test(file):
     pitch_class_profiler = PitchClassProfiler(CHORDS_FOLDER + "/" + file)
     pitch_class_profiler.plot_profile()
 
-#plot_test("g/gMauro.wav")
-generate_csv("c")
+plot_test("husky_frame.wav")
+#generate_csv("c")
+#https://ccrma.stanford.edu/~joshua79/220a/final-proj.html
