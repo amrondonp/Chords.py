@@ -1,11 +1,15 @@
 import pandas
 import numpy as np
+import keras
+import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
+from preprocessing.pitch_class_profiling import PitchClassProfiler
 
 class Trainer():
     def __init__(self):
         self.pitches = ["c", "d", "dm", "e", "em", "f", "g", "a", "am", "bm"]
+        self.trained = False
 
     def input_data(self):
         data = pandas.DataFrame()
@@ -29,16 +33,39 @@ class Trainer():
         data = pandas.DataFrame(list_)
         return data
 
+    def model(self):
+        if not self.trained:
+            self.train()
+        return self._model
+
     def train(self):
-        model = Sequential()
-        model.add(Dense(30, input_dim=12, activation='relu'))
-        model.add(Dense(10, activation='sigmoid'))
+        self._model = Sequential()
+        self._model.add(Dense(30, input_dim=12, activation='relu'))
+        self._model.add(Dense(10, activation='sigmoid'))
 
         X = self.input_data().values
         Y = self.output_data().values
 
-        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-        model.fit(X, Y, epochs=10, batch_size=10)
+        self._model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+        self._model.fit(X, Y, epochs=10, batch_size=10)
 
-        scores = model.evaluate(X, Y)
-        print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+        scores = self._model.evaluate(X, Y)
+        print("\n%s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100))
+        self.trained = True
+
+    def predict(self, audio_file):
+        profiler = PitchClassProfiler(audio_file)
+        X = np.array( [profiler.get_profile()] )
+        return self.model().predict(X)
+
+    def plot_prediction(self, audio_file):
+        objects = ["C", "D", "Dm", "E", "Em", "F", "G", "A", "Am", "Bm"]
+        y_pos = np.arange(len(objects))
+        performance = self.predict(audio_file)[0]
+
+        plt.bar(y_pos, performance, align='center', alpha=0.5)
+        plt.xticks(y_pos, objects)
+        plt.ylabel('Probability')
+        plt.title('Classification results')
+
+        plt.show()
