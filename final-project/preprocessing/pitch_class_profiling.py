@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from scipy.io import wavfile
 from scipy.fftpack import rfft
 
@@ -24,7 +25,12 @@ class PitchClassProfiler():
         return rfft(self.samples())
 
     def plot_signal(self):
-        
+        plt.plot(self.samples())
+        plt.show()
+
+    def plot_fourier(self):
+        plt.plot(self.fourier())
+        plt.show()
 
     def get_profile(self):
-        print(self.fourier())
+        pass

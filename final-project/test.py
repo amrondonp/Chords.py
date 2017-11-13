@@ -1,5 +1,7 @@
 from preprocessing.pitch_class_profiling import PitchClassProfiler
 
-pitch_class_profiler = PitchClassProfiler("C:\\Users\\amron\\Downloads\\jim2012Chords\\Guitar_Only\\a\\a99.wav")
-pitch_class_profiler.get_profile()
+CHORDS_FOLDER = "C:/Users/amron/Downloads/jim2012Chords/Guitar_Only/"
 
+pitch_class_profiler = PitchClassProfiler(CHORDS_FOLDER + "e/e1.wav")
+pitch_class_profiler.plot_signal()
+#pitch_class_profiler.plot_fourier()
