@@ -22,4 +22,4 @@ trainer = Trainer()
 
 from preprocessing.csv_generator import CsvGenerator
 a = CsvGenerator()
-a.generate_training_dataset()
+a.generate_validation_dataset()
