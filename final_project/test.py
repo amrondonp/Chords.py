@@ -12,7 +12,7 @@ import numpy as np
 trainer = Trainer()
 trainer.load()
 
-song = "wind_of_change.wav"
+song = "escala.wav"
 
 longFileProfiler = LongFileProfiler("songs/" + song)
 profiles = longFileProfiler.get_profile()
