@@ -10,9 +10,10 @@ CHORDS_FOLDER = config()["chords_path"]
 
 from neural_network.train import Trainer
 trainer = Trainer()
+trainer.load()
+trainer.validate()
+
 #trainer.save()
-
-
 #trainer.train()
 #prediction = trainer.predict(CHORDS_FOLDER + "/a/a2.wav")
 #print(prediction.tolist()[0])
@@ -20,6 +21,6 @@ trainer = Trainer()
 
 #trainer.plot_prediction("C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Piano/bm/bm2.wav")
 
-from preprocessing.csv_generator import CsvGenerator
-a = CsvGenerator()
-a.generate_validation_dataset()
+# from preprocessing.csv_generator import CsvGenerator
+# a = CsvGenerator()
+# a.generate_validation_dataset()

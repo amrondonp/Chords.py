@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from keras.models import Sequential, load_model
 from keras.layers import Dense
 from preprocessing.pitch_class_profiling import PitchClassProfiler
+from util import config
 
 class Trainer():
     def __init__(self, file_name="my_model.h5"):
@@ -12,27 +13,47 @@ class Trainer():
         self.trained = False
         self.file_name = file_name
 
-    def input_data(self):
+    def read_pitch_csv(self, folder_name):
         data = pandas.DataFrame()
         list_ = []
 
         for pitch in self.pitches:
-            file_data = pandas.read_csv("dataset/train/" + pitch + ".csv", header=None)
+            file_data = pandas.read_csv(folder_name + pitch + ".csv", header=None)
             list_.append(file_data)
         data = pandas.concat(list_)
         return data
 
-    def output_data(self):
+    def out_data_generator(self, how_many):
         list_ = []
 
         for i in range(len(self.pitches)):
-            for _ in range(200):
+            for _ in range(how_many):
                 out = [0.0 for _ in range(len(self.pitches))]
                 out[i] = 1.0
                 list_.append(out)
 
         data = pandas.DataFrame(list_)
         return data
+
+    def validation_input_data(self, instrument):
+        return self.read_pitch_csv("dataset/validation/" + instrument + "/")
+
+    def validation_output_data(self):
+        return self.out_data_generator(10)
+
+    def input_data(self):
+        return self.read_pitch_csv("dataset/train/")
+
+    def output_data(self):
+        return self.out_data_generator(200)
+
+    def validate(self):
+        for instrument in config()["instruments"]:
+            X = self.validation_input_data(instrument).values
+            Y = self.validation_output_data().values
+
+            scores = self.model().evaluate(X, Y)
+            print("Results validating " + instrument + " : %s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100) + "\n" )
 
     def model(self):
         if not self.trained:
@@ -58,7 +79,7 @@ class Trainer():
         self._model.fit(X, Y, epochs=100, batch_size=10)
 
         scores = self._model.evaluate(X, Y)
-        print("\n%s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100))
+        print("\nResults validating with training data: %s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100))
         self.trained = True
 
     def predict(self, audio_file):
