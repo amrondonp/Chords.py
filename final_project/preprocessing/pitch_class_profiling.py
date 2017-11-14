@@ -34,12 +34,11 @@ class PitchClassProfiler():
         plt.plot(self.fourier())
         plt.show()
 
-    def get_profile(self):
+    def pcp(self, X):
         #The algorithm here is implemented using
         #the names of the math formula as shown in the paper
-
         fs = self.frecuency()
-        X = self.fourier()
+
         #fref = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
         #fref = [130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.00, 196.00, 207.65, 220.00, 233.08, 246.94]
         fref = 130.81
@@ -68,6 +67,10 @@ class PitchClassProfiler():
 
         return pcp_norm
 
+    def get_profile(self):
+        X = self.fourier()
+        return self.pcp(X)
+        
     def plot_profile(self):
         objects = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
         y_pos = np.arange(len(objects))
@@ -80,3 +83,26 @@ class PitchClassProfiler():
         
         plt.show()
 
+class LongFileProfiler(PitchClassProfiler):
+    def __init__(self, file_name):
+        super().__init__(file_name)
+        self.current_pointer = 0
+        self.window = self.frecuency() // 2
+        print(self.window)
+
+    def get_profile(self):
+        profiles_list = []
+        samples_count = len( self.samples() )
+
+        while self.current_pointer < samples_count:
+            rigth_bound =  self.current_pointer + self.window
+            
+            if rigth_bound >= samples_count:
+                rigth_bound = samples_count - 1
+
+            window_samples = self.samples()[self.current_pointer: rigth_bound]
+            X = fft(window_samples)
+            profiles_list.append( self.pcp(X) )
+
+            self.current_pointer += self.window
+        return profiles_list
