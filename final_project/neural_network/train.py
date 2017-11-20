@@ -6,12 +6,14 @@ from keras.models import Sequential, load_model
 from keras.layers import Dense
 from preprocessing.pitch_class_profiling import PitchClassProfiler
 from util import config
+from keras import metrics
 
 class Trainer():
-    def __init__(self, file_name="my_model.h5"):
+    def __init__(self, file_name="my_model.h5", loss_function="categorical_crossentropy"):
         self.pitches = ["c", "d", "dm", "e", "em", "f", "g", "a", "am", "bm"]
         self.trained = False
         self.file_name = file_name
+        self.loss_function = loss_function
 
     def read_pitch_csv(self, folder_name):
         data = pandas.DataFrame()
@@ -84,12 +86,16 @@ class Trainer():
         X = self.input_data().values
         Y = self.output_data().values
 
-        self._model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-        self._model.fit(X, Y, epochs=100, batch_size=1)
+        self._model.compile(loss=self.loss_function, optimizer='adam',  metrics=[metrics.categorical_accuracy, metrics.top_k_categorical_accuracy])
+        self._model.fit(X, Y, epochs=100, batch_size=10, verbose=0)
 
         scores = self._model.evaluate(X, Y)
-        print("\nResults validating with training data: %s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100))
+
+        for i in range(1, len(self._model.metrics_names)):
+            print("\nResults validating with training data: %s: %.2f%%" % (self._model.metrics_names[i], scores[i]*100))
+        
         self.trained = True
+        return self._model.metrics_names, scores
 
     def predict(self, audio_file):
         profiler = PitchClassProfiler(audio_file)
