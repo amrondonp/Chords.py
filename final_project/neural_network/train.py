@@ -63,6 +63,15 @@ class Trainer():
     def save(self):
         self.model().save(self.file_name)
 
+    def save_architecture(self):
+        json_string = self.model_architecture()
+        json_file_name = self.file_name.split(".")[0] + ".json"
+        with open(json_file_name, "w") as f:
+            f.write(json_string)
+
+    def model_architecture(self):
+        return self.model().to_json()
+
     def load(self):
         self._model = load_model(self.file_name)
         self.trained = True
