@@ -3,8 +3,20 @@ import json
 from neural_network.spliter import Spliter
 
 class SplitSongExperiment():
-    def __init__(self, results_file="split_song_results.txt"):
+    def __init__(self, results_file="split_song_results.json"):
         self.results_file = results_file
+
+    def longest_common_subsequence(self, a, b):
+        lengths = [[0 for j in range(len(b)+1)] for i in range(len(a)+1)]
+        # row 0 and column 0 are initialized to 0 already
+        
+        for i, x in enumerate(a):
+            for j, y in enumerate(b):
+                if x == y:
+                    lengths[i+1][j+1] = lengths[i][j] + 1
+                else:
+                    lengths[i+1][j+1] = max(lengths[i+1][j], lengths[i][j+1])
+        return lengths[len(a)][len(b)]
 
     def accuracy(self, chord_list, expected_file):
         with open(expected_file, "r") as f:
@@ -17,7 +29,13 @@ class SplitSongExperiment():
             if chord_list[i] == expected_list[i]:
                 coincidencies += 1.0
 
-        return coincidencies / number_of_elements
+        accuracy = { 
+            "absolute": coincidencies / number_of_elements,
+            "lcs": self.longest_common_subsequence(chord_list, expected_list) / number_of_elements
+        }
+
+        return accuracy
+
 
     def results(self):
         song_names = [ name.split(".")[0] for name in os.listdir("songs/guitar") ]
@@ -45,7 +63,6 @@ class SplitSongExperiment():
 
                 results[key].append({
                     "song": song,
-                    "chords": chords,
                     "accuracy": accuracy
                 })
             
@@ -58,3 +75,4 @@ class SplitSongExperiment():
 
 splitSongExperiment = SplitSongExperiment()
 splitSongExperiment.save_results()
+#print ( splitSongExperiment.longest_common_subsequence("XMJYAUZ", "MZJAWXU") )
