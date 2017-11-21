@@ -17,7 +17,7 @@ import numpy as np
 trainer = Trainer()
 trainer.load()
 
-song = "voice/about_a_girl.wav"
+song = "guitar/about_a_girl.wav"
 
 longFileProfiler = LongFileProfiler("songs/" + song)
 profiles = longFileProfiler.get_profile()
