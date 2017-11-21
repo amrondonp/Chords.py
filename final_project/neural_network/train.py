@@ -9,7 +9,7 @@ from util import config
 from keras import metrics
 
 class Trainer():
-    def __init__(self, file_name="my_model.h5", loss_function="categorical_crossentropy"):
+    def __init__(self, file_name="my_model.h5", loss_function="binary_crossentropy"):
         self.pitches = ["c", "d", "dm", "e", "em", "f", "g", "a", "am", "bm"]
         self.trained = False
         self.file_name = file_name
@@ -50,12 +50,18 @@ class Trainer():
         return self.out_data_generator(200)
 
     def validate(self):
+        validation = {}
         for instrument in config()["instruments"]:
             X = self.validation_input_data(instrument).values
             Y = self.validation_output_data().values
 
             scores = self.model().evaluate(X, Y)
-            print("Results validating " + instrument + " : %s: %.2f%%" % (self._model.metrics_names[1], scores[1]*100) + "\n" )
+            for i in range(1, len(self._model.metrics_names)):
+                print("\nResults validating with training data: %s: %.2f%%" % (self._model.metrics_names[i], scores[i]*100))
+
+            print(self._model.metrics_names)
+            validation[instrument] = (self._model.metrics_names, scores)
+        return validation
 
     def model(self):
         if not self.trained:
