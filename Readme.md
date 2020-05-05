@@ -29,4 +29,5 @@ At this point you have the environment ready to use several entry points.
   
   * Example, if you ran `python split.py songs/guitar/about_a_girl.wav`, then `spliter_result.txt` would have the following content: `em g em g em em em g em em g g em g g g em g g g em em g em em g g em em g g` which are the chords that it was able to identify on the song.
 
+* In the file `paper.pdf` you'll find the final report of this university project with some references added. Currently it is only available in Spanish, you could go and try to use a translator, hope it helps
 
