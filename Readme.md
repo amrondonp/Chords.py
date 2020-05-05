@@ -9,5 +9,11 @@ You'll need python 3, pip, and virtualenv(optional but recomended) to run the pr
 3. Create a virtualenv ```virtualenv -p python3 my_env```
 4. Activate your environment ```source my_env/bin/activate``` (linux) ```my_env/Scripts/activate.bat``` (windows)
 5. Install the dependencies ```pip install -r requirements.txt```   
-6. Run the test ```python test.py```
-ss
+
+At this point you have the environment ready to use several entry points.
+
+* `python predict.py` or `python predict.py path/to/song.wav` will give you a prediction of the chord present in that sound file, by default it goes to `songs/d.wav` which is the D chord. It will show a window similar to this one.
+
+![title](final_project/images/predict.png)
+
+
