@@ -1,0 +1,27 @@
+{
+    "chords_path": "C:/Users/amron/Downloads/jim2012Chords/Guitar_Only",
+    "dataset_path": "C:/Users/amron/Downloads/jim2012Chords",
+    "pitches": [
+        "c",
+        "d",
+        "dm",
+        "e",
+        "em",
+        "f",
+        "g",
+        "a",
+        "am",
+        "bm"
+    ],
+    "validation_data_folders": [
+        "C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Accordion",
+        "C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Guitar",
+        "C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Piano",
+        "C:/Users/amron/Downloads/jim2012Chords/Other_Instruments/Violin"
+    ],
+    "instruments": [
+        "Guitar",
+        "Piano",
+        "Violin"
+    ]
+}
