@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:/Users/amron/git/intelligent-systems/final_project/env/Scripts/python.exe",
+    "python.pythonPath": "my_env/bin/python",
     "python.linting.pylintEnabled": false,
     "files.autoSave": "onFocusChange"
 }
