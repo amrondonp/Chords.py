@@ -1,7 +1,7 @@
 from neural_network.train import Trainer
 
 def validate():
-    trainer = Trainer("models/categorical_entropy.h5")
+    trainer = Trainer("models/binary_crossentropy.h5")
     trainer.train()
     trainer.save()
     trainer.save_architecture()
@@ -20,7 +20,7 @@ def validate():
                     f.write(", ")
 
 def train(loss):
-    trainer = Trainer("models/other_optimizer.h5", loss)
+    trainer = Trainer("models/binary_crossentropy.h5", loss)
     metrics, scores = trainer.train()
 
     with open("training_results.csv", "a") as f:
