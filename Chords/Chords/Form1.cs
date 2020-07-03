@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chords.NewFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,14 +42,15 @@ namespace Chords
                     filePath = openFileDialog.FileName;
 
                     //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
+                    // var fileStream = openFileDialog.OpenFile();
 
-                    using StreamReader reader = new StreamReader(fileStream);
-                    fileContent = reader.ReadToEnd();
+                    //using StreamReader reader = new StreamReader(fileStream);
+                    //fileContent = reader.ReadToEnd();
+                    fileContent = String.Join(" ", Profiling.GetPitchClassProfiling(filePath));
                 }
             }
 
-            MessageBox.Show(fileContent, "File Content at path: " + filePath, MessageBoxButtons.OK);
+            MessageBox.Show(fileContent.Substring(0, 1000), "File Content at path: " + filePath, MessageBoxButtons.OK);
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
