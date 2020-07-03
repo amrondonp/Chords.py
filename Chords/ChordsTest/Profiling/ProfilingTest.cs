@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using System.Numerics;
 
 
@@ -8,9 +9,14 @@ namespace ChordsTest.Profiling
     [TestClass]
     public class ProfilingTest
     {
-        static bool CompareFloat(float a, float b)
+        static bool CompareFloat(double a, double b)
         {
-            return Math.Abs(a - b) < 1e-5;
+            return CompareFloatWithPrecision(a, b, 1e-5);
+        }
+
+        static bool CompareFloatWithPrecision(double a, double b, double precision)
+        {
+            return Math.Abs(a - b) < precision;
         }
 
         static bool CompareComplex(Complex complex, float x, float y)
@@ -41,6 +47,29 @@ namespace ChordsTest.Profiling
             Assert.IsTrue(CompareComplex(fft[1], -12.377926f, 2.8002753f));
             Assert.IsTrue(CompareComplex(fft[1000], -43.04428f, 24.787685f));
             Assert.IsTrue(CompareComplex(fft[14000], 3.0144866f, -1.557055f));
+        }
+
+        [TestMethod]
+        public void GetPCP_ComputesThePCPCorreclty()
+        {
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            var fft = Chords.Profiling.Profiling.GetFFT(samples);
+
+            double[] expected = { 0.003255314087377314,
+                0.01810165496076202, 0.4737221312697051,
+                0.006197408724571781, 0.044656804098667124,
+                0.008874184476456886, 0.044524344194969326,
+                0.012706518669088441, 0.03246405033858645,
+                0.34075234557146383, 0.009979990771760218,
+                0.00476525283659171 };
+
+            double [] actual = Chords.Profiling.Profiling.PitchClassProfile(fft, sampleRate);
+
+            Assert.AreEqual(expected.Length, actual.Length);
+            for(int i = 0; i < expected.Length; i++)
+            {
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
+            }
         }
     }
 }

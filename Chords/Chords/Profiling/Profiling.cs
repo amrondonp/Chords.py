@@ -2,6 +2,7 @@
 using System;
 using System.Numerics;
 using MathNet.Numerics.IntegralTransforms;
+using System.Linq;
 
 namespace Chords.Profiling
 {
@@ -33,6 +34,47 @@ namespace Chords.Profiling
 
             Fourier.Forward(complexData, FourierOptions.Matlab);
             return complexData;
+        }
+
+        public static double[] PitchClassProfile(Complex[] X, int frecuency)
+        {
+            double fs = frecuency;
+            double fref = 130.81;
+
+            double N = X.Length;
+
+            Func<int, double> M = (int l) =>
+            {
+                if (l == 0)
+                {
+                    return -1;
+                }
+                return Math.Round(12 * Math.Log2(   (fs * l)/(N * fref)  ) ) % 12;
+            };
+
+            double [] pcp = new double[12];
+            for(int p = 0; p < 12; p++)
+            {
+                for(int l = 0; l < N/2; l++)
+                {
+                    if(p == M(l))
+                    {
+                        double mag = Math.Round(X[l].Magnitude, 6);
+                        double sq = Math.Pow(mag, 2);
+                        pcp[p] += sq;
+                    }
+                }
+            }
+
+            // Normalize pcp
+            double [] pcp_norm = new double[12];
+            double pcpSum = pcp.Sum();
+            for(int p = 0; p < 12; p++)
+            {
+                pcp_norm[p] = (pcp[p] / pcpSum);
+            }
+
+            return pcp_norm;
         }
     }
 }
