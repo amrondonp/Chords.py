@@ -3,6 +3,9 @@ using System;
 using System.Numerics;
 using MathNet.Numerics.IntegralTransforms;
 using System.Linq;
+using Microsoft.ML.OnnxRuntime;
+using System.Collections.Generic;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace Chords.Profiling
 {
@@ -75,6 +78,25 @@ namespace Chords.Profiling
             }
 
             return pcp_norm;
+        }
+
+        public static float[] GetRawPrediction(string pathToAudioFile)
+        {
+            var (sampleRate, samples) = GetSamples(pathToAudioFile);
+            var fft = GetFFT(samples);
+            var pcp = PitchClassProfile(fft, sampleRate);
+
+            var inputTensor = new DenseTensor<float>(new[] { 1, 12 });
+            for(int i = 0; i < 12; i++)
+            {
+                inputTensor[0, i] = (float)pcp[i];
+            }
+
+            var input = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor<float>("dense_1_input", inputTensor) };
+            var session = new InferenceSession("models/binary_crossentropy.onnx");
+
+            using var results = session.Run(input);
+            return results.First().AsEnumerable<float>().ToArray();
         }
     }
 }

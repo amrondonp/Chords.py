@@ -71,5 +71,20 @@ namespace ChordsTest.Profiling
                 Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
             }
         }
+
+        [TestMethod]
+        public void GetPrediction_PredictsCorrectly()
+        {
+            double[] expected = {5.8298269e-11, 7.8153551e-01, 2.2488731e-01, 1.6687775e-10, 4.1404841e-11,
+                                 1.5814350e-10, 3.1175637e-07, 2.3691897e-09, 2.9101182e-07, 4.8335897e-07};
+
+            float[] actual = Chords.Profiling.Profiling.GetRawPrediction("./Resources/d.wav");
+
+            Assert.AreEqual(expected.Length, actual.Length);
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
+            }
+        }
     }
 }
