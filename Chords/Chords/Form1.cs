@@ -46,7 +46,7 @@ namespace Chords
 
                     //using StreamReader reader = new StreamReader(fileStream);
                     //fileContent = reader.ReadToEnd();
-                    fileContent = string.Join(" ", Profiling.Profiling.GetSamples(filePath));
+                    fileContent = string.Join(" ", Profiling.Profiling.GetSamples(filePath).samples);
                 }
             }
 
