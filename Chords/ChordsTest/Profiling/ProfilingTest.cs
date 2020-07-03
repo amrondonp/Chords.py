@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System;
 
 namespace ChordsTest.Profiling
 {
@@ -9,7 +9,10 @@ namespace ChordsTest.Profiling
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.IsTrue(true);
+            var tuple = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            Assert.IsNotNull(tuple);
+            Assert.AreEqual(tuple.sampleRate, 44100);
+            Assert.AreEqual(tuple.samples.Length, 262144);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Chords.NewFolder;
+﻿using Chords.Profiling;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +46,7 @@ namespace Chords
 
                     //using StreamReader reader = new StreamReader(fileStream);
                     //fileContent = reader.ReadToEnd();
-                    fileContent = String.Join(" ", Profiling.GetPitchClassProfiling(filePath));
+                    fileContent = string.Join(" ", Profiling.Profiling.GetSamples(filePath));
                 }
             }
 

@@ -3,16 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chords.NewFolder
+namespace Chords.Profiling
 {
-    class Profiling
+    public class Profiling
     {
-        public static float [] GetPitchClassProfiling(string pathToAudioFile)
+        public static (int sampleRate, float [] samples) GetSamples(string pathToAudioFile)
         {
             using AudioFileReader reader = new AudioFileReader(pathToAudioFile);
-            float[] samples = new float[reader.Length];
-            reader.Read(samples, 0, (int)reader.Length);
-            return samples;
+
+            var sampleProvider = reader.ToSampleProvider();
+            float[] samples = new float[reader.Length / sizeof(float)];
+            var samplesRead = sampleProvider.Read(samples, 0, samples.Length);
+            
+            if(samples.Length != samplesRead)
+            {
+                throw new Exception("Error when reading the samples, samples.Length=" + samples.Length + " samplesRead=" + samplesRead);
+            }
+
+            return (reader.WaveFormat.SampleRate, samples);
         }
     }
 }
