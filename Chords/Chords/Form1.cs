@@ -46,11 +46,11 @@ namespace Chords
 
                     //using StreamReader reader = new StreamReader(fileStream);
                     //fileContent = reader.ReadToEnd();
-                    fileContent = string.Join(" ", Profiling.Profiling.GetSamples(filePath).samples);
+                    fileContent = string.Join(" ", Profiling.Profiling.GetRawPrediction(filePath));
                 }
             }
 
-            MessageBox.Show(fileContent.Substring(0, 1000), "File Content at path: " + filePath, MessageBoxButtons.OK);
+            MessageBox.Show(fileContent, "File Content at path: " + filePath, MessageBoxButtons.OK);
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
