@@ -98,5 +98,24 @@ namespace Chords.Profiling
             using var results = session.Run(input);
             return results.First().AsEnumerable<float>().ToArray();
         }
+
+        public static string GetPrediction(string pathToAudioFile)
+        {
+            float[] rawPrediction = GetRawPrediction(pathToAudioFile);
+            int maxProbabilityIndex = 0;
+            float maxProbabilty = 0;
+
+            for(int i = 0; i < rawPrediction.Length; i++)
+            {
+                if(maxProbabilty < rawPrediction[i])
+                {
+                    maxProbabilty = rawPrediction[i];
+                    maxProbabilityIndex = i;
+                }
+            }
+
+            string[] chordsTable = { "C", "D", "Dm", "E", "Em", "F", "G", "A", "Am", "Bm" };
+            return chordsTable[maxProbabilityIndex];
+        }
     }
 }
