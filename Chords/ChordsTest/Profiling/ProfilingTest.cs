@@ -81,7 +81,7 @@ namespace ChordsTest.Profiling
             Assert.AreEqual(expected.Length, actual.Length);
             for(int i = 0; i < expected.Length; i++)
             {
-                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 1e-7));
             }
         }
 
@@ -103,7 +103,7 @@ namespace ChordsTest.Profiling
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
             {
-                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 1e-7));
             }
         }
 
@@ -118,31 +118,38 @@ namespace ChordsTest.Profiling
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
             {
-                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 1e-1));
             }
         }
 
-        //[TestMethod]
-        //public void GetRawPrediction_PredictsCorrectly_Em()
-        //{
-        //    double[] expected = {1.10043527e-06, 1.71935762e-14, 1.75733941e-11, 1.40256235e-11,
-        //                         9.49494004e-01, 9.13571330e-10, 2.07506955e-01, 2.02706462e-15,
-        //                         9.27643696e-16, 1.98795576e-08};
+        [TestMethod]
+        public void GetRawPrediction_PredictsCorrectly_Em()
+        {
+            double[] expected = {1.10043527e-06, 1.71935762e-14, 1.75733941e-11, 1.40256235e-11,
+                                 9.49494004e-01, 9.13571330e-10, 2.07506955e-01, 2.02706462e-15,
+                                 9.27643696e-16, 1.98795576e-08};
 
-        //    float[] actual = Chords.Profiling.Profiling.GetRawPrediction("./Resources/em.wav");
+            float[] actual = Chords.Profiling.Profiling.GetRawPrediction("./Resources/em.wav");
 
-        //    Assert.AreEqual(expected.Length, actual.Length);
-        //    for (int i = 0; i < expected.Length; i++)
-        //    {
-        //        Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.07));
-        //    }
-        //}
+            Assert.AreEqual(expected.Length, actual.Length);
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.IsTrue(CompareFloatWithPrecision(expected[i], actual[i], 0.3));
+            }
+        }
 
         [TestMethod]
         public void GetPreditcion_PredictsCorrectly_D()
         {
             string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/d.wav");
             Assert.AreEqual(prediction, "D");
+        }
+
+        [TestMethod]
+        public void GetPreditcion_PredictsCorrectly_Em()
+        {
+            string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/em.wav");
+            Assert.AreEqual(prediction, "Em");
         }
     }
 }
