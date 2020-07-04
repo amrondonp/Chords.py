@@ -151,5 +151,12 @@ namespace ChordsTest.Profiling
             string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/em.wav");
             Assert.AreEqual(prediction, "Em");
         }
+
+        [TestMethod]
+        public void GetPreditcion_PredictsCorrectly_C()
+        {
+            string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/c.wav");
+            Assert.AreEqual(prediction, "C");
+        }
     }
 }
