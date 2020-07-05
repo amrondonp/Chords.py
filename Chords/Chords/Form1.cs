@@ -38,7 +38,7 @@ namespace Chords
             //}
         }
 
-        private async void Button1_Click(object sender, EventArgs e)
+        private async void openFileClicked(object sender, EventArgs e)
         {
             using OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -60,9 +60,12 @@ namespace Chords
                 // This lambda is executed in context of UI thread,
                 // so it can safely update form controls
                 progressBar1.Value = v;
+                progressLabel.Text = "Computing chords... " + v + " %";
             });
 
-            var fileContent = await Task.Run(() => LongAudioProfiling.GetPredictionWithProgressReport(openFileDialog.FileName, progress));
+
+            var fileContent = await Task.Run(() => LongAudioProfiling.GetPredictionWithProgressReport(openFileDialog.FileName, progress));            
+            progressLabel.Text = "Chords computed successfully";
 
             this.flowLayoutPanel1.Controls.Clear();
             foreach (string chord in fileContent)
@@ -79,5 +82,7 @@ namespace Chords
                 this.flowLayoutPanel1.Controls.Add(label);
             }
         }
+
+        
     }
 }
