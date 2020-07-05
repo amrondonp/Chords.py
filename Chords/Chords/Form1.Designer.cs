@@ -80,7 +80,7 @@
             this.openFileToolStripMenu.Name = "openFileToolStripMenu";
             this.openFileToolStripMenu.Size = new System.Drawing.Size(170, 34);
             this.openFileToolStripMenu.Text = "Open...";
-            this.openFileToolStripMenu.Click += new System.EventHandler(this.openFileClicked);
+            this.openFileToolStripMenu.Click += new System.EventHandler(this.OpenFileClicked);
             // 
             // progressLabel
             // 
@@ -91,6 +91,8 @@
             this.progressLabel.Size = new System.Drawing.Size(209, 25);
             this.progressLabel.TabIndex = 6;
             this.progressLabel.Text = "Audio file not loaded yet";
+            this.progressBar1.Maximum = 100;
+            this.progressBar1.Step = 1;
             // 
             // label1
             // 

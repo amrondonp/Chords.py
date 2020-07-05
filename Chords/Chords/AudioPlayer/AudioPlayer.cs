@@ -10,10 +10,10 @@ namespace Chords.AudioPlayer
 {
     public class AudioPlayer
     {
-        private AudioFileReader reader;
-        private WaveOutEvent waveOut;
-        private IProgress<double> progress;
-        private Timer timer;
+        private readonly AudioFileReader reader;
+        private readonly WaveOutEvent waveOut;
+        private readonly IProgress<double> progress;
+        private readonly Timer timer;
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
@@ -43,6 +43,16 @@ namespace Chords.AudioPlayer
         public void Stop()
         {
             waveOut.Stop();
+        }
+
+        public void Dispose()
+        {
+            Stop();
+
+            timer.Stop();
+            timer.Close();
+            reader.Dispose();
+            waveOut.Dispose();
         }
     }
 }
