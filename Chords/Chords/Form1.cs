@@ -73,14 +73,14 @@ namespace Chords
             PlayNewAudioFile(filePath);
         }
 
-        private void PlayNewAudioFile(string filePath)
+        private async void PlayNewAudioFile(string filePath)
         {
             if(audioPlayer != null)
             {
                 audioPlayer.Dispose();
             }
 
-            audioPlayer = new AudioPlayer.AudioPlayer(filePath, audioPlayProgress);
+            audioPlayer = await Task.Run(() => new AudioPlayer.AudioPlayer(filePath, audioPlayProgress));
             audioPlayer.Play();
         }
 
@@ -122,7 +122,6 @@ namespace Chords
             }
 
             return openFileDialog.FileName;
-        }
-        
+        }   
     }
 }
