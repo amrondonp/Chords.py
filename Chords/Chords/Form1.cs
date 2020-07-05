@@ -77,7 +77,7 @@ namespace Chords
                 }
                 if(playedChord < this.chordLabels.Length)
                 {
-                    this.chordLabels[playedChord].BackColor = Color.Aqua;
+                    this.chordLabels[playedChord].BackColor = Color.FromArgb(0, 204, 102);
                 }
             });
 
