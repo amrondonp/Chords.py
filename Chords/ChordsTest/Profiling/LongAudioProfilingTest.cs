@@ -33,5 +33,12 @@ namespace ChordsTest.Profiling
                14685
            );
         }
+
+        [TestMethod]
+        public void GetPrediction_GetsTheCorrectPrediction()
+        {
+            var predictions = Chords.Profiling.LongAudioProfiling.GetPrediction("resources/about.wav");
+            Assert.IsNotNull(predictions);
+        }
     }
 }

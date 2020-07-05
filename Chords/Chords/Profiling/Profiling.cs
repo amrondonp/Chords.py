@@ -91,14 +91,19 @@ namespace Chords.Profiling
             return pcp_norm;
         }
 
-        public static float[] GetRawPrediction(string pathToAudioFile)
+        public static float[] GetRawPredictionForFile(string pathToAudioFile)
         {
             var (sampleRate, samples) = GetSamples(pathToAudioFile);
+            return GetRawPrediction(sampleRate, samples);
+        }
+
+        public static float[] GetRawPrediction(int sampleRate, float[] samples)
+        {
             var fft = GetFFT(samples);
             var pcp = PitchClassProfile(fft, sampleRate);
 
             var inputTensor = new DenseTensor<float>(new[] { 1, 12 });
-            for(int i = 0; i < 12; i++)
+            for (int i = 0; i < 12; i++)
             {
                 inputTensor[0, i] = (float)pcp[i];
             }
@@ -110,15 +115,26 @@ namespace Chords.Profiling
             return results.First().AsEnumerable<float>().ToArray();
         }
 
-        public static string GetPrediction(string pathToAudioFile)
+        public static string GetPredictionForFile(string pathToAudioFile)
         {
-            float[] rawPrediction = GetRawPrediction(pathToAudioFile);
+            float[] rawPrediction = GetRawPredictionForFile(pathToAudioFile);
+            return GetPredictionFormRawPrediction(rawPrediction);
+        }
+
+        public static string GetPrediction(int sampleRate, float[] samples)
+        {
+            float[] rawPrediction = GetRawPrediction(sampleRate, samples);
+            return GetPredictionFormRawPrediction(rawPrediction);
+        }
+
+        private static string GetPredictionFormRawPrediction(float[] rawPrediction)
+        {
             int maxProbabilityIndex = 0;
             float maxProbabilty = 0;
 
-            for(int i = 0; i < rawPrediction.Length; i++)
+            for (int i = 0; i < rawPrediction.Length; i++)
             {
-                if(maxProbabilty < rawPrediction[i])
+                if (maxProbabilty < rawPrediction[i])
                 {
                     maxProbabilty = rawPrediction[i];
                     maxProbabilityIndex = i;

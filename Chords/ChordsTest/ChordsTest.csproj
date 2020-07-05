@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\about.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\c.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

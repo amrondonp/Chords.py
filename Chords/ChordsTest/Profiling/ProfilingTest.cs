@@ -113,7 +113,7 @@ namespace ChordsTest.Profiling
             double[] expected = {5.8298269e-11, 7.8153551e-01, 2.2488731e-01, 1.6687775e-10, 4.1404841e-11,
                                  1.5814350e-10, 3.1175637e-07, 2.3691897e-09, 2.9101182e-07, 4.8335897e-07};
 
-            float[] actual = Chords.Profiling.Profiling.GetRawPrediction("./Resources/d.wav");
+            float[] actual = Chords.Profiling.Profiling.GetRawPredictionForFile("./Resources/d.wav");
 
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
@@ -129,7 +129,7 @@ namespace ChordsTest.Profiling
                                  9.49494004e-01, 9.13571330e-10, 2.07506955e-01, 2.02706462e-15,
                                  9.27643696e-16, 1.98795576e-08};
 
-            float[] actual = Chords.Profiling.Profiling.GetRawPrediction("./Resources/em.wav");
+            float[] actual = Chords.Profiling.Profiling.GetRawPredictionForFile("./Resources/em.wav");
 
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
@@ -141,21 +141,21 @@ namespace ChordsTest.Profiling
         [TestMethod]
         public void GetPreditcion_PredictsCorrectly_D()
         {
-            string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/d.wav");
+            string prediction = Chords.Profiling.Profiling.GetPredictionForFile("./Resources/d.wav");
             Assert.AreEqual(prediction, "D");
         }
 
         [TestMethod]
         public void GetPreditcion_PredictsCorrectly_Em()
         {
-            string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/em.wav");
+            string prediction = Chords.Profiling.Profiling.GetPredictionForFile("./Resources/em.wav");
             Assert.AreEqual(prediction, "Em");
         }
 
         [TestMethod]
         public void GetPreditcion_PredictsCorrectly_C()
         {
-            string prediction = Chords.Profiling.Profiling.GetPrediction("./Resources/c.wav");
+            string prediction = Chords.Profiling.Profiling.GetPredictionForFile("./Resources/c.wav");
             Assert.AreEqual(prediction, "C");
         }
     }
