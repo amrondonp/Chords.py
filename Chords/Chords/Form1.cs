@@ -33,18 +33,23 @@ namespace Chords
 
             audioPlayProgress = new Progress<double>(milliseconds =>
             {
-                label1.Text = "Audio played up to " + milliseconds + " ms";
-                double window = 500;
-                int playedChord = (int)Math.Floor(milliseconds / window);
-                foreach (Label label in chordLabels)
-                {
-                    label.BackColor = progressLabel.BackColor;
-                }
-                if (playedChord < this.chordLabels.Length)
-                {
-                    this.chordLabels[playedChord].BackColor = Color.FromArgb(0, 204, 102);
-                }
+                FocusChordPlayedAtTime(milliseconds);
             });
+        }
+
+        private void FocusChordPlayedAtTime(double milliseconds)
+        {
+            label1.Text = "Audio played up to " + milliseconds + " ms";
+            double window = 500;
+            int playedChord = (int)Math.Floor(milliseconds / window);
+            foreach (Label label in chordLabels)
+            {
+                label.BackColor = progressLabel.BackColor;
+            }
+            if (playedChord < this.chordLabels.Length)
+            {
+                this.chordLabels[playedChord].BackColor = Color.FromArgb(0, 204, 102);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
