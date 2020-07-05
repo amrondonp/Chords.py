@@ -21,7 +21,21 @@ namespace Chords
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //for (int i = 0; i < 30; i++)
+            //{
+            //    var label = new Label
+            //    {
+            //        Text = "Em",
+            //        Width = 100,
+            //            Height = 50,
+            //            //AutoSize = true,
+            //            Font = new Font(this.Font.FontFamily, 15),
+            //            BorderStyle = BorderStyle.FixedSingle,
 
+            //    };
+
+            //    this.flowLayoutPanel1.Controls.Add(label);
+            //}
         }
 
         private async void Button1_Click(object sender, EventArgs e)
@@ -49,17 +63,21 @@ namespace Chords
             });
 
             var fileContent = await Task.Run(() => LongAudioProfiling.GetPredictionWithProgressReport(openFileDialog.FileName, progress));
-            this.textBox1.Text = string.Join(" ", fileContent);
-        }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            
-        }
+            this.flowLayoutPanel1.Controls.Clear();
+            foreach (string chord in fileContent)
+            {
+                var label = new Label
+                {
+                    Text = chord,
+                    Width = 100,
+                    Height = 50,
+                    Font = new Font(this.Font.FontFamily, 15),
+                    BorderStyle = BorderStyle.FixedSingle,
+                };
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+                this.flowLayoutPanel1.Controls.Add(label);
+            }
         }
     }
 }

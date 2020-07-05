@@ -30,8 +30,8 @@
         {
             this.OpenFileButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // OpenFileButton
@@ -54,31 +54,29 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Start by opening an audio (.wav) file";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(20, 215);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(835, 303);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "The guitar chords appear here";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(21, 166);
+            this.progressBar1.Location = new System.Drawing.Point(21, 115);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(834, 32);
             this.progressBar1.TabIndex = 3;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(21, 155);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1412, 489);
+            this.flowLayoutPanel1.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(878, 544);
+            this.ClientSize = new System.Drawing.Size(1445, 656);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.OpenFileButton);
             this.Name = "Form1";
@@ -93,8 +91,8 @@
 
         private System.Windows.Forms.Button OpenFileButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
