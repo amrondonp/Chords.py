@@ -88,6 +88,8 @@ namespace Chords
         {
             this.flowLayoutPanel1.Controls.Clear();
             chordLabels = new Label[chordsPredicted.Length];
+            int biggestLabelx = 0;
+            int biggestLabely = 0;
 
             for (int i = 0; i < chordsPredicted.Length; i++)
             {
@@ -95,15 +97,22 @@ namespace Chords
                 var label = new Label
                 {
                     Text = chord,
-                    Width = 100,
-                    Height = 80,
                     Font = new Font(this.Font.FontFamily, 15),
                     BorderStyle = BorderStyle.FixedSingle,
                 };
 
-                this.flowLayoutPanel1.Controls.Add(label);
                 chordLabels[i] = label;
+                biggestLabelx = Math.Max(biggestLabelx, label.PreferredSize.Width);
+                biggestLabely = Math.Max(biggestLabely, label.PreferredSize.Height);
             }
+
+            foreach(Label label in chordLabels)
+            {
+                label.Width = biggestLabelx;
+                label.Height = biggestLabely;
+            }
+
+            this.flowLayoutPanel1.Controls.AddRange(chordLabels);
         }
 
         private string GetOpenedFilePath()
