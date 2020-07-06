@@ -96,7 +96,7 @@ namespace Chords
                 {
                     Text = chord,
                     Width = 100,
-                    Height = 50,
+                    Height = 80,
                     Font = new Font(this.Font.FontFamily, 15),
                     BorderStyle = BorderStyle.FixedSingle,
                 };
