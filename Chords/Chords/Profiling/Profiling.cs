@@ -15,8 +15,8 @@ namespace Chords.Profiling
         {
             using AudioFileReader reader = new AudioFileReader(pathToAudioFile);
 
-            var sampleProvider = reader.ToSampleProvider();
-            float[] samples = new float[reader.Length / sizeof(float)];
+            var sampleProvider = reader.ToMono();
+            float[] samples = new float[reader.Length / sizeof(float) / reader.WaveFormat.Channels];
             var samplesRead = sampleProvider.Read(samples, 0, samples.Length);
 
             if (samples.Length != samplesRead)

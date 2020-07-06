@@ -37,6 +37,15 @@ namespace ChordsTest.Profiling
         }
 
         [TestMethod]
+        public void GetSamples_ReadsTheSamplesCorrectly_Stereo()
+        {
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/nubes.wav");
+            Assert.IsNotNull(samples);
+            Assert.AreEqual(sampleRate, 44100);
+            Assert.AreEqual(samples.Length, 952768);
+        }
+
+        [TestMethod]
         public void GetFFT_ComputesTheFFTCorreclty_D()
         {
             var (_, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
