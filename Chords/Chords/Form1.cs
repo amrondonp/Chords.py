@@ -120,7 +120,7 @@ namespace Chords
             using OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = "c:\\",
-                Filter = "Audio files (*.wav)|*.wav",
+                Filter = "Audio (*.wav;*.mp3)|*.wav;*.mp3",
                 FilterIndex = 2,
                 RestoreDirectory = true
             };
