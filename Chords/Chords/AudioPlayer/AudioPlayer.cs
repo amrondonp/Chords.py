@@ -37,6 +37,11 @@ namespace Chords.AudioPlayer
             waveOut.Play();
         }
 
+        public void Pause()
+        {
+            waveOut.Pause();
+        }
+
         public void Stop()
         {
             waveOut.Stop();
