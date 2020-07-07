@@ -43,6 +43,7 @@
             this.progressBar1.Location = new System.Drawing.Point(12, 612);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(1412, 32);
+            this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -91,8 +92,6 @@
             this.progressLabel.Size = new System.Drawing.Size(209, 25);
             this.progressLabel.TabIndex = 6;
             this.progressLabel.Text = "Audio file not loaded yet";
-            this.progressBar1.Maximum = 100;
-            this.progressBar1.Step = 1;
             // 
             // label1
             // 

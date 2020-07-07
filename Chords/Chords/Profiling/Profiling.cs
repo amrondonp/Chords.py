@@ -46,40 +46,33 @@ namespace Chords.Profiling
 
             double N = X.Length;
 
-            Func<int, int, double> M = (int l, int p) =>
+            int M(int l)
             {
-                if (l == 0)
-                {
-                    return -1;
-                }
                 // Computing Math.Round(12 * Math.Log2(   (fs * l)/(N * fref)  ) ) % 12; step by step
                 double aux = (fs * l) / (N * fref);
                 double aux2 = Math.Log2(aux);
                 double aux3 = 12 * aux2;
                 int axu4 = (int)Math.Round(aux3);
                 int aux5 = axu4 % 12;
-                
-                if(aux5 < 0)
+
+                if (aux5 < 0)
                 {
                     aux5 += 12;
                 }
                 return aux5;
-            };
-
-            double [] pcp = new double[12];
-            for(int p = 0; p < 12; p++)
-            {
-                for(int l = 0; l < N/2; l++)
-                {
-                    if(p == M(l, p))
-                    {
-                        double mag = X[l].Magnitude;
-                        double sq = Math.Pow(mag, 2);
-                        pcp[p] += sq;
-                    }
-                }
             }
 
+            double [] pcp = new double[12];
+            int size = (int)(N / 2);
+            
+            for(int l = 1; l < size; l++)
+            {
+                int bin = M(l);
+                double mag = X[l].Magnitude;
+                double sq = mag * mag;
+                pcp[bin] += sq;
+            }
+            
             // Normalize pcp
             double [] pcp_norm = new double[12];
             double pcpSum = pcp.Sum();

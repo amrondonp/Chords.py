@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Chords
 {
@@ -66,11 +67,18 @@ namespace Chords
                 return;
             }
 
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+
             var chordsPredicted = await Task.Run(() =>
                 LongAudioProfiling.GetPredictionWithProgressReport(filePath, this.chordProcessingProgress)
             );
 
-            progressLabel.Text = "Chords computed successfully";
+            sw.Stop();
+
+ 
+            progressLabel.Text = "Chords computed successfully Elapsed=" + sw.Elapsed.TotalMilliseconds;
             ShowChordLabels(chordsPredicted);
             PlayNewAudioFile(filePath);
         }
