@@ -13,6 +13,7 @@ namespace Chords
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
+        private static readonly Color HIGHLIGHT_COLOR = Color.FromArgb(0, 204, 102);
 
         public Form1()
         {
@@ -38,12 +39,20 @@ namespace Chords
             
             if (playedChord < this.chordLabels.Length)
             {
-                this.chordLabels[playedChord].BackColor = Color.FromArgb(0, 204, 102);
+                this.chordLabels[playedChord].BackColor = HIGHLIGHT_COLOR;
             }
 
             if(playedChord - 1 >= 0 && playedChord - 1 < this.chordLabels.Length)
             {
                 this.chordLabels[playedChord - 1].BackColor = progressLabel.BackColor;
+            }
+
+            for(int i = playedChord + 1; i < chordLabels.Length; i++)
+            {
+                if(chordLabels[i].BackColor == HIGHLIGHT_COLOR)
+                {
+                    chordLabels[i].BackColor = progressLabel.BackColor;
+                }
             }
         }
 
