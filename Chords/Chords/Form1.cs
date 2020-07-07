@@ -9,11 +9,13 @@ namespace Chords
 {
     public partial class Form1 : Form
     {
+        private static readonly Color HIGHLIGHT_COLOR = Color.FromArgb(0, 204, 102);
+        
         private Label[] chordLabels;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
-        private static readonly Color HIGHLIGHT_COLOR = Color.FromArgb(0, 204, 102);
+        private readonly int windowInMs = 500;
 
         public Form1()
         {
@@ -34,8 +36,7 @@ namespace Chords
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = "Audio played up to " + milliseconds + " ms";
-            double window = 500;
-            int playedChord = (int)Math.Floor(milliseconds / window);
+            int playedChord = (int)Math.Floor(milliseconds / windowInMs);
             
             if (playedChord < this.chordLabels.Length)
             {
@@ -73,7 +74,7 @@ namespace Chords
             sw.Start();
 
             var chordsPredicted = await Task.Run(() =>
-                LongAudioProfiling.GetPredictionWithProgressReport(filePath, this.chordProcessingProgress)
+                LongAudioProfiling.GetPredictionWithProgressReport(filePath, this.chordProcessingProgress, windowInMs)
             );
 
             sw.Stop();
