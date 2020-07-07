@@ -18,6 +18,7 @@ namespace Chords.Profiling
             var sampleProvider = reader.ToMono();
             float[] samples = new float[reader.Length / sizeof(float) / reader.WaveFormat.Channels];
             var samplesRead = sampleProvider.Read(samples, 0, samples.Length);
+            Array.Resize(ref samples, samplesRead);
 
             if (samples.Length != samplesRead)
             {

@@ -44,6 +44,15 @@ namespace ChordsTest.Profiling
             Assert.AreEqual(sampleRate, 44100);
             Assert.AreEqual(samples.Length, 952768);
         }
+        
+        [TestMethod]
+        public void GetSamples_ReadsTheSamplesCorrectly_Stereo_2()
+        {
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/maldito.mp3");
+            Assert.IsNotNull(samples);
+            Assert.AreEqual(sampleRate, 44100);
+            Assert.AreEqual(samples.Length, 10540800);
+        }
 
         [TestMethod]
         public void GetFFT_ComputesTheFFTCorreclty_D()
