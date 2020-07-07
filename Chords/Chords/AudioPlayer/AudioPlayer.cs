@@ -1,9 +1,6 @@
 ﻿using NAudio.Utils;
 using NAudio.Wave;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Chords.AudioPlayer
@@ -24,7 +21,7 @@ namespace Chords.AudioPlayer
         {
             this.progress = progress;
             
-            timer = new System.Timers.Timer();
+            timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             timer.Interval = 100;
 

@@ -102,7 +102,7 @@ namespace Chords.Profiling
                 inputTensor[0, i] = (float)pcp[i];
             }
 
-            var input = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor<float>("dense_1_input", inputTensor) };
+            var input = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("dense_1_input", inputTensor) };
             var session = new InferenceSession("models/binary_crossentropy.onnx");
 
             using var results = session.Run(input);
