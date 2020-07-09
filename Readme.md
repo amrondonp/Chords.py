@@ -2,11 +2,11 @@
 
 ## Demo application
 
-The demo application is written in C# and .NET core, as of July 9, 2020 the Windows 10 64 bits is available is the only version available. Versions for Linux is expected to come as a console application or as a GUI application whenever .NET core implements GUI :) for linux
+The demo application is written in C# with .NETCore. As of July 9, 2020, the only version available is for windows 10 64 bits. Versions for Linux are expected to come as a console application.
 
 Installing the application.
 
-The demo app uses [ONNX runtime](https://github.com/microsoft/onnxruntime) to run the exported model for python and it needs [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) to be installed on the machine that is going to run the app.
+The demo app uses [ONNX runtime](https://github.com/microsoft/onnxruntime) to run the exported model created on python and keras and it needs [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) to be installed on the machine that is going to run the app.
 
 Steps.
 
