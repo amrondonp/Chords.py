@@ -1,5 +1,4 @@
-﻿using NAudio.Utils;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using System;
 using System.Timers;
 
@@ -14,7 +13,7 @@ namespace Chords.AudioPlayer
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            progress.Report(waveOut.GetPositionTimeSpan().TotalMilliseconds);
+            progress.Report(reader.CurrentTime.TotalMilliseconds);
         }
 
         public AudioPlayer(string fileName, IProgress<double> progress)
@@ -45,12 +44,11 @@ namespace Chords.AudioPlayer
         public void Stop()
         {
             waveOut.Stop();
-            SetPositionInMs(0);
         }
 
-        public void SetPositionInMs(double millisecons)
+        public void SetPositionInMs(int milliseconds)
         {
-            reader.Position = (int)(reader.WaveFormat.SampleRate * (millisecons / 1000));
+            reader.CurrentTime = reader.CurrentTime.Subtract(reader.CurrentTime).Add(new TimeSpan(0, 0, 0, 0, milliseconds));
         }
 
         public void Dispose()

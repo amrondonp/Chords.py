@@ -49,17 +49,13 @@ namespace Chords
                 this.chordLabels[playedChord - 1].BackColor = progressLabel.BackColor;
             }
 
-            for(int i = playedChord + 1; i < chordLabels.Length; i++)
+            for(int i = 0; i < chordLabels.Length; i++)
             {
-                if(chordLabels[i].BackColor == HIGHLIGHT_COLOR)
+                if(i != playedChord && chordLabels[i].BackColor == HIGHLIGHT_COLOR)
                 {
                     chordLabels[i].BackColor = progressLabel.BackColor;
                 }
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
         }
 
         private async void OpenFileClicked(object sender, EventArgs e)
@@ -111,6 +107,12 @@ namespace Chords
                     BorderStyle = BorderStyle.FixedSingle,
                 };
 
+                int labelIndex = i;
+                label.Click += new EventHandler((obj, args) => {
+                    audioPlayer.Stop();
+                    audioPlayer.SetPositionInMs(labelIndex * windowInMs);
+                });
+
                 chordLabels[i] = label;
                 biggestLabelx = Math.Max(biggestLabelx, label.PreferredSize.Width);
                 biggestLabely = Math.Max(biggestLabely, label.PreferredSize.Height);
@@ -156,6 +158,7 @@ namespace Chords
         private void StopButton_Click(object sender, EventArgs e)
         {
             audioPlayer.Stop();
+            audioPlayer.SetPositionInMs(0);
         }
     }
 }
