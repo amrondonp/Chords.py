@@ -39,6 +39,7 @@
             this.playButton = new System.Windows.Forms.Button();
             this.pauseButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
+            this.doAutoScroll = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +118,7 @@
             this.flowLayoutPanel2.Controls.Add(this.playButton);
             this.flowLayoutPanel2.Controls.Add(this.pauseButton);
             this.flowLayoutPanel2.Controls.Add(this.stopButton);
+            this.flowLayoutPanel2.Controls.Add(this.doAutoScroll);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(26, 881);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(2394, 80);
@@ -152,6 +154,20 @@
             this.stopButton.UseVisualStyleBackColor = true;
             this.stopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
+            // doAutoScroll
+            // 
+            this.doAutoScroll.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.doAutoScroll.AutoSize = true;
+            this.doAutoScroll.Location = new System.Drawing.Point(879, 3);
+            this.doAutoScroll.Margin = new System.Windows.Forms.Padding(18, 3, 3, 3);
+            this.doAutoScroll.Name = "doAutoScroll";
+            this.doAutoScroll.Size = new System.Drawing.Size(200, 68);
+            this.doAutoScroll.TabIndex = 1;
+            this.doAutoScroll.Text = "Auto Scroll";
+            this.doAutoScroll.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
@@ -169,6 +185,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,6 +203,7 @@
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.CheckBox doAutoScroll;
     }
 }
 

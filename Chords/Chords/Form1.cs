@@ -42,7 +42,11 @@ namespace Chords
             if (playedChord < this.chordButtons.Length)
             {
                 this.chordButtons[playedChord].BackColor = HIGHLIGHT_COLOR;
-                this.flowLayoutPanel1.ScrollControlIntoView(chordButtons[playedChord]);
+
+                if(this.doAutoScroll.Checked)
+                {
+                    this.flowLayoutPanel1.ScrollControlIntoView(chordButtons[playedChord]);
+                }
             }
 
             for(int i = 0; i < chordButtons.Length; i++)
