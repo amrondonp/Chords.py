@@ -22,7 +22,7 @@ namespace Chords.AudioPlayer
             
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 100;
+            timer.Interval = 47;
 
 
             reader = new AudioFileReader(fileName);
