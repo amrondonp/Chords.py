@@ -11,7 +11,7 @@ namespace Chords
     {
         private static readonly Color HIGHLIGHT_COLOR = Color.FromArgb(0, 204, 102);
         
-        private Label[] chordLabels;
+        private Button[] chordButtons;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
@@ -39,21 +39,21 @@ namespace Chords
             label1.Text = "Audio played up to " + milliseconds + " ms";
             int playedChord = (int)Math.Floor(milliseconds / windowInMs);
             
-            if (playedChord < this.chordLabels.Length)
+            if (playedChord < this.chordButtons.Length)
             {
-                this.chordLabels[playedChord].BackColor = HIGHLIGHT_COLOR;
+                this.chordButtons[playedChord].BackColor = HIGHLIGHT_COLOR;
             }
 
-            if(playedChord - 1 >= 0 && playedChord - 1 < this.chordLabels.Length)
+            if(playedChord - 1 >= 0 && playedChord - 1 < this.chordButtons.Length)
             {
-                this.chordLabels[playedChord - 1].BackColor = progressLabel.BackColor;
+                this.chordButtons[playedChord - 1].BackColor = progressLabel.BackColor;
             }
 
-            for(int i = 0; i < chordLabels.Length; i++)
+            for(int i = 0; i < chordButtons.Length; i++)
             {
-                if(i != playedChord && chordLabels[i].BackColor == HIGHLIGHT_COLOR)
+                if(i != playedChord && chordButtons[i].BackColor == HIGHLIGHT_COLOR)
                 {
-                    chordLabels[i].BackColor = progressLabel.BackColor;
+                    chordButtons[i].BackColor = progressLabel.BackColor;
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Chords
             sw.Stop();
  
             progressLabel.Text = "Chords computed successfully Elapsed=" + sw.Elapsed.TotalMilliseconds;
-            ShowChordLabels(chordsPredicted);
+            ShowChordButtons(chordsPredicted);
             PlayNewAudioFile(filePath);
         }
 
@@ -90,41 +90,40 @@ namespace Chords
             audioPlayer.Play();
         }
 
-        private void ShowChordLabels(string[] chordsPredicted)
+        private void ShowChordButtons(string[] chordsPredicted)
         {
             this.flowLayoutPanel1.Controls.Clear();
-            chordLabels = new Label[chordsPredicted.Length];
-            int biggestLabelx = 0;
-            int biggestLabely = 0;
+            chordButtons = new Button[chordsPredicted.Length];
+            int biggestButtonWidth = 0;
+            int biggestButtonHeight = 0;
 
             for (int i = 0; i < chordsPredicted.Length; i++)
             {
                 var chord = chordsPredicted[i];
-                var label = new Label
+                var button = new Button
                 {
                     Text = chord,
                     Font = new Font(this.Font.FontFamily, 15),
-                    BorderStyle = BorderStyle.FixedSingle,
                 };
 
-                int labelIndex = i;
-                label.Click += new EventHandler((obj, args) => {
+                int buttonIndex = i;
+                button.Click += new EventHandler((obj, args) => {
                     audioPlayer.Stop();
-                    audioPlayer.SetPositionInMs(labelIndex * windowInMs);
+                    audioPlayer.SetPositionInMs(buttonIndex * windowInMs);
                 });
 
-                chordLabels[i] = label;
-                biggestLabelx = Math.Max(biggestLabelx, label.PreferredSize.Width);
-                biggestLabely = Math.Max(biggestLabely, label.PreferredSize.Height);
+                chordButtons[i] = button;
+                biggestButtonWidth = Math.Max(biggestButtonWidth, button.PreferredSize.Width);
+                biggestButtonHeight = Math.Max(biggestButtonHeight, button.PreferredSize.Height);
             }
 
-            foreach(Label label in chordLabels)
+            foreach(Button button in chordButtons)
             {
-                label.Width = biggestLabelx;
-                label.Height = biggestLabely;
+                button.Width = biggestButtonWidth;
+                button.Height = biggestButtonHeight;
             }
 
-            this.flowLayoutPanel1.Controls.AddRange(chordLabels);
+            this.flowLayoutPanel1.Controls.AddRange(chordButtons);
         }
 
         private string GetOpenedFilePath()
