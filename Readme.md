@@ -1,4 +1,4 @@
-# Chord Recognition in Python and C
+# Chord Recognition
 
 ## Demo aplication
 
