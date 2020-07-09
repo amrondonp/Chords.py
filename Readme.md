@@ -1,6 +1,6 @@
-Chord Recognition in Python and C#
+# Chord Recognition in Python and C
 
-# Demo aplication
+## Demo aplication
 
 The demo application is written in C# and .NET core, as of July 9, 2020 the Windows 10 64 bits is available is the only version available. Versions for Linux is expected to come as a console application or as a GUI application whenever .NET core implements GUI :) for linux
 
