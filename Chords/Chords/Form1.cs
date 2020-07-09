@@ -153,15 +153,9 @@ namespace Chords
             audioPlayer.Pause();
         }
 
-        private async void StopButton_Click(object sender, EventArgs e)
+        private void StopButton_Click(object sender, EventArgs e)
         {
-            if(audioPlayer != null)
-            {
-                audioPlayer.Dispose();
-            }
-            FocusChordPlayedAtTime(0);
-
-            audioPlayer = await Task.Run(() => new AudioPlayer.AudioPlayer(filePath, audioPlayProgress));
+            audioPlayer.Stop();
         }
     }
 }

@@ -45,6 +45,12 @@ namespace Chords.AudioPlayer
         public void Stop()
         {
             waveOut.Stop();
+            SetPositionInMs(0);
+        }
+
+        public void SetPositionInMs(double millisecons)
+        {
+            reader.Position = (int)(reader.WaveFormat.SampleRate * (millisecons / 1000));
         }
 
         public void Dispose()
