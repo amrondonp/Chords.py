@@ -33,6 +33,10 @@ namespace Chords
                 FocusChordPlayedAtTime(milliseconds);
             });
 
+            numericUpDown1.Minimum = 100;
+            numericUpDown1.Maximum = int.MaxValue;
+            numericUpDown1.Value = windowInMs;
+
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
@@ -149,18 +153,41 @@ namespace Chords
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
+            if (audioPlayer == null)
+            {
+                return;
+            }
+
             audioPlayer.Play();
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
+            if (audioPlayer == null)
+            {
+                return;
+            }
+
             audioPlayer.Pause();
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
+            if (audioPlayer == null)
+            {
+                return;
+            }
+
             audioPlayer.Stop();
             audioPlayer.SetPositionInMs(0);
+        }
+
+        private void RecalculateButton_Click(object sender, EventArgs e)
+        {   
+            if(audioPlayer == null)
+            {
+                return;
+            }
         }
     }
 }

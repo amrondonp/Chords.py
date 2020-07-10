@@ -41,7 +41,7 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.doAutoScroll = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.recalculateButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -178,7 +178,7 @@
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Controls.Add(this.button1);
+            this.flowLayoutPanel3.Controls.Add(this.recalculateButton);
             this.flowLayoutPanel3.Controls.Add(this.label2);
             this.flowLayoutPanel3.Controls.Add(this.numericUpDown1);
             this.flowLayoutPanel3.Controls.Add(this.label3);
@@ -189,14 +189,15 @@
             this.flowLayoutPanel3.Size = new System.Drawing.Size(661, 49);
             this.flowLayoutPanel3.TabIndex = 8;
             // 
-            // button1
+            // recalculateButton
             // 
-            this.button1.Location = new System.Drawing.Point(492, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Recalculate";
-            this.button1.UseVisualStyleBackColor = true;
+            this.recalculateButton.Location = new System.Drawing.Point(492, 3);
+            this.recalculateButton.Name = "recalculateButton";
+            this.recalculateButton.Size = new System.Drawing.Size(166, 40);
+            this.recalculateButton.TabIndex = 0;
+            this.recalculateButton.Text = "Recalculate";
+            this.recalculateButton.UseVisualStyleBackColor = true;
+            this.recalculateButton.Click += new System.EventHandler(this.RecalculateButton_Click);
             // 
             // label2
             // 
@@ -266,7 +267,7 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.CheckBox doAutoScroll;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button recalculateButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label3;
