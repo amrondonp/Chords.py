@@ -194,6 +194,8 @@ namespace Chords
                 return;
             }
 
+            audioPlayer.Stop();
+
             windowInMs = (int)numericUpDown1.Value;
             await CalculateChords();
         }
