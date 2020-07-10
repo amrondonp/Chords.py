@@ -15,7 +15,7 @@ namespace Chords
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
-        private readonly int windowInMs = 500;
+        private int windowInMs = 500;
         private string filePath;
 
         public Form1()
@@ -73,6 +73,11 @@ namespace Chords
                 return;
             }
 
+            await CalculateChords();
+        }
+
+        private async Task CalculateChords()
+        {
             Stopwatch sw = new Stopwatch();
 
             sw.Start();
@@ -80,7 +85,7 @@ namespace Chords
                 LongAudioProfiling.GetPredictionWithProgressReport(filePath, this.chordProcessingProgress, windowInMs)
             );
             sw.Stop();
- 
+
             progressLabel.Text = "Chords computed successfully Elapsed=" + sw.Elapsed.TotalMilliseconds;
             ShowChordButtons(chordsPredicted);
             PlayNewAudioFile(filePath);
@@ -182,12 +187,15 @@ namespace Chords
             audioPlayer.SetPositionInMs(0);
         }
 
-        private void RecalculateButton_Click(object sender, EventArgs e)
+        private async void RecalculateButton_Click(object sender, EventArgs e)
         {   
             if(audioPlayer == null)
             {
                 return;
             }
+
+            windowInMs = (int)numericUpDown1.Value;
+            await CalculateChords();
         }
     }
 }
