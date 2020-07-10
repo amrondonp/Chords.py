@@ -40,8 +40,15 @@
             this.pauseButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.doAutoScroll = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -119,7 +126,7 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(15, 537);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1408, 49);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(661, 49);
             this.flowLayoutPanel2.TabIndex = 8;
             // 
             // playButton
@@ -169,11 +176,62 @@
             this.doAutoScroll.Text = "Auto Scroll";
             this.doAutoScroll.UseVisualStyleBackColor = true;
             // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.button1);
+            this.flowLayoutPanel3.Controls.Add(this.label2);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown1);
+            this.flowLayoutPanel3.Controls.Add(this.label3);
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(765, 537);
+            this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(661, 49);
+            this.flowLayoutPanel3.TabIndex = 8;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(492, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(166, 40);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Recalculate";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(450, 10);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "ms";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(323, 8);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(121, 31);
+            this.numericUpDown1.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(133, 10);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(184, 25);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Time Window Length:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1462, 844);
+            this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressLabel);
@@ -186,6 +244,9 @@
             this.menuStrip1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,6 +265,11 @@
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.CheckBox doAutoScroll;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label3;
     }
 }
 
