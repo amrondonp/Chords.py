@@ -32,6 +32,9 @@ namespace Chords
             {
                 FocusChordPlayedAtTime(milliseconds);
             });
+
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
 
         private void FocusChordPlayedAtTime(double milliseconds)
