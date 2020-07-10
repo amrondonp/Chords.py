@@ -212,7 +212,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(323, 8);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 8, 3, 3);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(121, 31);
             this.numericUpDown1.TabIndex = 2;
