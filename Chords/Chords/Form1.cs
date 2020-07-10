@@ -120,6 +120,10 @@ namespace Chords
 
                 int buttonIndex = i;
                 button.Click += new EventHandler((obj, args) => {
+                    if(audioPlayer == null)
+                    {
+                        return;
+                    }
                     audioPlayer.Stop();
                     audioPlayer.SetPositionInMs(buttonIndex * windowInMs);
                 });
