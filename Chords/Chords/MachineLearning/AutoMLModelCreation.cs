@@ -21,7 +21,7 @@ namespace Chords.MachineLearning
         }
     }
 
-    internal class ChordData
+    public class ChordData
     {
         [LoadColumn(0)]
         public float C { get; set; }
@@ -60,6 +60,6 @@ namespace Chords.MachineLearning
         public float B { get; set; }
 
         [LoadColumn(12), ColumnName("Chord")]
-        public float Chord { get; set; }
+        public string Chord { get; set; }
     }
 }
