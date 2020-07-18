@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 
 namespace ChordsTest.Profiling
@@ -39,6 +40,8 @@ namespace ChordsTest.Profiling
         {
             var predictions = Chords.Profiling.LongAudioProfiling.GetPrediction("resources/about.wav");
             Assert.IsNotNull(predictions);
+            Assert.IsTrue(predictions.Contains("G"));
+            Assert.IsTrue(predictions.Contains("Em"));
         }
     }
 }
