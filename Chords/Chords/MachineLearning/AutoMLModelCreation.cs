@@ -48,16 +48,17 @@ namespace Chords.MachineLearning
 
     public class AutoMLModelCreation
     {
+        public static MLContext mlContextInstance = new MLContext();
+
         public static ExperimentResult<MulticlassClassificationMetrics> CreateModel(string trainDataFile, uint timeoutInSeconds)
-        {
-            var mLContext = new MLContext();
-            var trainData = mLContext.Data.LoadFromTextFile<ChordData>(
+        { 
+            var trainData = mlContextInstance.Data.LoadFromTextFile<ChordData>(
                 trainDataFile,
                 hasHeader: true,
                 separatorChar: ','
             );
 
-            var experiment = mLContext.Auto().CreateMulticlassClassificationExperiment(timeoutInSeconds);
+            var experiment = mlContextInstance.Auto().CreateMulticlassClassificationExperiment(timeoutInSeconds);
             var result = experiment.Execute(trainData, "Chord");
             return result;
         }
@@ -67,15 +68,14 @@ namespace Chords.MachineLearning
             var bestRun = experimentResult.BestRun;
             var trainedModel = bestRun.Model;
 
-            var mLContext = new MLContext();
-            var testData = mLContext.Data.LoadFromTextFile<ChordData>(
+            var testData = mlContextInstance.Data.LoadFromTextFile<ChordData>(
                 trainDataFile,
                 hasHeader: true,
                 separatorChar: ','
             );
 
             var predictions = trainedModel.Transform(testData);
-            return mLContext.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord");
+            return mlContextInstance.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord");
         }
     }
 }
