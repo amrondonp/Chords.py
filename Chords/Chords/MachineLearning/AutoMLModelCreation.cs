@@ -4,23 +4,6 @@ using Microsoft.ML.Data;
 
 namespace Chords.MachineLearning
 {
-    public class AutoMLModelCreation
-    {
-        public static ExperimentResult<MulticlassClassificationMetrics> CreateModel(string trainDataFile)
-        {
-            MLContext mLContext = new MLContext();
-            var trainData = mLContext.Data.LoadFromTextFile<ChordData>(
-                trainDataFile,
-                hasHeader: true,
-                separatorChar: ','
-            );
-
-            var experiment = mLContext.Auto().CreateMulticlassClassificationExperiment(1);
-            var result = experiment.Execute(trainData, "Chord");
-            return result;
-        }
-    }
-
     public class ChordData
     {
         [LoadColumn(0)]
@@ -61,5 +44,38 @@ namespace Chords.MachineLearning
 
         [LoadColumn(12), ColumnName("Chord")]
         public string Chord { get; set; }
+    }
+
+    public class AutoMLModelCreation
+    {
+        public static ExperimentResult<MulticlassClassificationMetrics> CreateModel(string trainDataFile, uint timeoutInSeconds)
+        {
+            var mLContext = new MLContext();
+            var trainData = mLContext.Data.LoadFromTextFile<ChordData>(
+                trainDataFile,
+                hasHeader: true,
+                separatorChar: ','
+            );
+
+            var experiment = mLContext.Auto().CreateMulticlassClassificationExperiment(timeoutInSeconds);
+            var result = experiment.Execute(trainData, "Chord");
+            return result;
+        }
+
+        public static MulticlassClassificationMetrics EvaluateModel(ExperimentResult<MulticlassClassificationMetrics> experimentResult, string trainDataFile)
+        {
+            var bestRun = experimentResult.BestRun;
+            var trainedModel = bestRun.Model;
+
+            var mLContext = new MLContext();
+            var testData = mLContext.Data.LoadFromTextFile<ChordData>(
+                trainDataFile,
+                hasHeader: true,
+                separatorChar: ','
+            );
+
+            var predictions = trainedModel.Transform(testData);
+            return mLContext.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord", scoreColumnName: "Score");
+        }
     }
 }
