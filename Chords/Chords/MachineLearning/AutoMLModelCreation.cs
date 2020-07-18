@@ -4,18 +4,18 @@ using Microsoft.ML.Data;
 
 namespace Chords.MachineLearning
 {
-    class AutoMLModelCreation
+    public class AutoMLModelCreation
     {
-        public static ExperimentResult<MulticlassClassificationMetrics> CreateModel()
+        public static ExperimentResult<MulticlassClassificationMetrics> CreateModel(string trainDataFile)
         {
             MLContext mLContext = new MLContext();
             var trainData = mLContext.Data.LoadFromTextFile<ChordData>(
-                "Resources/trainData.csv",
+                trainDataFile,
                 hasHeader: true,
                 separatorChar: ','
             );
 
-            var experiment = mLContext.Auto().CreateMulticlassClassificationExperiment(10);
+            var experiment = mLContext.Auto().CreateMulticlassClassificationExperiment(1);
             var result = experiment.Execute(trainData, "Chord");
             return result;
         }
