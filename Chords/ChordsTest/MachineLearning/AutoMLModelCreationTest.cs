@@ -11,10 +11,12 @@ namespace ChordsTest.MachineLearning
         {
             var (experimentResult, predictionEngine) =
                 AutoMlModelCreation.CreateModel("./Resources/trainData.csv", 1);
+
             Assert.IsNotNull(experimentResult);
 
             var metrics =
                 AutoMlModelCreation.EvaluateModel(experimentResult, "./Resources/testData.csv");
+
             Assert.IsTrue(metrics.LogLoss < 0.5);
 
             double[] emPcp =
@@ -29,6 +31,7 @@ namespace ChordsTest.MachineLearning
 
             var prediction =
                 predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(emPcp));
+
             Assert.IsTrue(prediction.ChordPrediction.ToLower().Equals("em"));
 
             double[] dPcp =
@@ -44,6 +47,7 @@ namespace ChordsTest.MachineLearning
 
             var dPrediction =
                 predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(dPcp));
+
             Assert.IsTrue(dPrediction.ChordPrediction.ToLower().Equals("d"));
         }
     }
