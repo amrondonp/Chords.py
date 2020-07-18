@@ -46,12 +46,17 @@ namespace Chords.MachineLearning
         public string Chord { get; set; }
     }
 
+    public class ChordPredictionResult
+    {
+        public string ChordPrediction { get; set; }
+    }
+
     public class AutoMLModelCreation
     {
         public static MLContext mlContextInstance = new MLContext();
 
-        public static ExperimentResult<MulticlassClassificationMetrics> CreateModel(string trainDataFile, uint timeoutInSeconds)
-        { 
+        public static (ExperimentResult<MulticlassClassificationMetrics>, PredictionEngine<ChordData, ChordPredictionResult>) CreateModel(string trainDataFile, uint timeoutInSeconds)
+        {
             var trainData = mlContextInstance.Data.LoadFromTextFile<ChordData>(
                 trainDataFile,
                 hasHeader: true,
@@ -59,8 +64,21 @@ namespace Chords.MachineLearning
             );
 
             var experiment = mlContextInstance.Auto().CreateMulticlassClassificationExperiment(timeoutInSeconds);
-            var result = experiment.Execute(trainData, "Chord");
-            return result;
+            var result = experiment.Execute(
+                trainData,
+                "Chord",
+                preFeaturizer: mlContextInstance.Transforms.Conversion.MapValueToKey("Chord")
+            );
+
+            var pipeline = result.BestRun.Estimator.Append(
+                mlContextInstance.Transforms.Conversion.MapKeyToValue(
+                "ChordPrediction", "PredictedLabel"
+            ));
+
+            var modelWithLabelMapping = pipeline.Fit(trainData);
+            var engine = mlContextInstance.Model.CreatePredictionEngine<ChordData, ChordPredictionResult>(modelWithLabelMapping);
+
+            return (result, engine);
         }
 
         public static MulticlassClassificationMetrics EvaluateModel(ExperimentResult<MulticlassClassificationMetrics> experimentResult, string trainDataFile)
@@ -78,23 +96,23 @@ namespace Chords.MachineLearning
             return mlContextInstance.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord");
         }
 
-        public static ChordData GetChordDataFromPCP(double [] pcp)
+        public static ChordData GetChordDataFromPCP(double[] pcp)
         {
             return new ChordData
             {
-                C= (float)pcp[0],
-                CSharp= (float)pcp[1],
-                D= (float)pcp[2],
-                DSharp= (float)pcp[3],
-                E= (float)pcp[4],
-                F= (float)pcp[5],
-                FSharp= (float)pcp[6],
-                G= (float)pcp[7],
-                GSharp= (float)pcp[8],
-                A= (float)pcp[9],
-                ASharp= (float)pcp[10],
-                B= (float)pcp[11],
-                Chord=""
+                C = (float)pcp[0],
+                CSharp = (float)pcp[1],
+                D = (float)pcp[2],
+                DSharp = (float)pcp[3],
+                E = (float)pcp[4],
+                F = (float)pcp[5],
+                FSharp = (float)pcp[6],
+                G = (float)pcp[7],
+                GSharp = (float)pcp[8],
+                A = (float)pcp[9],
+                ASharp = (float)pcp[10],
+                B = (float)pcp[11],
+                Chord = ""
             };
         }
     }
