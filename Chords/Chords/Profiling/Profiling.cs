@@ -1,28 +1,33 @@
-﻿using NAudio.Wave;
-using System;
-using System.Numerics;
-using MathNet.Numerics.IntegralTransforms;
-using System.Linq;
+﻿using MathNet.Numerics.IntegralTransforms;
 using Microsoft.ML.OnnxRuntime;
-using System.Collections.Generic;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using NAudio.Wave;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 
 namespace Chords.Profiling
 {
     public class Profiling
     {
-        public static (int sampleRate, float[] samples) GetSamples(string pathToAudioFile)
+        public static (int sampleRate, float[] samples) GetSamples(
+            string pathToAudioFile)
         {
             using AudioFileReader reader = new AudioFileReader(pathToAudioFile);
 
             var sampleProvider = reader.ToMono();
-            float[] samples = new float[reader.Length / sizeof(float) / reader.WaveFormat.Channels];
+            float[] samples =
+                new float[reader.Length / sizeof(float) /
+                          reader.WaveFormat.Channels];
             var samplesRead = sampleProvider.Read(samples, 0, samples.Length);
             Array.Resize(ref samples, samplesRead);
 
             if (samples.Length != samplesRead)
             {
-                throw new Exception("Error when reading the samples, samples.Length=" + samples.Length + " samplesRead=" + samplesRead);
+                throw new Exception(
+                    "Error when reading the samples, samples.Length=" +
+                    samples.Length + " samplesRead=" + samplesRead);
             }
 
             return (reader.WaveFormat.SampleRate, samples);
@@ -60,24 +65,25 @@ namespace Chords.Profiling
                 {
                     aux5 += 12;
                 }
+
                 return aux5;
             }
 
-            double [] pcp = new double[12];
+            double[] pcp = new double[12];
             int size = (int)(n / 2);
-            
-            for(int l = 1; l < size; l++)
+
+            for (int l = 1; l < size; l++)
             {
                 int bin = M(l);
                 double mag = x[l].Magnitude;
                 double sq = mag * mag;
                 pcp[bin] += sq;
             }
-            
+
             // Normalize pcp
-            double [] pcpNorm = new double[12];
+            double[] pcpNorm = new double[12];
             double pcpSum = pcp.Sum();
-            for(int p = 0; p < 12; p++)
+            for (int p = 0; p < 12; p++)
             {
                 pcpNorm[p] = (pcp[p] / pcpSum);
             }
@@ -102,8 +108,10 @@ namespace Chords.Profiling
                 inputTensor[0, i] = (float)pcp[i];
             }
 
-            var input = new List<NamedOnnxValue> { NamedOnnxValue.CreateFromTensor("dense_1_input", inputTensor) };
-            var session = new InferenceSession("models/binary_crossentropy.onnx");
+            var input = new List<NamedOnnxValue>
+                {NamedOnnxValue.CreateFromTensor("dense_1_input", inputTensor)};
+            var session =
+                new InferenceSession("models/binary_crossentropy.onnx");
 
             using var results = session.Run(input);
             return results.First().AsEnumerable<float>().ToArray();
@@ -121,7 +129,8 @@ namespace Chords.Profiling
             return GetPredictionFormRawPrediction(rawPrediction);
         }
 
-        private static string GetPredictionFormRawPrediction(float[] rawPrediction)
+        private static string GetPredictionFormRawPrediction(
+            float[] rawPrediction)
         {
             int maxProbabilityIndex = 0;
             float maxProbabilty = 0;
@@ -135,7 +144,8 @@ namespace Chords.Profiling
                 }
             }
 
-            string[] chordsTable = { "C", "D", "Dm", "E", "Em", "F", "G", "A", "Am", "Bm" };
+            string[] chordsTable =
+                {"C", "D", "Dm", "E", "Em", "F", "G", "A", "Am", "Bm"};
             return chordsTable[maxProbabilityIndex];
         }
     }
