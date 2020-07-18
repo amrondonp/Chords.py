@@ -39,8 +39,8 @@ namespace Chords
             numericUpDown1.Maximum = int.MaxValue;
             numericUpDown1.Value = windowInMs;
 
-            this.AutoSize = true;
-            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.predictor = predictor;
         }
 
@@ -49,13 +49,13 @@ namespace Chords
             label1.Text = "Audio played up to " + milliseconds + " ms";
             int playedChord = (int)Math.Floor(milliseconds / windowInMs);
 
-            if (playedChord < this.chordButtons.Length)
+            if (playedChord < chordButtons.Length)
             {
-                this.chordButtons[playedChord].BackColor = HighlightColor;
+                chordButtons[playedChord].BackColor = HighlightColor;
 
-                if (this.doAutoScroll.Checked)
+                if (doAutoScroll.Checked)
                 {
-                    this.flowLayoutPanel1.ScrollControlIntoView(
+                    flowLayoutPanel1.ScrollControlIntoView(
                         chordButtons[playedChord]);
                 }
             }
@@ -88,7 +88,7 @@ namespace Chords
             sw.Start();
             var chordsPredicted = await Task.Run(() =>
                 predictor.GetPredictionForFile(filePath,
-                    this.chordProcessingProgress, windowInMs)
+                    chordProcessingProgress, windowInMs)
             );
             sw.Stop();
 
@@ -110,7 +110,7 @@ namespace Chords
 
         private void ShowChordButtons(string[] chordsPredicted)
         {
-            this.flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.Controls.Clear();
             chordButtons = new Button[chordsPredicted.Length];
             int biggestButtonWidth = 0;
             int biggestButtonHeight = 0;
@@ -121,7 +121,7 @@ namespace Chords
                 var button = new Button
                 {
                     Text = chord,
-                    Font = new Font(this.Font.FontFamily, 15),
+                    Font = new Font(Font.FontFamily, 15),
                 };
 
                 int buttonIndex = i;
@@ -149,7 +149,7 @@ namespace Chords
                 button.Height = biggestButtonHeight;
             }
 
-            this.flowLayoutPanel1.Controls.AddRange(chordButtons);
+            flowLayoutPanel1.Controls.AddRange(chordButtons);
         }
 
         private string GetOpenedFilePath()

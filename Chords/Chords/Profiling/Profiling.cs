@@ -148,5 +148,10 @@ namespace Chords.Profiling
                 {"C", "D", "Dm", "E", "Em", "F", "G", "A", "Am", "Bm"};
             return chordsTable[maxProbabilityIndex];
         }
+
+        public static double[] PitchClassProfileForSamples(float[] samples, in int sampleRate)
+        {
+            return PitchClassProfile(GetFft(samples), sampleRate);
+        }
     }
 }

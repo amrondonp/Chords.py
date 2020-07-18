@@ -38,5 +38,13 @@ namespace ChordsTest.Predictors
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
         }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionsForSample_CallsGetPredictionCorrectly()
+        {
+            var classicPredictor = new AutoMlPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            Assert.AreEqual(classicPredictor.GetPrediction(samples, sampleRate), "D");
+        }
     }
 }
