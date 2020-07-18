@@ -77,5 +77,25 @@ namespace Chords.MachineLearning
             var predictions = trainedModel.Transform(testData);
             return mlContextInstance.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord");
         }
+
+        public static ChordData GetChordDataFromPCP(double [] pcp)
+        {
+            return new ChordData
+            {
+                C= (float)pcp[0],
+                CSharp= (float)pcp[1],
+                D= (float)pcp[2],
+                DSharp= (float)pcp[3],
+                E= (float)pcp[4],
+                F= (float)pcp[5],
+                FSharp= (float)pcp[6],
+                G= (float)pcp[7],
+                GSharp= (float)pcp[8],
+                A= (float)pcp[9],
+                ASharp= (float)pcp[10],
+                B= (float)pcp[11],
+                Chord=""
+            };
+        }
     }
 }
