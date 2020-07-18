@@ -9,7 +9,7 @@ namespace Chords
 {
     public partial class Form1 : Form
     {
-        private static readonly Color HIGHLIGHT_COLOR = Color.FromArgb(0, 204, 102);
+        private static readonly Color HighlightColor = Color.FromArgb(0, 204, 102);
         
         private Button[] chordButtons;
         private readonly IProgress<int> chordProcessingProgress;
@@ -48,7 +48,7 @@ namespace Chords
             
             if (playedChord < this.chordButtons.Length)
             {
-                this.chordButtons[playedChord].BackColor = HIGHLIGHT_COLOR;
+                this.chordButtons[playedChord].BackColor = HighlightColor;
 
                 if(this.doAutoScroll.Checked)
                 {
@@ -58,7 +58,7 @@ namespace Chords
 
             for(int i = 0; i < chordButtons.Length; i++)
             {
-                if(i != playedChord && chordButtons[i].BackColor == HIGHLIGHT_COLOR)
+                if(i != playedChord && chordButtons[i].BackColor == HighlightColor)
                 {
                     chordButtons[i].BackColor = progressLabel.BackColor;
                 }

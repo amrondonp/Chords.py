@@ -28,7 +28,7 @@ namespace Chords.Profiling
             return (reader.WaveFormat.SampleRate, samples);
         }
 
-        public static Complex[] GetFFT(float[] samples)
+        public static Complex[] GetFft(float[] samples)
         {
             Complex[] complexData = new Complex[samples.Length];
             for (int i = 0; i < samples.Length; i++)
@@ -40,17 +40,17 @@ namespace Chords.Profiling
             return complexData;
         }
 
-        public static double[] PitchClassProfile(Complex[] X, int frecuency)
+        public static double[] PitchClassProfile(Complex[] x, int frecuency)
         {
             double fs = frecuency;
             double fref = 130.81;
 
-            double N = X.Length;
+            double n = x.Length;
 
             int M(int l)
             {
                 // Computing Math.Round(12 * Math.Log2(   (fs * l)/(N * fref)  ) ) % 12; step by step
-                double aux = (fs * l) / (N * fref);
+                double aux = (fs * l) / (n * fref);
                 double aux2 = Math.Log2(aux);
                 double aux3 = 12 * aux2;
                 int axu4 = (int)Math.Round(aux3);
@@ -64,25 +64,25 @@ namespace Chords.Profiling
             }
 
             double [] pcp = new double[12];
-            int size = (int)(N / 2);
+            int size = (int)(n / 2);
             
             for(int l = 1; l < size; l++)
             {
                 int bin = M(l);
-                double mag = X[l].Magnitude;
+                double mag = x[l].Magnitude;
                 double sq = mag * mag;
                 pcp[bin] += sq;
             }
             
             // Normalize pcp
-            double [] pcp_norm = new double[12];
+            double [] pcpNorm = new double[12];
             double pcpSum = pcp.Sum();
             for(int p = 0; p < 12; p++)
             {
-                pcp_norm[p] = (pcp[p] / pcpSum);
+                pcpNorm[p] = (pcp[p] / pcpSum);
             }
 
-            return pcp_norm;
+            return pcpNorm;
         }
 
         public static float[] GetRawPredictionForFile(string pathToAudioFile)
@@ -93,7 +93,7 @@ namespace Chords.Profiling
 
         public static float[] GetRawPrediction(int sampleRate, float[] samples)
         {
-            var fft = GetFFT(samples);
+            var fft = GetFft(samples);
             var pcp = PitchClassProfile(fft, sampleRate);
 
             var inputTensor = new DenseTensor<float>(new[] { 1, 12 });

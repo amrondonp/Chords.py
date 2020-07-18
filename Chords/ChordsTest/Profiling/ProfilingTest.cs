@@ -57,7 +57,7 @@ namespace ChordsTest.Profiling
         public void GetFFT_ComputesTheFFTCorreclty_D()
         {
             var (_, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
-            var fft = Chords.Profiling.Profiling.GetFFT(samples);
+            var fft = Chords.Profiling.Profiling.GetFft(samples);
             Assert.IsNotNull(fft);
             Assert.AreEqual(fft.Length, 262144);
             Assert.IsTrue(CompareComplex(fft[0], -12.335663f, 0.0f));
@@ -70,7 +70,7 @@ namespace ChordsTest.Profiling
         public void GetFFT_ComputesTheFFTCorreclty_Em()
         {
             var (_, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/em.wav");
-            var fft = Chords.Profiling.Profiling.GetFFT(samples);
+            var fft = Chords.Profiling.Profiling.GetFft(samples);
             Assert.IsNotNull(fft);
             Assert.AreEqual(fft.Length, 124928);
             Assert.IsTrue(CompareComplex(fft[0], 2.0939026f, 0.0f));
@@ -83,7 +83,7 @@ namespace ChordsTest.Profiling
         public void GetPCP_ComputesThePCPCorreclty_D()
         {
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
-            var fft = Chords.Profiling.Profiling.GetFFT(samples);
+            var fft = Chords.Profiling.Profiling.GetFft(samples);
 
             double[] expected = { 0.003255314087377314,
                 0.01810165496076202, 0.4737221312697051,
@@ -106,7 +106,7 @@ namespace ChordsTest.Profiling
         public void GetPCP_ComputesThePCPCorreclty_Em()
         {
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/em.wav");
-            var fft = Chords.Profiling.Profiling.GetFFT(samples);
+            var fft = Chords.Profiling.Profiling.GetFft(samples);
 
             double[] expected = { 0.001714135727507671, 0.003264961867620893,
                 0.004673452009535607, 0.004337914586398048,
