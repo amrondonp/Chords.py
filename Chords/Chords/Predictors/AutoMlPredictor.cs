@@ -1,4 +1,5 @@
 ﻿using Chords.MachineLearning;
+using Chords.Profiling;
 using Microsoft.ML;
 using System;
 
@@ -6,7 +7,8 @@ namespace Chords.Predictors
 {
     public class AutoMlPredictor : IPredictor
     {
-        private PredictionEngine<ChordData, ChordPredictionResult> engine;
+        private readonly PredictionEngine<ChordData, ChordPredictionResult>
+            engine;
 
         public AutoMlPredictor(string filePath = "./models/model.ml")
         {
@@ -15,8 +17,8 @@ namespace Chords.Predictors
                     filePath, out _);
 
             engine = AutoMlModelCreation.MlContextInstance.Model
-                    .CreatePredictionEngine<ChordData, ChordPredictionResult>(
-                        predictionPipeline);
+                .CreatePredictionEngine<ChordData, ChordPredictionResult>(
+                    predictionPipeline);
         }
 
         public string GetPrediction(float[] sample, int sampleRate)
@@ -37,7 +39,11 @@ namespace Chords.Predictors
             int windowInMs,
             IProgress<int> progress)
         {
-            throw new NotImplementedException();
+            return LongAudioProfiling
+                .PredictionWithProgressReportAndCustomPrediction(sampleRate,
+                    samples, windowInMs, progress,
+                    (sampleRateLambda, samplesLambda) =>
+                        GetPrediction(samplesLambda, sampleRateLambda));
         }
 
         public string[] GetPredictionForFile(string filePath,
