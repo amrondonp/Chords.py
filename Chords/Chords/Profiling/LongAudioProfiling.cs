@@ -24,6 +24,15 @@ namespace Chords.Profiling
 
         public static string[] PredictionWithProgressReport(int sampleRate, float[] samples, int windowInMs, IProgress<int> progress)
         {
+            return PredictionWithProgressReportAndCustomPrediction(sampleRate, samples,
+                windowInMs, progress, Profiling.GetPrediction);
+        }
+
+        public static string[] PredictionWithProgressReportAndCustomPrediction(
+            int sampleRate, float[] samples, int windowInMs,
+            IProgress<int> progress,
+            Func<int, float[], string> predictionFunction)
+        {
             var samplesPerWindow =
                 GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
 
@@ -45,7 +54,7 @@ namespace Chords.Profiling
                 progress.Report(
                     (int)(((i + samplesPerWindow) / (samples.Length + 0.0)) * 100));
                 predictions[predictionIndex] =
-                    Profiling.GetPrediction(sampleRate, samplesWindow);
+                    predictionFunction(sampleRate, samplesWindow);
                 predictionIndex++;
             }
 
