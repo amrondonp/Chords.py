@@ -75,7 +75,7 @@ namespace Chords.MachineLearning
             );
 
             var predictions = trainedModel.Transform(testData);
-            return mLContext.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord", scoreColumnName: "Score");
+            return mLContext.MulticlassClassification.Evaluate(data: predictions, labelColumnName: "Chord");
         }
     }
 }
