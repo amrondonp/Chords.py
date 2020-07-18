@@ -50,7 +50,8 @@ namespace Chords.Predictors
             IProgress<int> progress,
             int windowInMs)
         {
-            throw new NotImplementedException();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples(filePath);
+            return GetPredictions(samples, sampleRate, windowInMs, progress);
         }
     }
 }

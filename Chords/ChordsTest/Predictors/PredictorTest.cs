@@ -58,5 +58,16 @@ namespace ChordsTest.Predictors
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
         }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionsForFile_CallsGetPredictionCorrectly()
+        {
+            var classicPredictor = new AutoMlPredictor();
+            var predictions =
+                classicPredictor.GetPredictionForFile("./Resources/about.wav", new Progress<int>(), 500);
+
+            Assert.IsTrue(predictions.Contains("G"));
+            Assert.IsTrue(predictions.Contains("Em"));
+        }
     }
 }
