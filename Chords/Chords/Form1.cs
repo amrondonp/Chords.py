@@ -1,24 +1,26 @@
-﻿using Chords.Profiling;
+﻿using Chords.Predictors;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace Chords
 {
     public partial class Form1 : Form
     {
-        private static readonly Color HighlightColor = Color.FromArgb(0, 204, 102);
-        
+        private static readonly Color HighlightColor =
+            Color.FromArgb(0, 204, 102);
+
         private Button[] chordButtons;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
         private int windowInMs = 500;
         private string filePath;
+        private IPredictor predictor;
 
-        public Form1()
+        public Form1(IPredictor predictor)
         {
             InitializeComponent();
 
@@ -39,26 +41,29 @@ namespace Chords
 
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.predictor = predictor;
         }
 
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = "Audio played up to " + milliseconds + " ms";
             int playedChord = (int)Math.Floor(milliseconds / windowInMs);
-            
+
             if (playedChord < this.chordButtons.Length)
             {
                 this.chordButtons[playedChord].BackColor = HighlightColor;
 
-                if(this.doAutoScroll.Checked)
+                if (this.doAutoScroll.Checked)
                 {
-                    this.flowLayoutPanel1.ScrollControlIntoView(chordButtons[playedChord]);
+                    this.flowLayoutPanel1.ScrollControlIntoView(
+                        chordButtons[playedChord]);
                 }
             }
 
-            for(int i = 0; i < chordButtons.Length; i++)
+            for (int i = 0; i < chordButtons.Length; i++)
             {
-                if(i != playedChord && chordButtons[i].BackColor == HighlightColor)
+                if (i != playedChord &&
+                    chordButtons[i].BackColor == HighlightColor)
                 {
                     chordButtons[i].BackColor = progressLabel.BackColor;
                 }
@@ -82,23 +87,24 @@ namespace Chords
 
             sw.Start();
             var chordsPredicted = await Task.Run(() =>
-                LongAudioProfiling.GetPredictionWithProgressReport(filePath, this.chordProcessingProgress, windowInMs)
+                predictor.GetPredictionForFile(filePath,
+                    this.chordProcessingProgress, windowInMs)
             );
             sw.Stop();
 
-            progressLabel.Text = "Chords computed successfully Elapsed=" + sw.Elapsed.TotalMilliseconds;
+            progressLabel.Text = "Chords computed successfully Elapsed=" +
+                                 sw.Elapsed.TotalMilliseconds;
+
             ShowChordButtons(chordsPredicted);
             PlayNewAudioFile(filePath);
         }
 
         private async void PlayNewAudioFile(string filePath)
         {
-            if(audioPlayer != null)
-            {
-                audioPlayer.Dispose();
-            }
+            audioPlayer?.Dispose();
 
-            audioPlayer = await Task.Run(() => new AudioPlayer.AudioPlayer(filePath, audioPlayProgress));
+            audioPlayer = await Task.Run(() =>
+                new AudioPlayer.AudioPlayer(filePath, audioPlayProgress));
             audioPlayer.Play();
         }
 
@@ -119,21 +125,25 @@ namespace Chords
                 };
 
                 int buttonIndex = i;
-                button.Click += new EventHandler((obj, args) => {
-                    if(audioPlayer == null)
+                button.Click += new EventHandler((obj, args) =>
+                {
+                    if (audioPlayer == null)
                     {
                         return;
                     }
+
                     audioPlayer.Stop();
                     audioPlayer.SetPositionInMs(buttonIndex * windowInMs);
                 });
 
                 chordButtons[i] = button;
-                biggestButtonWidth = Math.Max(biggestButtonWidth, button.PreferredSize.Width);
-                biggestButtonHeight = Math.Max(biggestButtonHeight, button.PreferredSize.Height);
+                biggestButtonWidth = Math.Max(biggestButtonWidth,
+                    button.PreferredSize.Width);
+                biggestButtonHeight = Math.Max(biggestButtonHeight,
+                    button.PreferredSize.Height);
             }
 
-            foreach(Button button in chordButtons)
+            foreach (Button button in chordButtons)
             {
                 button.Width = biggestButtonWidth;
                 button.Height = biggestButtonHeight;
@@ -162,22 +172,12 @@ namespace Chords
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            if (audioPlayer == null)
-            {
-                return;
-            }
-
-            audioPlayer.Play();
+            audioPlayer?.Play();
         }
 
         private void PauseButton_Click(object sender, EventArgs e)
         {
-            if (audioPlayer == null)
-            {
-                return;
-            }
-
-            audioPlayer.Pause();
+            audioPlayer?.Pause();
         }
 
         private void StopButton_Click(object sender, EventArgs e)
@@ -192,8 +192,8 @@ namespace Chords
         }
 
         private async void RecalculateButton_Click(object sender, EventArgs e)
-        {   
-            if(audioPlayer == null)
+        {
+            if (audioPlayer == null)
             {
                 return;
             }
