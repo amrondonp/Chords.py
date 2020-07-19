@@ -19,9 +19,9 @@ namespace Chords.AudioPlayer
         public AudioPlayer(string fileName, IProgress<double> progress)
         {
             this.progress = progress;
-            
+
             timer = new Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Elapsed += OnTimedEvent;
             timer.Interval = 47;
 
 

@@ -37,16 +37,16 @@ namespace Chords.Profiling
                 GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
 
 
-            string[] predictions = new string[samples.Length / samplesPerWindow];
-            int predictionIndex = 0;
+            var predictions = new string[samples.Length / samplesPerWindow];
+            var predictionIndex = 0;
 
-            float[] samplesWindow = new float[samplesPerWindow];
+            var samplesWindow = new float[samplesPerWindow];
 
-            for (int i = 0;
+            for (var i = 0;
                 i + samplesPerWindow < samples.Length;
                 i += samplesPerWindow)
             {
-                for (int j = 0; j < samplesPerWindow; j++)
+                for (var j = 0; j < samplesPerWindow; j++)
                 {
                     samplesWindow[j] = samples[i + j];
                 }

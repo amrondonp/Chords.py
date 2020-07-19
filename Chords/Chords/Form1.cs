@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,7 +28,7 @@ namespace Chords
             chordProcessingProgress = new Progress<int>(v =>
             {
                 progressBar1.Value = v;
-                progressLabel.Text = "Computing chords... " + v + " %";
+                progressLabel.Text = $@"Computing chords... {v} %";
             });
 
             audioPlayProgress = new Progress<double>(milliseconds =>
@@ -44,10 +45,16 @@ namespace Chords
             this.predictor = predictor;
         }
 
+        public sealed override bool AutoSize
+        {
+            get { return base.AutoSize; }
+            set { base.AutoSize = value; }
+        }
+
         private void FocusChordPlayedAtTime(double milliseconds)
         {
-            label1.Text = "Audio played up to " + milliseconds + " ms";
-            int playedChord = (int)Math.Floor(milliseconds / windowInMs);
+            label1.Text = $@"Audio played up to {milliseconds} ms";
+            var playedChord = (int)Math.Floor(milliseconds / windowInMs);
 
             if (playedChord < chordButtons.Length)
             {
@@ -60,7 +67,7 @@ namespace Chords
                 }
             }
 
-            for (int i = 0; i < chordButtons.Length; i++)
+            for (var i = 0; i < chordButtons.Length; i++)
             {
                 if (i != playedChord &&
                     chordButtons[i].BackColor == HighlightColor)
@@ -83,7 +90,7 @@ namespace Chords
 
         private async Task CalculateChords()
         {
-            Stopwatch sw = new Stopwatch();
+            var sw = new Stopwatch();
 
             sw.Start();
             var chordsPredicted = await Task.Run(() =>
@@ -92,19 +99,19 @@ namespace Chords
             );
             sw.Stop();
 
-            progressLabel.Text = "Chords computed successfully Elapsed=" +
-                                 sw.Elapsed.TotalMilliseconds;
+            progressLabel.Text =
+                $@"Chords computed successfully Elapsed={sw.Elapsed.TotalMilliseconds}";
 
             ShowChordButtons(chordsPredicted);
             PlayNewAudioFile(filePath);
         }
 
-        private async void PlayNewAudioFile(string filePath)
+        private async void PlayNewAudioFile(string filePathToLoad)
         {
             audioPlayer?.Dispose();
 
             audioPlayer = await Task.Run(() =>
-                new AudioPlayer.AudioPlayer(filePath, audioPlayProgress));
+                new AudioPlayer.AudioPlayer(filePathToLoad, audioPlayProgress));
             audioPlayer.Play();
         }
 
@@ -112,10 +119,10 @@ namespace Chords
         {
             flowLayoutPanel1.Controls.Clear();
             chordButtons = new Button[chordsPredicted.Length];
-            int biggestButtonWidth = 0;
-            int biggestButtonHeight = 0;
+            var biggestButtonWidth = 0;
+            var biggestButtonHeight = 0;
 
-            for (int i = 0; i < chordsPredicted.Length; i++)
+            for (var i = 0; i < chordsPredicted.Length; i++)
             {
                 var chord = chordsPredicted[i];
                 var button = new Button
@@ -124,8 +131,8 @@ namespace Chords
                     Font = new Font(Font.FontFamily, 15),
                 };
 
-                int buttonIndex = i;
-                button.Click += new EventHandler((obj, args) =>
+                var buttonIndex = i;
+                button.Click += (obj, args) =>
                 {
                     if (audioPlayer == null)
                     {
@@ -134,7 +141,7 @@ namespace Chords
 
                     audioPlayer.Stop();
                     audioPlayer.SetPositionInMs(buttonIndex * windowInMs);
-                });
+                };
 
                 chordButtons[i] = button;
                 biggestButtonWidth = Math.Max(biggestButtonWidth,
@@ -143,21 +150,21 @@ namespace Chords
                     button.PreferredSize.Height);
             }
 
-            foreach (Button button in chordButtons)
+            foreach (var button in chordButtons)
             {
                 button.Width = biggestButtonWidth;
                 button.Height = biggestButtonHeight;
             }
 
-            flowLayoutPanel1.Controls.AddRange(chordButtons);
+            flowLayoutPanel1.Controls.AddRange(chordButtons.ToArray<Control>());
         }
 
         private string GetOpenedFilePath()
         {
-            using OpenFileDialog openFileDialog = new OpenFileDialog
+            using var openFileDialog = new OpenFileDialog
             {
                 InitialDirectory = "c:\\",
-                Filter = "Audio (*.wav;*.mp3)|*.wav;*.mp3",
+                Filter = @"Audio (*.wav;*.mp3)|*.wav;*.mp3",
                 FilterIndex = 2,
                 RestoreDirectory = true
             };

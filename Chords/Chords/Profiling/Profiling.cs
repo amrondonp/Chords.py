@@ -14,10 +14,10 @@ namespace Chords.Profiling
         public static (int sampleRate, float[] samples) GetSamples(
             string pathToAudioFile)
         {
-            using AudioFileReader reader = new AudioFileReader(pathToAudioFile);
+            using var reader = new AudioFileReader(pathToAudioFile);
 
             var sampleProvider = reader.ToMono();
-            float[] samples =
+            var samples =
                 new float[reader.Length / sizeof(float) /
                           reader.WaveFormat.Channels];
             var samplesRead = sampleProvider.Read(samples, 0, samples.Length);
@@ -35,8 +35,8 @@ namespace Chords.Profiling
 
         public static Complex[] GetFft(float[] samples)
         {
-            Complex[] complexData = new Complex[samples.Length];
-            for (int i = 0; i < samples.Length; i++)
+            var complexData = new Complex[samples.Length];
+            for (var i = 0; i < samples.Length; i++)
             {
                 complexData[i] = new Complex(samples[i], 0);
             }
@@ -48,18 +48,18 @@ namespace Chords.Profiling
         public static double[] PitchClassProfile(Complex[] x, int frecuency)
         {
             double fs = frecuency;
-            double fref = 130.81;
+            var fref = 130.81;
 
             double n = x.Length;
 
             int M(int l)
             {
                 // Computing Math.Round(12 * Math.Log2(   (fs * l)/(N * fref)  ) ) % 12; step by step
-                double aux = (fs * l) / (n * fref);
-                double aux2 = Math.Log2(aux);
-                double aux3 = 12 * aux2;
-                int axu4 = (int)Math.Round(aux3);
-                int aux5 = axu4 % 12;
+                var aux = (fs * l) / (n * fref);
+                var aux2 = Math.Log2(aux);
+                var aux3 = 12 * aux2;
+                var axu4 = (int)Math.Round(aux3);
+                var aux5 = axu4 % 12;
 
                 if (aux5 < 0)
                 {
@@ -69,21 +69,21 @@ namespace Chords.Profiling
                 return aux5;
             }
 
-            double[] pcp = new double[12];
-            int size = (int)(n / 2);
+            var pcp = new double[12];
+            var size = (int)(n / 2);
 
-            for (int l = 1; l < size; l++)
+            for (var l = 1; l < size; l++)
             {
-                int bin = M(l);
-                double mag = x[l].Magnitude;
-                double sq = mag * mag;
+                var bin = M(l);
+                var mag = x[l].Magnitude;
+                var sq = mag * mag;
                 pcp[bin] += sq;
             }
 
             // Normalize pcp
-            double[] pcpNorm = new double[12];
-            double pcpSum = pcp.Sum();
-            for (int p = 0; p < 12; p++)
+            var pcpNorm = new double[12];
+            var pcpSum = pcp.Sum();
+            for (var p = 0; p < 12; p++)
             {
                 pcpNorm[p] = (pcp[p] / pcpSum);
             }
@@ -103,7 +103,7 @@ namespace Chords.Profiling
             var pcp = PitchClassProfile(fft, sampleRate);
 
             var inputTensor = new DenseTensor<float>(new[] { 1, 12 });
-            for (int i = 0; i < 12; i++)
+            for (var i = 0; i < 12; i++)
             {
                 inputTensor[0, i] = (float)pcp[i];
             }
@@ -119,23 +119,23 @@ namespace Chords.Profiling
 
         public static string GetPredictionForFile(string pathToAudioFile)
         {
-            float[] rawPrediction = GetRawPredictionForFile(pathToAudioFile);
+            var rawPrediction = GetRawPredictionForFile(pathToAudioFile);
             return GetPredictionFormRawPrediction(rawPrediction);
         }
 
         public static string GetPrediction(int sampleRate, float[] samples)
         {
-            float[] rawPrediction = GetRawPrediction(sampleRate, samples);
+            var rawPrediction = GetRawPrediction(sampleRate, samples);
             return GetPredictionFormRawPrediction(rawPrediction);
         }
 
         private static string GetPredictionFormRawPrediction(
             float[] rawPrediction)
         {
-            int maxProbabilityIndex = 0;
+            var maxProbabilityIndex = 0;
             float maxProbabilty = 0;
 
-            for (int i = 0; i < rawPrediction.Length; i++)
+            for (var i = 0; i < rawPrediction.Length; i++)
             {
                 if (maxProbabilty < rawPrediction[i])
                 {
