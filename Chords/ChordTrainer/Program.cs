@@ -10,6 +10,12 @@ namespace ChordTrainer
         static void Main(string[] args)
         {
             uint secondsToRun = 1;
+
+            if (args.Length >= 1)
+            {
+                secondsToRun = uint.Parse(args[0]);
+            }
+
             var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             Console.WriteLine(
