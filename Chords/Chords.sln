@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chords", "Chords\Chords.csproj", "{1D7694BE-1B0C-4BE5-9816-6967E0130075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordsTest", "ChordsTest\ChordsTest.csproj", "{378F26E5-AE7A-4ABD-9321-17FD9E534C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordsTest", "ChordsTest\ChordsTest.csproj", "{378F26E5-AE7A-4ABD-9321-17FD9E534C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordTrainer", "ChordTrainer\ChordTrainer.csproj", "{4F391423-1968-4722-9D46-747F69F24A5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{378F26E5-AE7A-4ABD-9321-17FD9E534C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{378F26E5-AE7A-4ABD-9321-17FD9E534C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{378F26E5-AE7A-4ABD-9321-17FD9E534C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F391423-1968-4722-9D46-747F69F24A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F391423-1968-4722-9D46-747F69F24A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F391423-1968-4722-9D46-747F69F24A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F391423-1968-4722-9D46-747F69F24A5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

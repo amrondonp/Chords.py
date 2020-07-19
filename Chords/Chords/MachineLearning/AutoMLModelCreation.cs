@@ -40,10 +40,11 @@ namespace Chords.MachineLearning
 
     public class AutoMlModelCreation
     {
-        public static MLContext MlContextInstance = new MLContext();
+        public static readonly MLContext MlContextInstance = new MLContext();
 
-        public static (ExperimentResult<MulticlassClassificationMetrics>,
-            PredictionEngine<ChordData, ChordPredictionResult>) CreateModel(
+        public static (IDataView, ITransformer,
+            ExperimentResult<MulticlassClassificationMetrics>)
+            CreateDataViewAndTransformer(
                 string trainDataFile, uint timeoutInSeconds)
         {
             var trainData = MlContextInstance.Data.LoadFromTextFile<ChordData>(
@@ -67,6 +68,17 @@ namespace Chords.MachineLearning
                 ));
 
             var modelWithLabelMapping = pipeline.Fit(trainData);
+
+            return (trainData, modelWithLabelMapping, result);
+        }
+
+        public static (ExperimentResult<MulticlassClassificationMetrics>,
+            PredictionEngine<ChordData, ChordPredictionResult>) CreateModel(
+                string trainDataFile, uint timeoutInSeconds)
+        {
+            var (_, modelWithLabelMapping, result) =
+                CreateDataViewAndTransformer(trainDataFile, timeoutInSeconds);
+
             var engine =
                 MlContextInstance.Model
                     .CreatePredictionEngine<ChordData, ChordPredictionResult>(
