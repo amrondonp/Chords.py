@@ -33,7 +33,7 @@ namespace ChordTrainer
 
             AutoMlModelCreation.MlContextInstance.Model.Save(
                 modelWithLabelMapping, trainData.Schema,
-                $@"./generatedModels/model{currentTime}L{validationMetrics.LogLoss}.model");
+                $@"./generatedModels/model{currentTime}S{secondsToRun}L{validationMetrics.LogLoss}.model");
         }
 
         private static MulticlassClassificationMetrics GetAndPrintValidationMetricsForData(
