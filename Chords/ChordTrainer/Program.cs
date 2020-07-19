@@ -20,17 +20,17 @@ namespace ChordTrainer
                     "./Resources/trainData.csv", secondsToRun);
 
             Console.WriteLine();
-            GetAndPrintValidationMetricsForData(experimentResult, "./Resources/testData.csv");
+            var validationMetrics = GetAndPrintValidationMetricsForData(experimentResult, "./Resources/testData.csv");
             Console.WriteLine();
             GetAndPrintValidationMetricsForData(experimentResult, "./Resources/trainData.csv");
             Console.WriteLine();
 
             AutoMlModelCreation.MlContextInstance.Model.Save(
                 modelWithLabelMapping, trainData.Schema,
-                $@"./generatedModels/model{currentTime}.model");
+                $@"./generatedModels/model{currentTime}L{validationMetrics.LogLoss}.model");
         }
 
-        private static void GetAndPrintValidationMetricsForData(
+        private static MulticlassClassificationMetrics GetAndPrintValidationMetricsForData(
             ExperimentResult<MulticlassClassificationMetrics> experimentResult, string fileName)
         {
             Console.WriteLine($@"Running experiment for dataset {fileName}");
@@ -54,6 +54,8 @@ namespace ChordTrainer
 
                 Console.WriteLine();
             }
+
+            return validationMetrics;
         }
     }
 }
