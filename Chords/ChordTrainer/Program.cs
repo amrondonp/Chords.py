@@ -20,9 +20,9 @@ namespace ChordTrainer
                     "./Resources/trainData.csv", secondsToRun);
 
             Console.WriteLine();
-            var validationMetrics = GetAndPrintValidationMetricsForData(experimentResult, "./Resources/testData.csv");
+            GetAndPrintValidationMetricsForData(experimentResult, "./Resources/testData.csv");
             Console.WriteLine();
-            GetAndPrintValidationMetricsForData(experimentResult, "./Resources/trainData.csv");
+            var validationMetrics = GetAndPrintValidationMetricsForData(experimentResult, "./Resources/trainData.csv");
             Console.WriteLine();
 
             AutoMlModelCreation.MlContextInstance.Model.Save(
