@@ -10,7 +10,7 @@ namespace Chords.Predictors
         private readonly PredictionEngine<ChordData, ChordPredictionResult>
             engine;
 
-        public AutoMlPredictor(string filePath = "./models/model.ml")
+        public AutoMlPredictor(string filePath = "./models/model1595137632S120L0.004830031641869656.model")
         {
             var predictionPipeline = AutoMlModelCreation
                 .MlContextInstance.Model.Load(

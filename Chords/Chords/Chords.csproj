@@ -36,6 +36,9 @@
     <None Update="models\model.ml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="models\model1595137632S120L0.004830031641869656.model">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
