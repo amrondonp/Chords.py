@@ -6,6 +6,12 @@ namespace ChordsTest.Entities
     [TestClass]
     public class ChordTest
     {
+        public static Chord ChordExample()
+        {
+            var samples = new[] { 1f, 2f, 3f };
+            return new Chord(samples, 44100, "Em");
+        }
+
         [TestMethod]
         public void Chord_IsCreated()
         {

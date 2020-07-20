@@ -36,6 +36,9 @@
     <None Update="Resources\nubes.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\storedTestChords\placeholder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\testData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
