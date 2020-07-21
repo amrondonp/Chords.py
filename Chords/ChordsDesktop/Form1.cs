@@ -17,6 +17,7 @@ namespace ChordsDesktop
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
+        private int playedChord;
         private int windowInMs = 500;
         private string filePath;
         private IPredictor predictor;
@@ -24,6 +25,8 @@ namespace ChordsDesktop
         public Form1(IPredictor predictor)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(100, 100);
 
             chordProcessingProgress = new Progress<int>(v =>
             {
@@ -54,7 +57,7 @@ namespace ChordsDesktop
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = $@"Audio played up to {milliseconds} ms";
-            var playedChord = (int)Math.Floor(milliseconds / windowInMs);
+            playedChord = (int)Math.Floor(milliseconds / windowInMs);
 
             if (playedChord < chordButtons.Length)
             {
@@ -211,6 +214,14 @@ namespace ChordsDesktop
 
             windowInMs = (int)numericUpDown1.Value;
             await CalculateChords();
+        }
+
+        private void CorrectChordButton_Click(object sender, EventArgs e)
+        {
+            chordButtons[playedChord].Text = System.Globalization.CultureInfo.CurrentCulture.TextInfo
+                .ToTitleCase(correctedChordTextBox.Text);
+
+            bigChordLabel.Text = chordButtons[playedChord].Text;
         }
     }
 }

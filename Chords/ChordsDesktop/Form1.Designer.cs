@@ -49,7 +49,7 @@
             this.bigChordLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.correctedChordTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -241,7 +241,7 @@
             this.tableLayoutPanel1.Controls.Add(this.bigChordLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.correctedChordTextBox, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(2077, 77);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -286,15 +286,16 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Correct";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.CorrectChordButton_Click);
             // 
-            // textBox2
+            // correctedChordTextBox
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(4, 715);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(263, 47);
-            this.textBox2.TabIndex = 3;
+            this.correctedChordTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.correctedChordTextBox.Location = new System.Drawing.Point(4, 715);
+            this.correctedChordTextBox.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.correctedChordTextBox.Name = "correctedChordTextBox";
+            this.correctedChordTextBox.Size = new System.Drawing.Size(263, 47);
+            this.correctedChordTextBox.TabIndex = 3;
             // 
             // Form1
             // 
@@ -309,6 +310,7 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Location = new System.Drawing.Point(100, 100);
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form1";
             this.Text = "Chords - Machine Learning detection of guitar chords";
@@ -348,7 +350,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label bigChordLabel;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox correctedChordTextBox;
     }
 }
 
