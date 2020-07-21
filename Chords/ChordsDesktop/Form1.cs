@@ -210,5 +210,10 @@ namespace ChordsDesktop
             windowInMs = (int)numericUpDown1.Value;
             await CalculateChords();
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
