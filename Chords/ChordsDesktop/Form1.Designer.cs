@@ -46,7 +46,7 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.bigChordLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -238,7 +238,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.bigChordLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBox2, 0, 2);
@@ -253,18 +253,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(541, 779);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
-            // label6
+            // bigChordLabel
             // 
-            this.label6.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label6, 2);
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(4, 79);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(533, 620);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Em";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bigChordLabel.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.bigChordLabel, 2);
+            this.bigChordLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bigChordLabel.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bigChordLabel.Location = new System.Drawing.Point(4, 79);
+            this.bigChordLabel.Name = "bigChordLabel";
+            this.bigChordLabel.Size = new System.Drawing.Size(533, 620);
+            this.bigChordLabel.TabIndex = 1;
+            this.bigChordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -347,7 +346,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label bigChordLabel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
     }

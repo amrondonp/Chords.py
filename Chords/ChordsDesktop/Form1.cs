@@ -65,6 +65,8 @@ namespace ChordsDesktop
                     flowLayoutPanel1.ScrollControlIntoView(
                         chordButtons[playedChord]);
                 }
+
+                bigChordLabel.Text = chordButtons[playedChord].Text;
             }
 
             for (var i = 0; i < chordButtons.Length; i++)
