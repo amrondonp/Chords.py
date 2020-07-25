@@ -28,7 +28,7 @@ namespace Chords.Repositories
 
             foreach(string chordFile in chordFiles)
             {
-                var chordJson = File.ReadAllText(chordFile);
+                var chordJson = await File.ReadAllTextAsync(chordFile);
                 var chord = JsonSerializer.Deserialize<Chord>(chordJson);
                 var pcp = await Task.Run(() => Profiling.Profiling.PitchClassProfileForSamples(chord.Samples, chord.SampleRate));
                 foreach(double component in pcp)
