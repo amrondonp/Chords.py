@@ -53,6 +53,11 @@ namespace Chords.MachineLearning
                 separatorChar: ','
             );
 
+            return CreateTransformerGivenDataView(trainData, timeoutInSeconds);
+        }
+
+        private static (IDataView, ITransformer, ExperimentResult<MulticlassClassificationMetrics>) CreateTransformerGivenDataView(IDataView trainData, uint timeoutInSeconds)
+        {
             var experiment = MlContextInstance.Auto()
                 .CreateMulticlassClassificationExperiment(timeoutInSeconds);
             var result = experiment.Execute(
@@ -78,6 +83,20 @@ namespace Chords.MachineLearning
         {
             var (_, modelWithLabelMapping, result) =
                 CreateDataViewAndTransformer(trainDataFile, timeoutInSeconds);
+
+            var engine =
+                MlContextInstance.Model
+                    .CreatePredictionEngine<ChordData, ChordPredictionResult>(
+                        modelWithLabelMapping);
+
+            return (result, engine);
+        }
+
+        public static (ExperimentResult<MulticlassClassificationMetrics>,
+            PredictionEngine<ChordData, ChordPredictionResult>) CreateModelGivenDataView(IDataView trainData, uint timeoutInSeconds)
+        {
+            var (_, modelWithLabelMapping, result) =
+               CreateTransformerGivenDataView(trainData, timeoutInSeconds);
 
             var engine =
                 MlContextInstance.Model
