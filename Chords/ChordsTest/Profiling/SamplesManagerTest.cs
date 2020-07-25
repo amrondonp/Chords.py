@@ -116,6 +116,84 @@ namespace ChordsTest.Profiling
         }
 
         [TestMethod]
+        public void MakesSampleChunks_MinumumWindowInMs()
+        {
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            var samplesManager = new Chords.Profiling.SamplesManager(sampleRate, samples);
+
+            var windowInMs = 1;
+            var expectedNewSize = Chords.Profiling.LongAudioProfiling.GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
+
+            var isThereAnIncompleteChunk = samples.Length % expectedNewSize != 0;
+
+            var (sampleRateReturned, samplesReturned) =
+                samplesManager.GetSamplesAtPositionGivenWindowInMs(123, windowInMs);
+
+            Assert.IsTrue(isThereAnIncompleteChunk);
+            Assert.AreEqual(sampleRateReturned, sampleRate);
+            Assert.AreEqual(samplesReturned.Length, expectedNewSize);
+            AssertArrayEqualOnOffset(samplesReturned, samples, 123 * expectedNewSize);
+        }
+
+        [TestMethod]
+        public void MakesSampleChunks_LastChunkEdgeCase()
+        {
+            var sampleRate = 44100;
+            var samples = new float[sampleRate * 10];
+            var random = new Random();
+
+            for(var i = 0;  i< samples.Length; i++)
+            {
+                samples[i] = (float)random.NextDouble();
+            }
+
+            var samplesManager = new Chords.Profiling.SamplesManager(sampleRate, samples);
+
+            var windowInMs = 1000;
+            var expectedNewSize = Chords.Profiling.LongAudioProfiling.GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
+            var position = 9;
+            var isThereAnIncompleteChunk = samples.Length % expectedNewSize != 0;
+
+            var (sampleRateReturned, samplesReturned) =
+                samplesManager.GetSamplesAtPositionGivenWindowInMs(position, windowInMs);
+
+            Assert.IsFalse(isThereAnIncompleteChunk);
+
+            Assert.AreEqual(sampleRateReturned, sampleRate);
+            Assert.AreEqual(samplesReturned.Length, expectedNewSize);
+            AssertArrayEqualOnOffset(samplesReturned, samples, position * expectedNewSize);
+        }
+
+        [TestMethod]
+        public void MakesSampleChunks_OutOfBoundsChunkThrowsAnErrorEdgeCase()
+        {
+            var sampleRate = 44100;
+            var samples = new float[sampleRate * 10];
+            var random = new Random();
+
+            for (var i = 0; i < samples.Length; i++)
+            {
+                samples[i] = (float)random.NextDouble();
+            }
+
+            var samplesManager = new Chords.Profiling.SamplesManager(sampleRate, samples);
+
+            var exceptionThrown = false;
+
+            try
+            {
+                samplesManager.GetSamplesAtPositionGivenWindowInMs(10, 1000);
+            }
+            catch (Exception)
+            {
+                exceptionThrown = true;
+            }
+
+            Assert.IsTrue(exceptionThrown);
+        }
+
+
+        [TestMethod]
         public void MakesSampleChunks_OutOfBoundsChunkThrowsAnError()
         {
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
