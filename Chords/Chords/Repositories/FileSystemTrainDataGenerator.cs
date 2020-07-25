@@ -1,8 +1,5 @@
 ﻿using Chords.Entities;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -23,7 +20,7 @@ namespace Chords.Repositories
         {
             var chordFiles = Directory.GetFiles(inputDirectory, "*.json");
             using StreamWriter sw = File.CreateText(outputCsvFile);
-            sw.Write(fileHeader());
+            sw.Write(FileHeader());
             sw.Write("\n");
 
             foreach(string chordFile in chordFiles)
@@ -42,7 +39,7 @@ namespace Chords.Repositories
 
         }
 
-        private string fileHeader()
+        private string FileHeader()
         {
             return "c,c#,d,d#,e,f,f#,g,g#,a,a#,b,chord";
         }
