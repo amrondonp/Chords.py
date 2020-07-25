@@ -4,7 +4,7 @@ namespace Chords.Repositories
 {
     public interface IChordRepository
     {
-        void SaveChord(Chord chord);
-        void LoadChord(string fileName);
+        string SaveChord(Chord chord);
+        Chord LoadChord(string fileName);
     }
 }

@@ -13,15 +13,20 @@ namespace Chords.Repositories
             this.directory = directory;
         }
 
-        public void LoadChord(string fileName)
+        public Chord LoadChord(string id)
         {
-            throw new System.NotImplementedException();
+            var fileName = directory + id + ".json";
+            var jsonString = File.ReadAllText(fileName);
+            return JsonSerializer.Deserialize<Chord>(jsonString);
         }
 
-        public void SaveChord(Chord chord)
+        public string SaveChord(Chord chord)
         {
+            var id = System.Guid.NewGuid();
             var jsonString = JsonSerializer.Serialize(chord);
-            File.WriteAllText(directory + System.Guid.NewGuid() + ".json", jsonString);
+            File.WriteAllText(directory + id + ".json", jsonString);
+
+            return id.ToString();
         }
     }
 }
