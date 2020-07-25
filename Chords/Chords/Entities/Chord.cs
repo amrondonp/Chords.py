@@ -6,6 +6,7 @@
         public int SampleRate { get; }
         public string Name { get; }
 
+        public Chord() { }
         public Chord(float[] samples, int sampleRate, string name)
         {
             Name = name;

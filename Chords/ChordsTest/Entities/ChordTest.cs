@@ -1,5 +1,6 @@
 ﻿using Chords.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace ChordsTest.Entities
 {
@@ -8,7 +9,15 @@ namespace ChordsTest.Entities
     {
         public static Chord ChordExample()
         {
-            var samples = new[] { 1f, 2f, 3f };
+            var sampleCount = 12340;
+            var samples = new float[sampleCount];
+
+            var random = new Random();
+
+            for (var i = 0; i < sampleCount; i++) {
+                samples[i] = (float)random.NextDouble();
+            } 
+
             return new Chord(samples, 44100, "Em");
         }
 

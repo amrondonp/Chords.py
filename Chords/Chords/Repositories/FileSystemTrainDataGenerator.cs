@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Chords.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace Chords.Repositories
 {
@@ -18,8 +20,19 @@ namespace Chords.Repositories
 
         public void GenerateTrainData()
         {
+            var chordFiles = Directory.GetFiles(inputDirectory, "*.json");
             using StreamWriter sw = File.CreateText(outputCsvFile);
-            sw.WriteLine(fileHeader());
+            sw.Write(fileHeader());
+            sw.Write("\n");
+
+            foreach(string chordFile in chordFiles)
+            {
+                var chordJson = File.ReadAllText(chordFile);
+                var chord = JsonSerializer.Deserialize<Chord>(chordJson);
+                sw.Write("Em");
+                sw.Write("\n");
+            }
+
         }
 
         private string fileHeader()
