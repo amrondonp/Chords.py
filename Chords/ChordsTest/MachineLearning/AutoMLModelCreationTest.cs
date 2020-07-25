@@ -55,11 +55,10 @@ namespace ChordsTest.MachineLearning
         [TestMethod]
         public void GetModelWithDataView()
         {
-            var trainData = AutoMlModelCreation.MlContextInstance.Data.LoadFromTextFile<ChordData>(
-                "./Resources/trainData.csv",
-                hasHeader: true,
-                separatorChar: ','
-            );
+            var textLoader = AutoMlModelCreation.MlContextInstance
+                .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
+
+            var trainData = textLoader.Load("./Resources/trainData.csv");
 
             var (experimentResult, predictionEngine) =
                 AutoMlModelCreation.CreateModelGivenDataView(trainData, 1);
