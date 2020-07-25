@@ -3,6 +3,7 @@ using Chords.Repositories;
 using System.IO;
 using Chords.Entities;
 using ChordsTest.Entities;
+using System.Threading.Tasks;
 
 namespace ChordsTest.Repository
 {
@@ -10,7 +11,7 @@ namespace ChordsTest.Repository
     public class FileSystemTrainDataGeneratorTest
     {
         [TestMethod]
-        public void EmptyFolder_GeneratesCsvTrainDataEmpty()
+        public async Task EmptyFolder_GeneratesCsvTrainDataEmpty()
         {
             const string inputDirectory = "./Resources/trainDataGeneratorFolderEmpty/";
             const string outputCsvFile = inputDirectory + "trainDataGenerated.csv";
@@ -23,7 +24,7 @@ namespace ChordsTest.Repository
 
                 var trainDataGenerator = new FileSystemTrainDataGenerator(inputDirectory, outputCsvFile);
 
-                trainDataGenerator.GenerateTrainData();
+                await trainDataGenerator.GenerateTrainData();
 
                 Assert.AreEqual(Directory.GetFiles(inputDirectory, "*.json").Length, 0);
                 Assert.IsTrue(File.Exists(outputCsvFile));
@@ -41,7 +42,7 @@ namespace ChordsTest.Repository
         }
 
         [TestMethod]
-        public void WithChordsInFolder_GeneratesCsvTrainDataEmpty()
+        public async Task WithChordsInFolder_GeneratesCsvTrainDataEmpty()
         {
             const string inputDirectory = "./Resources/trainDataGeneratorFolder10Chords/";
             const string outputCsvFile = inputDirectory + "trainDataGenerated.csv";
@@ -69,7 +70,7 @@ namespace ChordsTest.Repository
                 Assert.IsFalse(File.Exists(outputCsvFile));
 
                 var trainDataGenerator = new FileSystemTrainDataGenerator(inputDirectory, outputCsvFile);
-                trainDataGenerator.GenerateTrainData();
+                await trainDataGenerator.GenerateTrainData();
 
                 Assert.AreEqual(Directory.GetFiles(inputDirectory, "*.json").Length, 10);
                 Assert.IsTrue(File.Exists(outputCsvFile));
@@ -77,7 +78,17 @@ namespace ChordsTest.Repository
                 string[] fileContent = File.ReadAllText(outputCsvFile).Split("\n");
 
                 Assert.AreEqual(fileContent.Length, 12);
-                // TODO ASSERT contents
+
+                var contentsRegistry = fileContent[4].Split(",");
+                Assert.AreEqual(contentsRegistry.Length, 13);
+
+                for(var i = 0; i < contentsRegistry.Length - 1; i++)
+                {
+                    var isDouble = double.TryParse(contentsRegistry[i], out double _);
+                    Assert.IsTrue(isDouble);
+                }
+
+                Assert.AreEqual(contentsRegistry[12], chords[4].Name);
                 Assert.AreEqual(fileContent[0], "c,c#,d,d#,e,f,f#,g,g#,a,a#,b,chord");
             }
             finally

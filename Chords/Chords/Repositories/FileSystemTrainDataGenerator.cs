@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Chords.Repositories
 {
@@ -18,7 +19,7 @@ namespace Chords.Repositories
             this.outputCsvFile = outputCsvFile; 
         }
 
-        public void GenerateTrainData()
+        public async Task GenerateTrainData()
         {
             var chordFiles = Directory.GetFiles(inputDirectory, "*.json");
             using StreamWriter sw = File.CreateText(outputCsvFile);
@@ -29,7 +30,13 @@ namespace Chords.Repositories
             {
                 var chordJson = File.ReadAllText(chordFile);
                 var chord = JsonSerializer.Deserialize<Chord>(chordJson);
-                sw.Write("Em");
+                var pcp = await Task.Run(() => Profiling.Profiling.PitchClassProfileForSamples(chord.Samples, chord.SampleRate));
+                foreach(double component in pcp)
+                {
+                    sw.Write(component);
+                    sw.Write(",");
+                }
+                sw.Write(chord.Name);
                 sw.Write("\n");
             }
 

@@ -77,7 +77,11 @@ namespace ChordsTest.Repository
                 var jsonFiles =
                     Directory.EnumerateFiles(directory, "*.json").ToList();
 
-                File.Delete(jsonFiles.FirstOrDefault());
+                foreach(var jsonFile in jsonFiles)
+                {
+                    File.Delete(jsonFile);
+                }
+
                 Directory.Delete(directory);
             }
         }
