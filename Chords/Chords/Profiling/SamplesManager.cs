@@ -13,7 +13,9 @@
 
         public (int, float[]) GetSamplesAtPositionGivenWindowInMs(int position, int windowInMs)
         {
+
             var newSampleSize = LongAudioProfiling.GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
+            var expectedSampleSize = newSampleSize;
 
             var isLastChunkIncomplete = samples.Length % newSampleSize != 0;
             var isLastChunk = (position + 1) * newSampleSize > samples.Length;
@@ -26,7 +28,7 @@
             var samplesReturned = new float[newSampleSize];
             for (var i = 0; i < newSampleSize; i++)
             {
-                samplesReturned[i] = samples[position * newSampleSize + i];
+                samplesReturned[i] = samples[position * expectedSampleSize + i];
             }
 
             return (sampleRate, samplesReturned);
