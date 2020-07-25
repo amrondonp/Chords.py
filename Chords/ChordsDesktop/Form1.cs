@@ -222,6 +222,22 @@ namespace ChordsDesktop
                 .ToTitleCase(correctedChordTextBox.Text);
 
             bigChordLabel.Text = chordButtons[playedChord].Text;
+
+            var biggestButtonWidth = 0;
+            var biggestButtonHeight = 0;
+
+            for (var i = 0; i < chordButtons.Length; i++)
+            {
+                var button = chordButtons[i];
+                biggestButtonWidth = Math.Max(biggestButtonWidth, button.PreferredSize.Width);
+                biggestButtonHeight = Math.Max(biggestButtonHeight, button.PreferredSize.Height);
+            }
+
+            foreach (var button in chordButtons)
+            {
+                button.Width = biggestButtonWidth;
+                button.Height = biggestButtonHeight;
+            }
         }
     }
 }
