@@ -13,6 +13,11 @@ namespace Chords.Repositories
             this.directory = directory;
         }
 
+        public void LoadChord(string fileName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SaveChord(Chord chord)
         {
             var jsonString = JsonSerializer.Serialize(chord);

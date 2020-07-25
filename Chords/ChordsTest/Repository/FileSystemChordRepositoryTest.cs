@@ -13,26 +13,36 @@ namespace ChordsTest.Repository
         [TestMethod]
         public void SaveChord_LoadChord_Correctly()
         {
-            const string directory = "./Resources/storedTestChords/";
-            IChordRepository repository = new FileSystemChordRepository(directory);
+            const string directory = "./Resources/storedTestChordsSaveChord/";
+            
+            try
+            {
+                Directory.CreateDirectory(directory);
+                IChordRepository repository = new FileSystemChordRepository(directory);
 
-            var chord = ChordTest.ChordExample();
+                var chord = ChordTest.ChordExample();
 
-            var existingJsonFilesCount = Directory
-                .EnumerateFiles(directory, "*.json").Count();
+                var existingJsonFilesCount = Directory
+                    .EnumerateFiles(directory, "*.json").Count();
 
-            repository.SaveChord(chord);
+                repository.SaveChord(chord);
 
-            var jsonFiles =
-                Directory.EnumerateFiles(directory, "*.json").ToList();
+                var jsonFiles =
+                    Directory.EnumerateFiles(directory, "*.json").ToList();
 
-            Assert.AreEqual(jsonFiles.Count(), existingJsonFilesCount + 1);
+                Assert.AreEqual(jsonFiles.Count(), existingJsonFilesCount + 1);
 
-            var content = File.ReadAllText(jsonFiles.FirstOrDefault());
+                var content = File.ReadAllText(jsonFiles.FirstOrDefault());
 
-            Assert.AreEqual(content, JsonSerializer.Serialize(chord));
+                Assert.AreEqual(content, JsonSerializer.Serialize(chord));
 
-            File.Delete(jsonFiles.FirstOrDefault());
+            } finally {
+                var jsonFiles =
+                    Directory.EnumerateFiles(directory, "*.json").ToList();
+
+                File.Delete(jsonFiles.FirstOrDefault());
+                Directory.Delete(directory);
+            }
         }
     }
 }
