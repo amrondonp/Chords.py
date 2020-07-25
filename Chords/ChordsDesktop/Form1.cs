@@ -1,4 +1,6 @@
 ﻿using Chords.Predictors;
+using Chords.Profiling;
+using Chords.Repositories;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -21,8 +23,10 @@ namespace ChordsDesktop
         private int windowInMs = 500;
         private string filePath;
         private IPredictor predictor;
+        private IChordRepository repository;
+        private SamplesManager samplesManager;
 
-        public Form1(IPredictor predictor)
+        public Form1(IPredictor predictor, IChordRepository repository)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.Manual;
@@ -46,6 +50,7 @@ namespace ChordsDesktop
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.predictor = predictor;
+            this.repository = repository;
         }
 
         public sealed override bool AutoSize
@@ -98,9 +103,12 @@ namespace ChordsDesktop
             var sw = new Stopwatch();
 
             sw.Start();
+            var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
+            this.samplesManager = new SamplesManager(sampleRate, samples);
+
             var chordsPredicted = await Task.Run(() =>
-                predictor.GetPredictionForFile(filePath,
-                    chordProcessingProgress, windowInMs)
+                predictor.GetPredictions(samples, sampleRate,
+                    windowInMs, chordProcessingProgress)
             );
             sw.Stop();
 
@@ -238,6 +246,13 @@ namespace ChordsDesktop
                 button.Width = biggestButtonWidth;
                 button.Height = biggestButtonHeight;
             }
+
+            var (sampleRate, samples) = samplesManager.GetSamplesAtPositionGivenWindowInMs(playedChord, windowInMs);
+            var chord = new Chords.Entities.Chord(samples, sampleRate, chordButtons[playedChord].Text);
+            Task.Run(() =>
+            {
+                repository.SaveChord(chord);
+            });
         }
     }
 }

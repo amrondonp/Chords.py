@@ -15,7 +15,10 @@ namespace ChordsDesktop
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(new AutoMlPredictor()));
+            Application.Run(new Form1(
+                new AutoMlPredictor(),
+                new Chords.Repositories.FileSystemChordRepository("./storedChords/")
+            ));
         }
     }
 }
