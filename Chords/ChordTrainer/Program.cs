@@ -14,7 +14,6 @@ namespace ChordTrainer
     {
         static async Task Main(string[] args)
         {
-            args = new string[] { "180", "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\Chords\\ChordsDesktop\\bin\\Debug\\netcoreapp3.1\\storedChords" };
             uint secondsToRun = 1;
             string directory = null;
 
