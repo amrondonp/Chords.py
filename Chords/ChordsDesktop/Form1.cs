@@ -274,7 +274,16 @@ namespace ChordsDesktop
             }
 
             var newModelName = openFileDialog.FileName;
-            this.predictor = new AutoMlPredictor(newModelName);
+
+            if(newModelName.Split(".")[^1].Equals("onnx"))
+            {
+                // TODO add propper change of onnx model
+                this.predictor = new ClassicPredictor();
+            } else
+            {
+                this.predictor = new AutoMlPredictor(newModelName);
+            }
+
 
             if (audioPlayer == null)
             {
