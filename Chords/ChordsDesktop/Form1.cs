@@ -49,6 +49,9 @@ namespace ChordsDesktop
 
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.toolStripMenuItem3.Click += new EventHandler(this.ChangeModel);
+
+
             this.predictor = predictor;
             this.repository = repository;
         }
@@ -253,6 +256,33 @@ namespace ChordsDesktop
             {
                 repository.SaveChord(chord);
             });
+        }
+
+        private async void ChangeModel(object sender, EventArgs e)
+        {
+            using var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = ".\\models",
+                Filter = @"Chord Model (*.model;*.onnx)|*.model;*.onnx",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            var newModelName = openFileDialog.FileName;
+            this.predictor = new AutoMlPredictor(newModelName);
+
+            if (audioPlayer == null)
+            {
+                return;
+            }
+
+            audioPlayer.Stop();
+            await CalculateChords();
         }
     }
 }
