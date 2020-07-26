@@ -1,19 +1,37 @@
 ﻿using Chords.MachineLearning;
+using Chords.Repositories;
+using Microsoft.ML;
 using Microsoft.ML.AutoML;
 using Microsoft.ML.Data;
 using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ChordTrainer
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            args = new string[] { "180", "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\Chords\\ChordsDesktop\\bin\\Debug\\netcoreapp3.1\\storedChords" };
             uint secondsToRun = 1;
+            string directory = null;
 
             if (args.Length >= 1)
             {
                 secondsToRun = uint.Parse(args[0]);
+            }
+
+            if(args.Length >= 2)
+            {
+                directory = args[1];
+            }
+
+            if(directory != null)
+            {
+                var trainDataGenerator = new FileSystemTrainDataGenerator(directory, Path.Combine(directory, "trainData.csv"));
+                await trainDataGenerator.GenerateTrainData();
             }
 
             var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -21,9 +39,15 @@ namespace ChordTrainer
             Console.WriteLine(
                 $@"Training Prediction model with AutoML for {secondsToRun} seconds");
 
-            var (trainData, modelWithLabelMapping, experimentResult) =
-                AutoMlModelCreation.CreateDataViewAndTransformer(
-                    "./Resources/trainData.csv", secondsToRun);
+            var textLoader = AutoMlModelCreation.MlContextInstance
+                .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
+
+            var trainDataFiles = Directory.GetFiles(directory, "*.csv");
+            var trainData = textLoader.Load(trainDataFiles.Append("./Resources/trainData.csv").ToArray());
+
+            var (_, modelWithLabelMapping, experimentResult) =
+                AutoMlModelCreation.CreateTransformerGivenDataView(trainData, secondsToRun);
+
 
             Console.WriteLine();
             GetAndPrintValidationMetricsForData(experimentResult, "./Resources/testData.csv");

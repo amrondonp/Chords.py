@@ -56,7 +56,7 @@ namespace Chords.MachineLearning
             return CreateTransformerGivenDataView(trainData, timeoutInSeconds);
         }
 
-        private static (IDataView, ITransformer, ExperimentResult<MulticlassClassificationMetrics>) CreateTransformerGivenDataView(IDataView trainData, uint timeoutInSeconds)
+        public static (IDataView, ITransformer, ExperimentResult<MulticlassClassificationMetrics>) CreateTransformerGivenDataView(IDataView trainData, uint timeoutInSeconds)
         {
             var experiment = MlContextInstance.Auto()
                 .CreateMulticlassClassificationExperiment(timeoutInSeconds);
