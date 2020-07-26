@@ -42,7 +42,7 @@ namespace ChordsTest.Repository
         }
 
         [TestMethod]
-        public async Task WithChordsInFolder_GeneratesCsvTrainDataEmpty()
+        public async Task WithChordsInFolder_GeneratesCsvTrainData()
         {
             const string inputDirectory = "./Resources/trainDataGeneratorFolder10Chords/";
             const string outputCsvFile = inputDirectory + "trainDataGenerated.csv";
@@ -88,7 +88,7 @@ namespace ChordsTest.Repository
                     Assert.IsTrue(isDouble);
                 }
 
-                Assert.AreEqual(contentsRegistry[12], chords[4].Name);
+                Assert.AreEqual(contentsRegistry[12], chords[4].Name.ToLower());
                 Assert.AreEqual(fileContent[0], "c,c#,d,d#,e,f,f#,g,g#,a,a#,b,chord");
             }
             finally

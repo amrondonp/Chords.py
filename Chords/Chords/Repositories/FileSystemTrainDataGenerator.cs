@@ -33,7 +33,7 @@ namespace Chords.Repositories
                     sw.Write(component);
                     sw.Write(",");
                 }
-                sw.Write(chord.Name);
+                sw.Write(chord.Name.ToLower());
                 sw.Write("\n");
             }
 
