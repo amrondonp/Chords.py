@@ -231,6 +231,7 @@ namespace ChordsDesktop
         {
             chordButtons[playedChord].Text = System.Globalization.CultureInfo.CurrentCulture.TextInfo
                 .ToTitleCase(correctedChordTextBox.Text);
+            chordButtons[playedChord].Font = new Font(chordButtons[playedChord].Font, FontStyle.Italic);
 
             bigChordLabel.Text = chordButtons[playedChord].Text;
 
