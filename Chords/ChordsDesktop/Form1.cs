@@ -77,7 +77,8 @@ namespace ChordsDesktop
                 powers[i] = new PictureBox
                 {
                     Height = 0,
-                    BackColor = System.Drawing.SystemColors.ActiveCaption
+                    BackColor = System.Drawing.SystemColors.ActiveCaption,
+                    Dock = DockStyle.Bottom
                 };
 
                 panel.Controls.Add(powers[i]);
@@ -98,7 +99,7 @@ namespace ChordsDesktop
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = $@"Audio played up to {milliseconds} ms";
-            playedChord = (int)Math.Floor(milliseconds / windowInMs);
+            playedChord = (int)Math.Round(milliseconds / windowInMs);
 
             if (playedChord < chordButtons.Length)
             {
@@ -111,6 +112,7 @@ namespace ChordsDesktop
                 }
 
                 bigChordLabel.Text = chordButtons[playedChord].Text;
+                UpdatePcpChart(chordsPredicted[playedChord]);
             }
 
             for (var i = 0; i < chordButtons.Length; i++)
@@ -336,6 +338,14 @@ namespace ChordsDesktop
                 "./Resources/trainData.csv", "./Resources/testData.csv", "./storedChords/", (uint)trainSeconds.Value, "./models/",
                trainProgress
             ));
+        }
+
+        private void UpdatePcpChart(Chord chord) {
+            for(int i = 0; i < chord.Pcp.Length; i++)
+            {
+                var computedHeight = chord.Pcp[i] * containerPanels[i].Height;
+                powers[i].Height = (int)Math.Floor(computedHeight);
+            }
         }
     }
 }
