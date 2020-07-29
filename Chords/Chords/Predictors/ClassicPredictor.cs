@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chords.Entities;
+using System;
 
 namespace Chords.Predictors
 {
@@ -23,6 +24,11 @@ namespace Chords.Predictors
         {
             return Profiling.LongAudioProfiling.GetPredictionWithProgressReport(
                 filePath, progress, windowInMs);
+        }
+
+        public Chord GetPredictionWithChord(float[] sample, int sampleRate)
+        {
+            return Profiling.Profiling.GetPredictionWithChord(sampleRate, sample);
         }
     }
 }

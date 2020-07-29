@@ -1,4 +1,5 @@
-﻿using Chords.MachineLearning;
+﻿using Chords.Entities;
+using Chords.MachineLearning;
 using Chords.Profiling;
 using Microsoft.ML;
 using System;
@@ -33,6 +34,21 @@ namespace Chords.Predictors
 
             return System.Globalization.CultureInfo.CurrentCulture.TextInfo
                 .ToTitleCase(prediction.ToLower());
+        }
+
+        public Chord GetPredictionWithChord(float[] sample, int sampleRate)
+        {
+            var pcp =
+                Profiling.Profiling.PitchClassProfileForSamples(sample,
+                    sampleRate);
+
+            var chordData = AutoMlModelCreation.GetChordDataFromPcp(pcp);
+
+            var prediction = engine.Predict(chordData).ChordPrediction;
+
+            var chord = new Chord(sample, sampleRate, System.Globalization.CultureInfo.CurrentCulture.TextInfo
+                .ToTitleCase(prediction.ToLower()), pcp);
+            return chord;
         }
 
         public string[] GetPredictions(float[] samples, int sampleRate,

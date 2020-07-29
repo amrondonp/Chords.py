@@ -283,7 +283,8 @@ namespace ChordsDesktop
             }
 
             var (sampleRate, samples) = samplesManager.GetSamplesAtPositionGivenWindowInMs(playedChord, windowInMs);
-            var chord = new Chords.Entities.Chord(samples, sampleRate, chordButtons[playedChord].Text);
+            // TODO FIX HACK 
+            var chord = new Chords.Entities.Chord(samples, sampleRate, chordButtons[playedChord].Text, new double[] { });
             Task.Run(() =>
             {
                 repository.SaveChord(chord);

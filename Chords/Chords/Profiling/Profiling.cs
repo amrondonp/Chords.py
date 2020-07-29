@@ -1,4 +1,5 @@
-﻿using MathNet.Numerics.IntegralTransforms;
+﻿using Chords.Entities;
+using MathNet.Numerics.IntegralTransforms;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using NAudio.Wave;
@@ -94,10 +95,10 @@ namespace Chords.Profiling
         public static float[] GetRawPredictionForFile(string pathToAudioFile)
         {
             var (sampleRate, samples) = GetSamples(pathToAudioFile);
-            return GetRawPrediction(sampleRate, samples);
+            return GetRawPrediction(sampleRate, samples).Item1;
         }
 
-        public static float[] GetRawPrediction(int sampleRate, float[] samples)
+        public static (float[], double[]) GetRawPrediction(int sampleRate, float[] samples)
         {
             var fft = GetFft(samples);
             var pcp = PitchClassProfile(fft, sampleRate);
@@ -114,7 +115,8 @@ namespace Chords.Profiling
                 new InferenceSession("models/binary_crossentropy.onnx");
 
             using var results = session.Run(input);
-            return results.First().AsEnumerable<float>().ToArray();
+
+            return (results.First().AsEnumerable<float>().ToArray(), pcp);
         }
 
         public static string GetPredictionForFile(string pathToAudioFile)
@@ -126,7 +128,13 @@ namespace Chords.Profiling
         public static string GetPrediction(int sampleRate, float[] samples)
         {
             var rawPrediction = GetRawPrediction(sampleRate, samples);
-            return GetPredictionFormRawPrediction(rawPrediction);
+            return GetPredictionFormRawPrediction(rawPrediction.Item1);
+        }
+
+        public static Chord GetPredictionWithChord(int sampleRate, float[] samples)
+        {
+            var (rawPrediction, pcp) = GetRawPrediction(sampleRate, samples);
+            return new Chord(samples, sampleRate, GetPredictionFormRawPrediction(rawPrediction), pcp);
         }
 
         private static string GetPredictionFormRawPrediction(

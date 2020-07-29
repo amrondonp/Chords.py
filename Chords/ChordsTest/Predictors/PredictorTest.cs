@@ -11,18 +11,42 @@ namespace ChordsTest.Predictors
         [TestMethod]
         public void ClassicPredictor_GetPredictionsForSample_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new ClassicPredictor();
+            var predictor = new ClassicPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
-            Assert.AreEqual(classicPredictor.GetPrediction(samples, sampleRate), "D");
+            Assert.AreEqual(predictor.GetPrediction(samples, sampleRate), "D");
+        }
+
+        [TestMethod]
+        public void ClassicPredictor_GetPredictionsForSample_CallsGetPredictionCorrectlyWithChord()
+        {
+            var predictor = new ClassicPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            var chord = predictor.GetPredictionWithChord(samples, sampleRate);
+            Assert.AreEqual(chord.Name, "D");
+
+            var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(samples, sampleRate);
+            Assert.AreEqual(sampleRate, chord.SampleRate);
+            
+            Assert.AreEqual(pcp.Length, chord.Pcp.Length);
+            for (var i = 0; i < pcp.Length; i++)
+            {
+                Assert.IsTrue(Math.Abs(pcp[i] - chord.Pcp[i]) < 1e-8);
+            }
+
+            Assert.AreEqual(samples.Length, chord.Samples.Length);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                Assert.IsTrue(Math.Abs(samples[i] - chord.Samples[i]) < 1e-8);
+            }
         }
 
         [TestMethod]
         public void ClassicPredictor_GetPredictionsForLongSample_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new ClassicPredictor();
+            var predictor = new ClassicPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/about.wav");
             var predictions =
-                classicPredictor.GetPredictions(samples, sampleRate, 500, new Progress<int>());
+                predictor.GetPredictions(samples, sampleRate, 500, new Progress<int>());
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
@@ -31,9 +55,9 @@ namespace ChordsTest.Predictors
         [TestMethod]
         public void ClassicPredictor_GetPredictionsForFile_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new ClassicPredictor();
+            var predictor = new ClassicPredictor();
             var predictions =
-                classicPredictor.GetPredictionForFile("./Resources/about.wav", new Progress<int>(), 500);
+                predictor.GetPredictionForFile("./Resources/about.wav", new Progress<int>(), 500);
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
@@ -42,18 +66,43 @@ namespace ChordsTest.Predictors
         [TestMethod]
         public void AutoMlPredictor_GetPredictionsForSample_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new AutoMlPredictor();
+            var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
-            Assert.AreEqual(classicPredictor.GetPrediction(samples, sampleRate), "D");
+            Assert.AreEqual(predictor.GetPrediction(samples, sampleRate), "D");
         }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionsForSample_CallsGetPredictionCorrectlyWithChord()
+        {
+            var predictor = new AutoMlPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");
+            var chord = predictor.GetPredictionWithChord(samples, sampleRate);
+            Assert.AreEqual(chord.Name, "D");
+
+            var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(samples, sampleRate);
+            Assert.AreEqual(sampleRate, chord.SampleRate);
+
+            Assert.AreEqual(pcp.Length, chord.Pcp.Length);
+            for (var i = 0; i < pcp.Length; i++)
+            {
+                Assert.IsTrue(Math.Abs(pcp[i] - chord.Pcp[i]) < 1e-8);
+            }
+
+            Assert.AreEqual(samples.Length, chord.Samples.Length);
+            for (var i = 0; i < samples.Length; i++)
+            {
+                Assert.IsTrue(Math.Abs(samples[i] - chord.Samples[i]) < 1e-8);
+            }
+        }
+
 
         [TestMethod]
         public void AutoMlPredictor_GetPredictionsForLongSample_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new AutoMlPredictor();
+            var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/about.wav");
             var predictions =
-                classicPredictor.GetPredictions(samples, sampleRate, 500, new Progress<int>());
+                predictor.GetPredictions(samples, sampleRate, 500, new Progress<int>());
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
@@ -62,9 +111,9 @@ namespace ChordsTest.Predictors
         [TestMethod]
         public void AutoMlPredictor_GetPredictionsForFile_CallsGetPredictionCorrectly()
         {
-            var classicPredictor = new AutoMlPredictor();
+            var predictor = new AutoMlPredictor();
             var predictions =
-                classicPredictor.GetPredictionForFile("./Resources/about.wav", new Progress<int>(), 500);
+                predictor.GetPredictionForFile("./Resources/about.wav", new Progress<int>(), 500);
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
