@@ -66,10 +66,16 @@ namespace ChordsTest.Repository
                 Assert.AreEqual(chord.Name, loadedChord.Name);
                 Assert.AreEqual(chord.SampleRate, loadedChord.SampleRate);
                 Assert.AreEqual(chord.Samples.Length, loadedChord.Samples.Length);
+                Assert.AreEqual(chord.Pcp.Length, loadedChord.Pcp.Length);
 
-                for(var i = 0; i < chord.Samples.Length; i++)
+                for (var i = 0; i < chord.Samples.Length; i++)
                 {
                     Assert.AreEqual(chord.Samples[i], loadedChord.Samples[i]);
+                }
+
+                for (var i = 0; i < chord.Pcp.Length; i++)
+                {
+                    Assert.AreEqual(chord.Pcp[i], loadedChord.Pcp[i]);
                 }
             }
             finally
