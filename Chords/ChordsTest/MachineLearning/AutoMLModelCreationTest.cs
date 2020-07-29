@@ -117,7 +117,7 @@ namespace ChordsTest.MachineLearning
 
                 var (experimentResult, predictionEngine) =
                 await AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(
-                    trainDataFile, testDataFile, inputDirectory, timeoutInSeconds, outputDirectory, new Progress<int>());
+                    trainDataFile, testDataFile, inputDirectory, timeoutInSeconds, outputDirectory, new Progress<(int, string)>());
 
                 Assert.IsNotNull(experimentResult);
 

@@ -17,6 +17,7 @@ namespace ChordsDesktop
 
         private Button[] chordButtons;
         private readonly IProgress<int> chordProcessingProgress;
+        private readonly IProgress<(int, string)> trainProgress;
         private readonly IProgress<double> audioPlayProgress;
         private AudioPlayer.AudioPlayer audioPlayer;
         private int playedChord;
@@ -36,6 +37,12 @@ namespace ChordsDesktop
             {
                 progressBar1.Value = v;
                 progressLabel.Text = $@"Computing chords... {v} %";
+            });
+
+            trainProgress = new Progress<(int, string)>(v =>
+            {
+                progressBar1.Value = v.Item1;
+                progressLabel.Text = $@"{v.Item2} {v.Item1} %";
             });
 
             audioPlayProgress = new Progress<double>(milliseconds =>
@@ -295,9 +302,12 @@ namespace ChordsDesktop
             await CalculateChords();
         }
 
-        private void RetrainButton_Click(object sender, EventArgs e)
+        private async void RetrainButton_Click(object sender, EventArgs e)
         {
-            
+            await Task.Run(() => Chords.MachineLearning.AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(
+                "./Resources/trainData.csv", "./Resources/testData.csv", "./storedChords/", 10, "./models/",
+               trainProgress
+            ));
         }
     }
 }

@@ -119,7 +119,7 @@ namespace Chords.MachineLearning
                 string storedChordsFolder,
                 uint timeoutInSeconds,
                 string outputFolder,
-                IProgress<int> progress)
+                IProgress<(int, string)> progress)
         {
             Timer timer = new Timer();
             
@@ -127,44 +127,51 @@ namespace Chords.MachineLearning
             {
                 var currentTime = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmss");
                 var secondsElapsed = 0;
+                string step = "Starting training...";
 
                 timer.Elapsed += (sender, args) =>
                 {
                     secondsElapsed += 1;
-                    int percentage = (int)Math.Floor(((secondsElapsed + 0.0) / (timeoutInSeconds * 1.15)) * 100);
-                    progress.Report(percentage);
+                    int percentage = Math.Min(99, (int)Math.Floor(((secondsElapsed + 0.0) / (timeoutInSeconds)) * 100));
+                    progress.Report((percentage, step));
                 };
 
-                timer.Interval = 1;
+                timer.Interval = 1000;
+                timer.Enabled = true;
 
+                progress.Report((0, step));
 
+                step = "Generating training data...";
                 var trainDataGenerator = new FileSystemTrainDataGenerator(storedChordsFolder, Path.Combine(storedChordsFolder, "trainData.csv"));
                 await trainDataGenerator.GenerateTrainData();
                 var textLoader = AutoMlModelCreation.MlContextInstance
                     .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
 
+                step = "Reading data...";
                 var trainDataFiles = Directory.GetFiles(storedChordsFolder, "*.csv");
                 var trainData = textLoader.Load(trainDataFiles.Append(originalTrainingDataFile).ToArray());
 
+                step = "Running AutoML...";
                 var (_, modelWithLabelMapping, result) =
                     CreateTransformerGivenDataView(trainData, timeoutInSeconds);
-
-                timer.Enabled = true;
 
                 var engine =
                     MlContextInstance.Model
                         .CreatePredictionEngine<ChordData, ChordPredictionResult>(
                             modelWithLabelMapping);
 
+                step = "Evaluating model...";
                 var validationMetrics =
                     AutoMlModelCreation.EvaluateModel(result,
                         originalTestFile);
 
+                step = "Saving model...";
                 MlContextInstance.Model.Save(
                     modelWithLabelMapping, trainData.Schema,
                     $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{validationMetrics.LogLoss}.model");
-
-                progress.Report(100);
+                
+                step = "Finished creating model";
+                progress.Report((100, step));
                 return (result, engine);
             } finally
             {

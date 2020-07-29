@@ -16,4 +16,13 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\testData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\trainData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
