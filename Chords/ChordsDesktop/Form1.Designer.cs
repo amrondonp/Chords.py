@@ -48,16 +48,19 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.retrainButton = new System.Windows.Forms.Button();
             this.bigChordLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.correctedChordTextBox = new System.Windows.Forms.TextBox();
-            this.retrainButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -258,46 +261,61 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.Controls.Add(this.retrainButton, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.bigChordLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.correctedChordTextBox, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown2, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(978, 38);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 14, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(254, 380);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(254, 431);
             this.tableLayoutPanel1.TabIndex = 9;
+            // 
+            // retrainButton
+            // 
+            this.retrainButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.retrainButton.Location = new System.Drawing.Point(161, 389);
+            this.retrainButton.Name = "retrainButton";
+            this.retrainButton.Size = new System.Drawing.Size(89, 38);
+            this.retrainButton.TabIndex = 10;
+            this.retrainButton.Text = "Re-Train Model";
+            this.retrainButton.UseVisualStyleBackColor = true;
+            this.retrainButton.Click += new System.EventHandler(this.RetrainButton_Click);
             // 
             // bigChordLabel
             // 
             this.bigChordLabel.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.bigChordLabel, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.bigChordLabel, 3);
             this.bigChordLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bigChordLabel.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bigChordLabel.Location = new System.Drawing.Point(3, 39);
+            this.bigChordLabel.Location = new System.Drawing.Point(3, 44);
             this.bigChordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bigChordLabel.Name = "bigChordLabel";
-            this.bigChordLabel.Size = new System.Drawing.Size(248, 300);
+            this.bigChordLabel.Size = new System.Drawing.Size(248, 298);
             this.bigChordLabel.TabIndex = 1;
             this.bigChordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label4, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.label4, 3);
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 1);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(248, 37);
+            this.label4.Size = new System.Drawing.Size(248, 42);
             this.label4.TabIndex = 0;
             this.label4.Text = "Selected Chord";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -305,10 +323,10 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(162, 342);
+            this.button1.Location = new System.Drawing.Point(162, 345);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 35);
+            this.button1.Size = new System.Drawing.Size(89, 38);
             this.button1.TabIndex = 2;
             this.button1.Text = "Correct";
             this.button1.UseVisualStyleBackColor = true;
@@ -316,28 +334,40 @@
             // 
             // correctedChordTextBox
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.correctedChordTextBox, 2);
             this.correctedChordTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.correctedChordTextBox.Location = new System.Drawing.Point(3, 347);
+            this.correctedChordTextBox.Location = new System.Drawing.Point(3, 350);
             this.correctedChordTextBox.Margin = new System.Windows.Forms.Padding(2, 7, 2, 2);
             this.correctedChordTextBox.Name = "correctedChordTextBox";
-            this.correctedChordTextBox.Size = new System.Drawing.Size(121, 27);
+            this.correctedChordTextBox.Size = new System.Drawing.Size(147, 27);
             this.correctedChordTextBox.TabIndex = 3;
+            this.correctedChordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // retrainButton
+            // label5
             // 
-            this.retrainButton.Location = new System.Drawing.Point(982, 432);
-            this.retrainButton.Name = "retrainButton";
-            this.retrainButton.Size = new System.Drawing.Size(246, 36);
-            this.retrainButton.TabIndex = 10;
-            this.retrainButton.Text = "Re-Train Model";
-            this.retrainButton.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(4, 386);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 44);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Seconds";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown2.Location = new System.Drawing.Point(80, 395);
+            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 9, 3, 3);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(69, 27);
+            this.numericUpDown2.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 579);
-            this.Controls.Add(this.retrainButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
@@ -359,6 +389,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,6 +421,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Button retrainButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 

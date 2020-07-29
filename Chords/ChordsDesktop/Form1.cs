@@ -294,5 +294,10 @@ namespace ChordsDesktop
             audioPlayer.Stop();
             await CalculateChords();
         }
+
+        private void RetrainButton_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
