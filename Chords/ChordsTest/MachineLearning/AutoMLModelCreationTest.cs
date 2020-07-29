@@ -4,6 +4,7 @@ using Chords.Repositories;
 using ChordsTest.Entities;
 using Microsoft.ML;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -116,7 +117,7 @@ namespace ChordsTest.MachineLearning
 
                 var (experimentResult, predictionEngine) =
                 await AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(
-                    trainDataFile, testDataFile, inputDirectory, timeoutInSeconds, outputDirectory);
+                    trainDataFile, testDataFile, inputDirectory, timeoutInSeconds, outputDirectory, new Progress<int>());
 
                 Assert.IsNotNull(experimentResult);
 

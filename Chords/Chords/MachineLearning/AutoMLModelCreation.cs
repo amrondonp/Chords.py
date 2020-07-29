@@ -5,6 +5,7 @@ using Microsoft.ML.Data;
 using System;
 using System.IO;
 using System.Linq;
+using System.Timers;
 using System.Threading.Tasks;
 
 namespace Chords.MachineLearning
@@ -117,35 +118,59 @@ namespace Chords.MachineLearning
                 string originalTestFile,
                 string storedChordsFolder,
                 uint timeoutInSeconds,
-                string outputFolder)
+                string outputFolder,
+                IProgress<int> progress)
         {
-            var currentTime = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmss");
+            Timer timer = new Timer();
+            
+            try
+            {
+                var currentTime = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmss");
+                var secondsElapsed = 0;
 
-            var trainDataGenerator = new FileSystemTrainDataGenerator(storedChordsFolder, Path.Combine(storedChordsFolder, "trainData.csv"));
-            await trainDataGenerator.GenerateTrainData();
-            var textLoader = AutoMlModelCreation.MlContextInstance
-                .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
+                timer.Elapsed += (sender, args) =>
+                {
+                    secondsElapsed += 1;
+                    int percentage = (int)Math.Floor(((secondsElapsed + 0.0) / (timeoutInSeconds * 1.15)) * 100);
+                    progress.Report(percentage);
+                };
 
-            var trainDataFiles = Directory.GetFiles(storedChordsFolder, "*.csv");
-            var trainData = textLoader.Load(trainDataFiles.Append(originalTrainingDataFile).ToArray());
+                timer.Interval = 1;
 
-            var (_, modelWithLabelMapping, result) =
-                CreateTransformerGivenDataView(trainData, timeoutInSeconds);
 
-            var engine =
-                MlContextInstance.Model
-                    .CreatePredictionEngine<ChordData, ChordPredictionResult>(
-                        modelWithLabelMapping);
+                var trainDataGenerator = new FileSystemTrainDataGenerator(storedChordsFolder, Path.Combine(storedChordsFolder, "trainData.csv"));
+                await trainDataGenerator.GenerateTrainData();
+                var textLoader = AutoMlModelCreation.MlContextInstance
+                    .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
 
-            var validationMetrics =
-                AutoMlModelCreation.EvaluateModel(result,
-                    originalTestFile);
+                var trainDataFiles = Directory.GetFiles(storedChordsFolder, "*.csv");
+                var trainData = textLoader.Load(trainDataFiles.Append(originalTrainingDataFile).ToArray());
 
-            MlContextInstance.Model.Save(
-                modelWithLabelMapping, trainData.Schema,
-                $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{validationMetrics.LogLoss}.model");
+                var (_, modelWithLabelMapping, result) =
+                    CreateTransformerGivenDataView(trainData, timeoutInSeconds);
 
-            return (result, engine);
+                timer.Enabled = true;
+
+                var engine =
+                    MlContextInstance.Model
+                        .CreatePredictionEngine<ChordData, ChordPredictionResult>(
+                            modelWithLabelMapping);
+
+                var validationMetrics =
+                    AutoMlModelCreation.EvaluateModel(result,
+                        originalTestFile);
+
+                MlContextInstance.Model.Save(
+                    modelWithLabelMapping, trainData.Schema,
+                    $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{validationMetrics.LogLoss}.model");
+
+                progress.Report(100);
+                return (result, engine);
+            } finally
+            {
+                timer.Stop();
+                timer.Close();
+            }
         }
 
         public static MulticlassClassificationMetrics EvaluateModel(
