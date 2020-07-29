@@ -2,6 +2,7 @@
 using Microsoft.ML;
 using Microsoft.ML.AutoML;
 using Microsoft.ML.Data;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -113,10 +114,13 @@ namespace Chords.MachineLearning
         public static async Task<(ExperimentResult<MulticlassClassificationMetrics>,
             PredictionEngine<ChordData, ChordPredictionResult>)> CreateModelGivenInitialDataAndStoredChordsFolder(
                 string originalTrainingDataFile,
+                string originalTestFile,
                 string storedChordsFolder,
                 uint timeoutInSeconds,
                 string outputFolder)
         {
+            var currentTime = DateTimeOffset.UtcNow.ToString("yyyyMMddHHmmss");
+
             var trainDataGenerator = new FileSystemTrainDataGenerator(storedChordsFolder, Path.Combine(storedChordsFolder, "trainData.csv"));
             await trainDataGenerator.GenerateTrainData();
             var textLoader = AutoMlModelCreation.MlContextInstance
@@ -125,7 +129,23 @@ namespace Chords.MachineLearning
             var trainDataFiles = Directory.GetFiles(storedChordsFolder, "*.csv");
             var trainData = textLoader.Load(trainDataFiles.Append(originalTrainingDataFile).ToArray());
 
-            return CreateModelGivenDataView(trainData, timeoutInSeconds);
+            var (_, modelWithLabelMapping, result) =
+                CreateTransformerGivenDataView(trainData, timeoutInSeconds);
+
+            var engine =
+                MlContextInstance.Model
+                    .CreatePredictionEngine<ChordData, ChordPredictionResult>(
+                        modelWithLabelMapping);
+
+            var validationMetrics =
+                AutoMlModelCreation.EvaluateModel(result,
+                    originalTestFile);
+
+            MlContextInstance.Model.Save(
+                modelWithLabelMapping, trainData.Schema,
+                $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{validationMetrics.LogLoss}.model");
+
+            return (result, engine);
         }
 
         public static MulticlassClassificationMetrics EvaluateModel(

@@ -90,6 +90,7 @@ namespace ChordsTest.MachineLearning
         public async Task CreateModelGivenInitialDataAndStoredChordsFolder()
         {
             const string trainDataFile = "./Resources/trainData.csv";
+            const string testDataFile = "./Resources/testData.csv";
             const string inputDirectory = "./Resources/trainDataGeneratorFolderTraining/";
             const uint timeoutInSeconds = 1;
             const string outputDirectory = "./Resources/generatedModels/";
@@ -98,6 +99,8 @@ namespace ChordsTest.MachineLearning
             {
                 Directory.CreateDirectory(inputDirectory);
                 Directory.CreateDirectory(outputDirectory);
+                Assert.AreEqual(Directory.GetFiles(outputDirectory, "*.model").Length, 0);
+
                 var respository = new FileSystemChordRepository(inputDirectory);
 
                 var chords = new Chord[10];
@@ -112,7 +115,8 @@ namespace ChordsTest.MachineLearning
                 }
 
                 var (experimentResult, predictionEngine) =
-                await AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(trainDataFile, inputDirectory, timeoutInSeconds, outputDirectory);
+                await AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(
+                    trainDataFile, testDataFile, inputDirectory, timeoutInSeconds, outputDirectory);
 
                 Assert.IsNotNull(experimentResult);
 
@@ -130,6 +134,9 @@ namespace ChordsTest.MachineLearning
                     predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(dPcp));
 
                 Assert.IsTrue(dPrediction.ChordPrediction.ToLower().Equals("d"));
+
+                var isModelPresent = Directory.GetFiles(outputDirectory, "*.model").Length == 1;
+                Assert.IsTrue(isModelPresent);
             } finally
             {
                 File.Delete(Path.Combine(inputDirectory, "trainData.csv"));
