@@ -72,7 +72,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.cp = new System.Windows.Forms.PictureBox();
             this.csp = new System.Windows.Forms.PictureBox();
             this.dp = new System.Windows.Forms.PictureBox();
@@ -85,6 +84,7 @@
             this.asp = new System.Windows.Forms.PictureBox();
             this.gp = new System.Windows.Forms.PictureBox();
             this.bp = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -611,17 +611,6 @@
             this.label20.Text = "Pitch Class Profile";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(0, 28);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(18, 20);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "C";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // cp
             // 
             this.cp.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -634,7 +623,9 @@
             // 
             // csp
             // 
-            this.csp.Location = new System.Drawing.Point(67, 46);
+            this.csp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.csp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.csp.Location = new System.Drawing.Point(67, 322);
             this.csp.Name = "csp";
             this.csp.Size = new System.Drawing.Size(22, 62);
             this.csp.TabIndex = 16;
@@ -642,7 +633,9 @@
             // 
             // dp
             // 
-            this.dp.Location = new System.Drawing.Point(95, 46);
+            this.dp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dp.Location = new System.Drawing.Point(95, 322);
             this.dp.Name = "dp";
             this.dp.Size = new System.Drawing.Size(22, 62);
             this.dp.TabIndex = 17;
@@ -650,7 +643,9 @@
             // 
             // dsp
             // 
-            this.dsp.Location = new System.Drawing.Point(123, 46);
+            this.dsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dsp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dsp.Location = new System.Drawing.Point(123, 322);
             this.dsp.Name = "dsp";
             this.dsp.Size = new System.Drawing.Size(22, 62);
             this.dsp.TabIndex = 18;
@@ -658,7 +653,9 @@
             // 
             // ep
             // 
-            this.ep.Location = new System.Drawing.Point(151, 46);
+            this.ep.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ep.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ep.Location = new System.Drawing.Point(151, 322);
             this.ep.Name = "ep";
             this.ep.Size = new System.Drawing.Size(22, 62);
             this.ep.TabIndex = 19;
@@ -666,7 +663,9 @@
             // 
             // fp
             // 
-            this.fp.Location = new System.Drawing.Point(179, 46);
+            this.fp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.fp.Location = new System.Drawing.Point(179, 322);
             this.fp.Name = "fp";
             this.fp.Size = new System.Drawing.Size(22, 62);
             this.fp.TabIndex = 20;
@@ -674,7 +673,9 @@
             // 
             // fsp
             // 
-            this.fsp.Location = new System.Drawing.Point(207, 46);
+            this.fsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.fsp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.fsp.Location = new System.Drawing.Point(207, 322);
             this.fsp.Name = "fsp";
             this.fsp.Size = new System.Drawing.Size(22, 62);
             this.fsp.TabIndex = 21;
@@ -682,7 +683,9 @@
             // 
             // gsp
             // 
-            this.gsp.Location = new System.Drawing.Point(263, 46);
+            this.gsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.gsp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gsp.Location = new System.Drawing.Point(263, 322);
             this.gsp.Name = "gsp";
             this.gsp.Size = new System.Drawing.Size(22, 62);
             this.gsp.TabIndex = 23;
@@ -690,7 +693,9 @@
             // 
             // ap
             // 
-            this.ap.Location = new System.Drawing.Point(291, 46);
+            this.ap.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ap.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ap.Location = new System.Drawing.Point(291, 322);
             this.ap.Name = "ap";
             this.ap.Size = new System.Drawing.Size(22, 62);
             this.ap.TabIndex = 24;
@@ -698,7 +703,9 @@
             // 
             // asp
             // 
-            this.asp.Location = new System.Drawing.Point(319, 46);
+            this.asp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.asp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.asp.Location = new System.Drawing.Point(319, 322);
             this.asp.Name = "asp";
             this.asp.Size = new System.Drawing.Size(22, 62);
             this.asp.TabIndex = 25;
@@ -706,7 +713,9 @@
             // 
             // gp
             // 
-            this.gp.Location = new System.Drawing.Point(235, 46);
+            this.gp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.gp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gp.Location = new System.Drawing.Point(235, 322);
             this.gp.Name = "gp";
             this.gp.Size = new System.Drawing.Size(22, 62);
             this.gp.TabIndex = 26;
@@ -714,11 +723,24 @@
             // 
             // bp
             // 
-            this.bp.Location = new System.Drawing.Point(347, 46);
+            this.bp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.bp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bp.Location = new System.Drawing.Point(347, 322);
             this.bp.Name = "bp";
             this.bp.Size = new System.Drawing.Size(22, 62);
             this.bp.TabIndex = 27;
             this.bp.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(0, 28);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(18, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "C";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
