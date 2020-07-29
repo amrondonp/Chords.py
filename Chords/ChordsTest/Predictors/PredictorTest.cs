@@ -1,4 +1,5 @@
-﻿using Chords.Predictors;
+﻿using Chords.Entities;
+using Chords.Predictors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -50,6 +51,18 @@ namespace ChordsTest.Predictors
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
+        }
+
+        [TestMethod]
+        public void ClassicPredictor_GetPredictionsWithChordsForLongSample_CallsGetPredictionCorrectly()
+        {
+            var predictor = new ClassicPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/about.wav");
+            var chords =
+                predictor.GetPredictionsWithChords(samples, sampleRate, 500, new Progress<int>());
+
+            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("G")));
+            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("Em")));
         }
 
         [TestMethod]
@@ -106,6 +119,18 @@ namespace ChordsTest.Predictors
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
+        }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionsWithChordsForLongSample_CallsGetPredictionCorrectly()
+        {
+            var predictor = new AutoMlPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/about.wav");
+            var chords =
+                predictor.GetPredictionsWithChords(samples, sampleRate, 500, new Progress<int>());
+
+            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("G")));
+            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("Em")));
         }
 
         [TestMethod]

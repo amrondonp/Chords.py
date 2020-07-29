@@ -213,6 +213,7 @@ namespace ChordsTest.Profiling
             Assert.IsTrue(exceptionThrown);
         }
 
+        [TestMethod]
         public void MakesSampleChunks_NegativeIndexChunkThrowsAnError()
         {
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/d.wav");

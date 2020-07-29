@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chords.Entities;
+using System;
 
 namespace Chords.Profiling
 {
@@ -38,6 +39,41 @@ namespace Chords.Profiling
 
 
             var predictions = new string[samples.Length / samplesPerWindow];
+            var predictionIndex = 0;
+
+            var samplesWindow = new float[samplesPerWindow];
+
+            for (var i = 0;
+                i + samplesPerWindow < samples.Length;
+                i += samplesPerWindow)
+            {
+                for (var j = 0; j < samplesPerWindow; j++)
+                {
+                    samplesWindow[j] = samples[i + j];
+                }
+
+                progress.Report(
+                    (int)(((i + samplesPerWindow) / (samples.Length + 0.0)) * 100));
+                predictions[predictionIndex] =
+                    predictionFunction(sampleRate, samplesWindow);
+                predictionIndex++;
+            }
+
+            progress.Report(100);
+
+            return predictions;
+        }
+
+        public static Chord[] PredictionWithProgressReportAndCustomPredictionWithChords(
+            int sampleRate, float[] samples, int windowInMs,
+            IProgress<int> progress,
+            Func<int, float[], Chord> predictionFunction)
+        {
+            var samplesPerWindow =
+                GetNumberOfSamplesGivenWindowInMs(sampleRate, windowInMs);
+
+
+            var predictions = new Chord[samples.Length / samplesPerWindow];
             var predictionIndex = 0;
 
             var samplesWindow = new float[samplesPerWindow];

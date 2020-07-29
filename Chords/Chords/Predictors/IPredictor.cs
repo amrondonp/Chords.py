@@ -12,6 +12,9 @@ namespace Chords.Predictors
         public string[] GetPredictions(float[] samples,
             int sampleRate, int windowInMs, IProgress<int> progress);
 
+        public Chord[] GetPredictionsWithChords(float[] samples,
+            int sampleRate, int windowInMs, IProgress<int> progress);
+
         public string[] GetPredictionForFile(
             string filePath,
             IProgress<int> progress, int windowInMs);

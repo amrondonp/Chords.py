@@ -69,5 +69,14 @@ namespace Chords.Predictors
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples(filePath);
             return GetPredictions(samples, sampleRate, windowInMs, progress);
         }
+
+        public Chord[] GetPredictionsWithChords(float[] samples, int sampleRate, int windowInMs, IProgress<int> progress)
+        {
+            return LongAudioProfiling
+                .PredictionWithProgressReportAndCustomPredictionWithChords(sampleRate,
+                    samples, windowInMs, progress,
+                    (sampleRateLambda, samplesLambda) =>
+                        GetPredictionWithChord(samplesLambda, sampleRateLambda));
+        }
     }
 }
