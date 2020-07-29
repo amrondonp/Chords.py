@@ -54,14 +54,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.correctedChordTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.trainSeconds = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,7 +272,7 @@
             this.tableLayoutPanel1.Controls.Add(this.button1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.correctedChordTextBox, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown2, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.trainSeconds, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 14, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -355,14 +355,14 @@
             this.label5.Text = "Seconds";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // numericUpDown2
+            // trainSeconds
             // 
-            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown2.Location = new System.Drawing.Point(79, 396);
-            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 9, 3, 3);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(70, 27);
-            this.numericUpDown2.TabIndex = 13;
+            this.trainSeconds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trainSeconds.Location = new System.Drawing.Point(79, 396);
+            this.trainSeconds.Margin = new System.Windows.Forms.Padding(3, 9, 3, 3);
+            this.trainSeconds.Name = "trainSeconds";
+            this.trainSeconds.Size = new System.Drawing.Size(70, 27);
+            this.trainSeconds.TabIndex = 13;
             // 
             // panel1
             // 
@@ -400,7 +400,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -434,7 +434,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Button retrainButton;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown trainSeconds;
         private System.Windows.Forms.Panel panel1;
     }
 }

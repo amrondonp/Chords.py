@@ -54,6 +54,10 @@ namespace ChordsDesktop
             numericUpDown1.Maximum = int.MaxValue;
             numericUpDown1.Value = windowInMs;
 
+            trainSeconds.Minimum = 1;
+            trainSeconds.Maximum = int.MaxValue;
+            trainSeconds.Value = 180;
+
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.toolStripMenuItem3.Click += new EventHandler(this.ChangeModel);
@@ -305,7 +309,7 @@ namespace ChordsDesktop
         private async void RetrainButton_Click(object sender, EventArgs e)
         {
             await Task.Run(() => Chords.MachineLearning.AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(
-                "./Resources/trainData.csv", "./Resources/testData.csv", "./storedChords/", 10, "./models/",
+                "./Resources/trainData.csv", "./Resources/testData.csv", "./storedChords/", (uint)trainSeconds.Value, "./models/",
                trainProgress
             ));
         }
