@@ -99,7 +99,7 @@ namespace ChordsDesktop
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = $@"Audio played up to {milliseconds} ms";
-            playedChord = (int)Math.Round(milliseconds / windowInMs);
+            playedChord = (int)Math.Floor(Math.Round(milliseconds) / windowInMs);
 
             if (playedChord < chordButtons.Length)
             {
@@ -344,7 +344,7 @@ namespace ChordsDesktop
             for(int i = 0; i < chord.Pcp.Length; i++)
             {
                 var computedHeight = chord.Pcp[i] * containerPanels[i].Height;
-                powers[i].Height = (int)Math.Floor(computedHeight);
+                powers[i].Height = (int)Math.Round(computedHeight);
             }
         }
     }
