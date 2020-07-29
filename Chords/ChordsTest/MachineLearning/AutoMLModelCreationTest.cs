@@ -1,6 +1,11 @@
-﻿using Chords.MachineLearning;
+﻿using Chords.Entities;
+using Chords.MachineLearning;
+using Chords.Repositories;
+using ChordsTest.Entities;
 using Microsoft.ML;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ChordsTest.MachineLearning
 {
@@ -79,6 +84,69 @@ namespace ChordsTest.MachineLearning
                 predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(dPcp));
 
             Assert.IsTrue(dPrediction.ChordPrediction.ToLower().Equals("d"));
+        }
+
+        [TestMethod]
+        public async Task CreateModelGivenInitialDataAndStoredChordsFolder()
+        {
+            const string trainDataFile = "./Resources/trainData.csv";
+            const string inputDirectory = "./Resources/trainDataGeneratorFolderTraining/";
+            const uint timeoutInSeconds = 1;
+            const string outputDirectory = "./Resources/generatedModels/";
+
+            try
+            {
+                Directory.CreateDirectory(inputDirectory);
+                Directory.CreateDirectory(outputDirectory);
+                var respository = new FileSystemChordRepository(inputDirectory);
+
+                var chords = new Chord[10];
+                for (var i = 0; i < 10; i++)
+                {
+                    chords[i] = ChordTest.ChordExample();
+                }
+
+                foreach (Chord chord in chords)
+                {
+                    respository.SaveChord(chord);
+                }
+
+                var (experimentResult, predictionEngine) =
+                await AutoMlModelCreation.CreateModelGivenInitialDataAndStoredChordsFolder(trainDataFile, inputDirectory, timeoutInSeconds, outputDirectory);
+
+                Assert.IsNotNull(experimentResult);
+
+                var metrics =
+                    AutoMlModelCreation.EvaluateModel(experimentResult, "./Resources/testData.csv");
+
+                Assert.IsTrue(metrics.LogLoss < 0.5);
+
+                var prediction =
+                    predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(emPcp));
+
+                Assert.IsTrue(prediction.ChordPrediction.ToLower().Equals("em"));
+
+                var dPrediction =
+                    predictionEngine.Predict(AutoMlModelCreation.GetChordDataFromPcp(dPcp));
+
+                Assert.IsTrue(dPrediction.ChordPrediction.ToLower().Equals("d"));
+            } finally
+            {
+                File.Delete(Path.Combine(inputDirectory, "trainData.csv"));
+                var filesToDelete = Directory.GetFiles(inputDirectory, "*.json");
+                foreach (string fileToDelete in filesToDelete)
+                {
+                    File.Delete(fileToDelete);
+                }
+                Directory.Delete(inputDirectory);
+
+                var modelsToDelete = Directory.GetFiles(outputDirectory, "*.model");
+                foreach (string modelToDelete in modelsToDelete)
+                {
+                    File.Delete(modelToDelete);
+                }
+                Directory.Delete(outputDirectory);
+            }
         }
     }
 }

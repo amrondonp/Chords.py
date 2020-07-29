@@ -1,6 +1,10 @@
-﻿using Microsoft.ML;
+﻿using Chords.Repositories;
+using Microsoft.ML;
 using Microsoft.ML.AutoML;
 using Microsoft.ML.Data;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Chords.MachineLearning
 {
@@ -104,6 +108,24 @@ namespace Chords.MachineLearning
                         modelWithLabelMapping);
 
             return (result, engine);
+        }
+
+        public static async Task<(ExperimentResult<MulticlassClassificationMetrics>,
+            PredictionEngine<ChordData, ChordPredictionResult>)> CreateModelGivenInitialDataAndStoredChordsFolder(
+                string originalTrainingDataFile,
+                string storedChordsFolder,
+                uint timeoutInSeconds,
+                string outputFolder)
+        {
+            var trainDataGenerator = new FileSystemTrainDataGenerator(storedChordsFolder, Path.Combine(storedChordsFolder, "trainData.csv"));
+            await trainDataGenerator.GenerateTrainData();
+            var textLoader = AutoMlModelCreation.MlContextInstance
+                .Data.CreateTextLoader<ChordData>(separatorChar: ',', hasHeader: true);
+
+            var trainDataFiles = Directory.GetFiles(storedChordsFolder, "*.csv");
+            var trainData = textLoader.Load(trainDataFiles.Append(originalTrainingDataFile).ToArray());
+
+            return CreateModelGivenDataView(trainData, timeoutInSeconds);
         }
 
         public static MulticlassClassificationMetrics EvaluateModel(
