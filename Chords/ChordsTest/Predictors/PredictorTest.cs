@@ -61,8 +61,22 @@ namespace ChordsTest.Predictors
             var chords =
                 predictor.GetPredictionsWithChords(samples, sampleRate, 500, new Progress<int>());
 
-            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("G")));
-            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("Em")));
+            var gChord = chords.FirstOrDefault(chord => chord.Name.Equals("G"));
+            var emChord = chords.FirstOrDefault(chord => chord.Name.Equals("Em"));
+
+            Assert.AreEqual(gChord.Name, "G");
+            Assert.AreEqual(emChord.Name, "Em");
+
+            bool areArraysEqual = true;
+            for (int i = 0; i < Math.Min(gChord.Samples.Length, emChord.Samples.Length); i++)
+            {
+                if (Math.Abs(gChord.Samples[i] - emChord.Samples[i]) > 1e-8)
+                {
+                    areArraysEqual = false;
+                }
+            }
+
+            Assert.IsFalse(areArraysEqual);
         }
 
         [TestMethod]
@@ -129,8 +143,22 @@ namespace ChordsTest.Predictors
             var chords =
                 predictor.GetPredictionsWithChords(samples, sampleRate, 500, new Progress<int>());
 
-            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("G")));
-            Assert.IsTrue(chords.Any(chord => chord.Name.Equals("Em")));
+            var gChord = chords.FirstOrDefault(chord => chord.Name.Equals("G"));
+            var emChord = chords.FirstOrDefault(chord => chord.Name.Equals("Em"));
+
+            Assert.AreEqual(gChord.Name, "G");
+            Assert.AreEqual(emChord.Name, "Em");
+
+            bool areArraysEqual = true;
+            for(int i = 0; i < Math.Min(gChord.Samples.Length, emChord.Samples.Length); i++)
+            {
+                if(Math.Abs(gChord.Samples[i] - emChord.Samples[i]) > 1e-8)
+                {
+                    areArraysEqual = false;
+                }
+            }
+
+            Assert.IsFalse(areArraysEqual);
         }
 
         [TestMethod]

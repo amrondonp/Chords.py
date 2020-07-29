@@ -5,6 +5,7 @@ using Chords.Repositories;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,6 +31,7 @@ namespace ChordsDesktop
         private IPredictor predictor;
         private IChordRepository repository;
         private SamplesManager samplesManager;
+        private string generatedModelsDirectory;
 
         public Form1(IPredictor predictor, IChordRepository repository)
         {
@@ -88,6 +90,7 @@ namespace ChordsDesktop
             
             this.predictor = predictor;
             this.repository = repository;
+            this.generatedModelsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "models");
         }
 
         public sealed override bool AutoSize
@@ -300,7 +303,7 @@ namespace ChordsDesktop
         {
             using var openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = ".\\models",
+                InitialDirectory = generatedModelsDirectory,
                 Filter = @"Chord Model (*.model;*.onnx)|*.model;*.onnx",
                 FilterIndex = 2,
                 RestoreDirectory = true

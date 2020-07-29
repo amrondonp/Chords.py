@@ -76,12 +76,12 @@ namespace Chords.Profiling
             var predictions = new Chord[samples.Length / samplesPerWindow];
             var predictionIndex = 0;
 
-            var samplesWindow = new float[samplesPerWindow];
 
             for (var i = 0;
                 i + samplesPerWindow < samples.Length;
                 i += samplesPerWindow)
             {
+                var samplesWindow = new float[samplesPerWindow];
                 for (var j = 0; j < samplesPerWindow; j++)
                 {
                     samplesWindow[j] = samples[i + j];
