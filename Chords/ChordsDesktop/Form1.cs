@@ -1,4 +1,5 @@
-﻿using Chords.Predictors;
+﻿using Chords.Entities;
+using Chords.Predictors;
 using Chords.Profiling;
 using Chords.Repositories;
 using System;
@@ -18,6 +19,7 @@ namespace ChordsDesktop
         private Button[] chordButtons;
         private Panel[] containerPanels;
         private PictureBox[] powers;
+        private Chord[] chordsPredicted;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<(int, string)> trainProgress;
         private readonly IProgress<double> audioPlayProgress;
@@ -140,8 +142,8 @@ namespace ChordsDesktop
             var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
             this.samplesManager = new SamplesManager(sampleRate, samples);
 
-            var chordsPredicted = await Task.Run(() =>
-                predictor.GetPredictions(samples, sampleRate,
+            chordsPredicted = await Task.Run(() =>
+                predictor.GetPredictionsWithChords(samples, sampleRate,
                     windowInMs, chordProcessingProgress)
             );
             sw.Stop();
@@ -149,7 +151,7 @@ namespace ChordsDesktop
             progressLabel.Text =
                 $@"Chords computed successfully Elapsed={sw.Elapsed.TotalMilliseconds}";
 
-            ShowChordButtons(chordsPredicted);
+            ShowChordButtons();
             PlayNewAudioFile(filePath);
         }
 
@@ -162,7 +164,7 @@ namespace ChordsDesktop
             audioPlayer.Play();
         }
 
-        private void ShowChordButtons(string[] chordsPredicted)
+        private void ShowChordButtons()
         {
             flowLayoutPanel1.Controls.Clear();
             chordButtons = new Button[chordsPredicted.Length];
@@ -174,7 +176,7 @@ namespace ChordsDesktop
                 var chord = chordsPredicted[i];
                 var button = new Button
                 {
-                    Text = chord,
+                    Text = chord.Name,
                     Font = new Font(Font.FontFamily, 15),
                 };
 
@@ -282,12 +284,13 @@ namespace ChordsDesktop
                 button.Height = biggestButtonHeight;
             }
 
-            var (sampleRate, samples) = samplesManager.GetSamplesAtPositionGivenWindowInMs(playedChord, windowInMs);
-            // TODO FIX HACK 
-            var chord = new Chords.Entities.Chord(samples, sampleRate, chordButtons[playedChord].Text, new double[] { });
+
+            var newChord = new Chord(chordsPredicted[playedChord].Samples, chordsPredicted[playedChord].SampleRate,
+                chordButtons[playedChord].Text, chordsPredicted[playedChord].Pcp);
+
             Task.Run(() =>
             {
-                repository.SaveChord(chord);
+                repository.SaveChord(newChord);
             });
         }
 
