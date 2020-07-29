@@ -16,6 +16,8 @@ namespace ChordsDesktop
             Color.FromArgb(0, 204, 102);
 
         private Button[] chordButtons;
+        private Panel[] containerPanels;
+        private PictureBox[] powers;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<(int, string)> trainProgress;
         private readonly IProgress<double> audioPlayProgress;
@@ -62,7 +64,25 @@ namespace ChordsDesktop
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.toolStripMenuItem3.Click += new EventHandler(this.ChangeModel);
 
+            containerPanels = new Panel[12];
+            powers = new PictureBox[12];
+            for(int i = 0; i < 12; i++)
+            {
+                var panel = new Panel
+                {
+                    Dock = DockStyle.Fill,
+                };
+                powers[i] = new PictureBox
+                {
+                    Height = 0,
+                    BackColor = System.Drawing.SystemColors.ActiveCaption
+                };
 
+                panel.Controls.Add(powers[i]);
+                chartTable.Controls.Add(panel, i + 1, 1);
+                containerPanels[i] = panel;
+            }
+            
             this.predictor = predictor;
             this.repository = repository;
         }

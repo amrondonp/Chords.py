@@ -57,7 +57,7 @@
             this.trainSeconds = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.chartTable = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -72,18 +72,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.cp = new System.Windows.Forms.PictureBox();
-            this.csp = new System.Windows.Forms.PictureBox();
-            this.dp = new System.Windows.Forms.PictureBox();
-            this.dsp = new System.Windows.Forms.PictureBox();
-            this.ep = new System.Windows.Forms.PictureBox();
-            this.fp = new System.Windows.Forms.PictureBox();
-            this.fsp = new System.Windows.Forms.PictureBox();
-            this.gsp = new System.Windows.Forms.PictureBox();
-            this.ap = new System.Windows.Forms.PictureBox();
-            this.asp = new System.Windows.Forms.PictureBox();
-            this.gp = new System.Windows.Forms.PictureBox();
-            this.bp = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -93,19 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).BeginInit();
             this.panel1.SuspendLayout();
             this.chartPanel.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ep)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fsp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gsp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.asp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bp)).BeginInit();
+            this.chartTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -420,64 +396,52 @@
             // chartPanel
             // 
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chartPanel.Controls.Add(this.tableLayoutPanel2);
+            this.chartPanel.Controls.Add(this.chartTable);
             this.chartPanel.Location = new System.Drawing.Point(1258, 37);
             this.chartPanel.Margin = new System.Windows.Forms.Padding(3, 3, 14, 3);
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(413, 431);
             this.chartPanel.TabIndex = 11;
             // 
-            // tableLayoutPanel2
+            // chartTable
             // 
-            this.tableLayoutPanel2.ColumnCount = 14;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
-            this.tableLayoutPanel2.Controls.Add(this.label9, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label10, 4, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label11, 5, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 6, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label13, 7, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label14, 8, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label15, 9, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label16, 10, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label17, 11, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label18, 12, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cp, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.csp, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.dp, 3, 1);
-            this.tableLayoutPanel2.Controls.Add(this.dsp, 4, 1);
-            this.tableLayoutPanel2.Controls.Add(this.ep, 5, 1);
-            this.tableLayoutPanel2.Controls.Add(this.fp, 6, 1);
-            this.tableLayoutPanel2.Controls.Add(this.fsp, 7, 1);
-            this.tableLayoutPanel2.Controls.Add(this.gsp, 9, 1);
-            this.tableLayoutPanel2.Controls.Add(this.ap, 10, 1);
-            this.tableLayoutPanel2.Controls.Add(this.asp, 11, 1);
-            this.tableLayoutPanel2.Controls.Add(this.gp, 8, 1);
-            this.tableLayoutPanel2.Controls.Add(this.bp, 12, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(411, 431);
-            this.tableLayoutPanel2.TabIndex = 0;
+            this.chartTable.ColumnCount = 14;
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7F));
+            this.chartTable.Controls.Add(this.label9, 3, 2);
+            this.chartTable.Controls.Add(this.label10, 4, 2);
+            this.chartTable.Controls.Add(this.label11, 5, 2);
+            this.chartTable.Controls.Add(this.label12, 6, 2);
+            this.chartTable.Controls.Add(this.label13, 7, 2);
+            this.chartTable.Controls.Add(this.label14, 8, 2);
+            this.chartTable.Controls.Add(this.label15, 9, 2);
+            this.chartTable.Controls.Add(this.label16, 10, 2);
+            this.chartTable.Controls.Add(this.label17, 11, 2);
+            this.chartTable.Controls.Add(this.label18, 12, 2);
+            this.chartTable.Controls.Add(this.label6, 1, 2);
+            this.chartTable.Controls.Add(this.label7, 2, 2);
+            this.chartTable.Controls.Add(this.label19, 0, 1);
+            this.chartTable.Controls.Add(this.label20, 0, 0);
+            this.chartTable.Location = new System.Drawing.Point(0, 0);
+            this.chartTable.Name = "chartTable";
+            this.chartTable.RowCount = 3;
+            this.chartTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.chartTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.chartTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.chartTable.Size = new System.Drawing.Size(411, 431);
+            this.chartTable.TabIndex = 0;
             // 
             // label9
             // 
@@ -593,7 +557,7 @@
             this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label19.Location = new System.Drawing.Point(3, 43);
             this.label19.Name = "label19";
-            this.tableLayoutPanel2.SetRowSpan(this.label19, 2);
+            this.chartTable.SetRowSpan(this.label19, 2);
             this.label19.Size = new System.Drawing.Size(30, 388);
             this.label19.TabIndex = 13;
             this.label19.Text = " P    o   w    e   r";
@@ -602,7 +566,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.tableLayoutPanel2.SetColumnSpan(this.label20, 14);
+            this.chartTable.SetColumnSpan(this.label20, 14);
             this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label20.Location = new System.Drawing.Point(3, 0);
             this.label20.Name = "label20";
@@ -610,126 +574,6 @@
             this.label20.TabIndex = 14;
             this.label20.Text = "Pitch Class Profile";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cp
-            // 
-            this.cp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.cp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cp.Location = new System.Drawing.Point(39, 322);
-            this.cp.Name = "cp";
-            this.cp.Size = new System.Drawing.Size(22, 62);
-            this.cp.TabIndex = 15;
-            this.cp.TabStop = false;
-            // 
-            // csp
-            // 
-            this.csp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.csp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.csp.Location = new System.Drawing.Point(67, 322);
-            this.csp.Name = "csp";
-            this.csp.Size = new System.Drawing.Size(22, 62);
-            this.csp.TabIndex = 16;
-            this.csp.TabStop = false;
-            // 
-            // dp
-            // 
-            this.dp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dp.Location = new System.Drawing.Point(95, 322);
-            this.dp.Name = "dp";
-            this.dp.Size = new System.Drawing.Size(22, 62);
-            this.dp.TabIndex = 17;
-            this.dp.TabStop = false;
-            // 
-            // dsp
-            // 
-            this.dsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dsp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dsp.Location = new System.Drawing.Point(123, 322);
-            this.dsp.Name = "dsp";
-            this.dsp.Size = new System.Drawing.Size(22, 62);
-            this.dsp.TabIndex = 18;
-            this.dsp.TabStop = false;
-            // 
-            // ep
-            // 
-            this.ep.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ep.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ep.Location = new System.Drawing.Point(151, 322);
-            this.ep.Name = "ep";
-            this.ep.Size = new System.Drawing.Size(22, 62);
-            this.ep.TabIndex = 19;
-            this.ep.TabStop = false;
-            // 
-            // fp
-            // 
-            this.fp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.fp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.fp.Location = new System.Drawing.Point(179, 322);
-            this.fp.Name = "fp";
-            this.fp.Size = new System.Drawing.Size(22, 62);
-            this.fp.TabIndex = 20;
-            this.fp.TabStop = false;
-            // 
-            // fsp
-            // 
-            this.fsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.fsp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.fsp.Location = new System.Drawing.Point(207, 322);
-            this.fsp.Name = "fsp";
-            this.fsp.Size = new System.Drawing.Size(22, 62);
-            this.fsp.TabIndex = 21;
-            this.fsp.TabStop = false;
-            // 
-            // gsp
-            // 
-            this.gsp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gsp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gsp.Location = new System.Drawing.Point(263, 322);
-            this.gsp.Name = "gsp";
-            this.gsp.Size = new System.Drawing.Size(22, 62);
-            this.gsp.TabIndex = 23;
-            this.gsp.TabStop = false;
-            // 
-            // ap
-            // 
-            this.ap.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ap.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ap.Location = new System.Drawing.Point(291, 322);
-            this.ap.Name = "ap";
-            this.ap.Size = new System.Drawing.Size(22, 62);
-            this.ap.TabIndex = 24;
-            this.ap.TabStop = false;
-            // 
-            // asp
-            // 
-            this.asp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.asp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.asp.Location = new System.Drawing.Point(319, 322);
-            this.asp.Name = "asp";
-            this.asp.Size = new System.Drawing.Size(22, 62);
-            this.asp.TabIndex = 25;
-            this.asp.TabStop = false;
-            // 
-            // gp
-            // 
-            this.gp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gp.Location = new System.Drawing.Point(235, 322);
-            this.gp.Name = "gp";
-            this.gp.Size = new System.Drawing.Size(22, 62);
-            this.gp.TabIndex = 26;
-            this.gp.TabStop = false;
-            // 
-            // bp
-            // 
-            this.bp.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.bp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bp.Location = new System.Drawing.Point(347, 322);
-            this.bp.Name = "bp";
-            this.bp.Size = new System.Drawing.Size(22, 62);
-            this.bp.TabIndex = 27;
-            this.bp.TabStop = false;
             // 
             // label8
             // 
@@ -773,20 +617,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).EndInit();
             this.panel1.ResumeLayout(false);
             this.chartPanel.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.csp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dsp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ep)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fsp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gsp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.asp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bp)).EndInit();
+            this.chartTable.ResumeLayout(false);
+            this.chartTable.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -822,7 +654,7 @@
         private System.Windows.Forms.NumericUpDown trainSeconds;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel chartPanel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel chartTable;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
@@ -838,18 +670,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.PictureBox cp;
-        private System.Windows.Forms.PictureBox csp;
-        private System.Windows.Forms.PictureBox dp;
-        private System.Windows.Forms.PictureBox dsp;
-        private System.Windows.Forms.PictureBox ep;
-        private System.Windows.Forms.PictureBox fp;
-        private System.Windows.Forms.PictureBox fsp;
-        private System.Windows.Forms.PictureBox gsp;
-        private System.Windows.Forms.PictureBox ap;
-        private System.Windows.Forms.PictureBox asp;
-        private System.Windows.Forms.PictureBox gp;
-        private System.Windows.Forms.PictureBox bp;
+        private System.Windows.Forms.TableLayoutPanel rt;
+        private System.Windows.Forms.TableLayoutPanel t;
+        private System.Windows.Forms.TableLayoutPanel tab;
     }
 }
 
