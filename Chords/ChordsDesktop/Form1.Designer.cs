@@ -70,6 +70,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -430,6 +432,8 @@
             this.tableLayoutPanel2.Controls.Add(this.label18, 12, 2);
             this.tableLayoutPanel2.Controls.Add(this.label6, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label7, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -547,6 +551,30 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "C#";
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(3, 43);
+            this.label19.Name = "label19";
+            this.tableLayoutPanel2.SetRowSpan(this.label19, 2);
+            this.label19.Size = new System.Drawing.Size(30, 388);
+            this.label19.TabIndex = 13;
+            this.label19.Text = " P    o   w    e   r";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.label20, 14);
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Location = new System.Drawing.Point(3, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(405, 43);
+            this.label20.TabIndex = 14;
+            this.label20.Text = "Pitch Class Profile";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -640,6 +668,8 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }
 
