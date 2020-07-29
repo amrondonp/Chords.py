@@ -73,6 +73,18 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.cp = new System.Windows.Forms.PictureBox();
+            this.csp = new System.Windows.Forms.PictureBox();
+            this.dp = new System.Windows.Forms.PictureBox();
+            this.dsp = new System.Windows.Forms.PictureBox();
+            this.ep = new System.Windows.Forms.PictureBox();
+            this.fp = new System.Windows.Forms.PictureBox();
+            this.fsp = new System.Windows.Forms.PictureBox();
+            this.gsp = new System.Windows.Forms.PictureBox();
+            this.ap = new System.Windows.Forms.PictureBox();
+            this.asp = new System.Windows.Forms.PictureBox();
+            this.gp = new System.Windows.Forms.PictureBox();
+            this.bp = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -82,6 +94,18 @@
             this.panel1.SuspendLayout();
             this.chartPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fsp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gsp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bp)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -434,6 +458,18 @@
             this.tableLayoutPanel2.Controls.Add(this.label7, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.label19, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label20, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cp, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.csp, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.dp, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.dsp, 4, 1);
+            this.tableLayoutPanel2.Controls.Add(this.ep, 5, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fp, 6, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fsp, 7, 1);
+            this.tableLayoutPanel2.Controls.Add(this.gsp, 9, 1);
+            this.tableLayoutPanel2.Controls.Add(this.ap, 10, 1);
+            this.tableLayoutPanel2.Controls.Add(this.asp, 11, 1);
+            this.tableLayoutPanel2.Controls.Add(this.gp, 8, 1);
+            this.tableLayoutPanel2.Controls.Add(this.bp, 12, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -586,6 +622,104 @@
             this.label8.Text = "C";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cp
+            // 
+            this.cp.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.cp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cp.Location = new System.Drawing.Point(39, 322);
+            this.cp.Name = "cp";
+            this.cp.Size = new System.Drawing.Size(22, 62);
+            this.cp.TabIndex = 15;
+            this.cp.TabStop = false;
+            // 
+            // csp
+            // 
+            this.csp.Location = new System.Drawing.Point(67, 46);
+            this.csp.Name = "csp";
+            this.csp.Size = new System.Drawing.Size(22, 62);
+            this.csp.TabIndex = 16;
+            this.csp.TabStop = false;
+            // 
+            // dp
+            // 
+            this.dp.Location = new System.Drawing.Point(95, 46);
+            this.dp.Name = "dp";
+            this.dp.Size = new System.Drawing.Size(22, 62);
+            this.dp.TabIndex = 17;
+            this.dp.TabStop = false;
+            // 
+            // dsp
+            // 
+            this.dsp.Location = new System.Drawing.Point(123, 46);
+            this.dsp.Name = "dsp";
+            this.dsp.Size = new System.Drawing.Size(22, 62);
+            this.dsp.TabIndex = 18;
+            this.dsp.TabStop = false;
+            // 
+            // ep
+            // 
+            this.ep.Location = new System.Drawing.Point(151, 46);
+            this.ep.Name = "ep";
+            this.ep.Size = new System.Drawing.Size(22, 62);
+            this.ep.TabIndex = 19;
+            this.ep.TabStop = false;
+            // 
+            // fp
+            // 
+            this.fp.Location = new System.Drawing.Point(179, 46);
+            this.fp.Name = "fp";
+            this.fp.Size = new System.Drawing.Size(22, 62);
+            this.fp.TabIndex = 20;
+            this.fp.TabStop = false;
+            // 
+            // fsp
+            // 
+            this.fsp.Location = new System.Drawing.Point(207, 46);
+            this.fsp.Name = "fsp";
+            this.fsp.Size = new System.Drawing.Size(22, 62);
+            this.fsp.TabIndex = 21;
+            this.fsp.TabStop = false;
+            // 
+            // gsp
+            // 
+            this.gsp.Location = new System.Drawing.Point(263, 46);
+            this.gsp.Name = "gsp";
+            this.gsp.Size = new System.Drawing.Size(22, 62);
+            this.gsp.TabIndex = 23;
+            this.gsp.TabStop = false;
+            // 
+            // ap
+            // 
+            this.ap.Location = new System.Drawing.Point(291, 46);
+            this.ap.Name = "ap";
+            this.ap.Size = new System.Drawing.Size(22, 62);
+            this.ap.TabIndex = 24;
+            this.ap.TabStop = false;
+            // 
+            // asp
+            // 
+            this.asp.Location = new System.Drawing.Point(319, 46);
+            this.asp.Name = "asp";
+            this.asp.Size = new System.Drawing.Size(22, 62);
+            this.asp.TabIndex = 25;
+            this.asp.TabStop = false;
+            // 
+            // gp
+            // 
+            this.gp.Location = new System.Drawing.Point(235, 46);
+            this.gp.Name = "gp";
+            this.gp.Size = new System.Drawing.Size(22, 62);
+            this.gp.TabIndex = 26;
+            this.gp.TabStop = false;
+            // 
+            // bp
+            // 
+            this.bp.Location = new System.Drawing.Point(347, 46);
+            this.bp.Name = "bp";
+            this.bp.Size = new System.Drawing.Size(22, 62);
+            this.bp.TabIndex = 27;
+            this.bp.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -619,6 +753,18 @@
             this.chartPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.csp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dsp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fsp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gsp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.asp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -670,6 +816,18 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.PictureBox cp;
+        private System.Windows.Forms.PictureBox csp;
+        private System.Windows.Forms.PictureBox dp;
+        private System.Windows.Forms.PictureBox dsp;
+        private System.Windows.Forms.PictureBox ep;
+        private System.Windows.Forms.PictureBox fp;
+        private System.Windows.Forms.PictureBox fsp;
+        private System.Windows.Forms.PictureBox gsp;
+        private System.Windows.Forms.PictureBox ap;
+        private System.Windows.Forms.PictureBox asp;
+        private System.Windows.Forms.PictureBox gp;
+        private System.Windows.Forms.PictureBox bp;
     }
 }
 
