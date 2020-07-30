@@ -165,10 +165,19 @@ namespace Chords.MachineLearning
                     AutoMlModelCreation.EvaluateModel(result,
                         originalTestFile);
 
+                step = "Cross evaluating model...";
+
+                var crossPredictions = result.BestRun.Model.Transform(trainData);
+
+                var corssValidationMetrics =
+                    MlContextInstance.MulticlassClassification.Evaluate(
+                data: crossPredictions, labelColumnName: "Chord");
+
+
                 step = "Saving model...";
                 MlContextInstance.Model.Save(
                     modelWithLabelMapping, trainData.Schema,
-                    $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{validationMetrics.LogLoss}.model");
+                    $@"{outputFolder}{currentTime}S{timeoutInSeconds}L{Math.Round(validationMetrics.LogLoss, 6)}C{Math.Round(corssValidationMetrics.LogLoss, 6)}.model");
                 
                 step = "Finished creating model";
                 progress.Report((100, step));
