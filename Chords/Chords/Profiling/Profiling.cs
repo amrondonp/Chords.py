@@ -57,7 +57,7 @@ namespace Chords.Profiling
             {
                 // Computing Math.Round(12 * Math.Log2(   (fs * l)/(N * fref)  ) ) % 12; step by step
                 var aux = (fs * l) / (n * fref);
-                var aux2 = Math.Log2(aux);
+                var aux2 = Math.Log(aux) / Math.Log(2);
                 var aux3 = 12 * aux2;
                 var axu4 = (int)Math.Round(aux3);
                 var aux5 = axu4 % 12;
