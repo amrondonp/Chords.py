@@ -187,11 +187,8 @@ namespace ChordsTest.Predictors
             Assert.IsTrue(predictions.Contains("Em"));
         }
 
-        private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor)
+        private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor, int windowSizeInMs, int offsetInMs)
         {
-            int windowSizeInMs = 500;
-            int offsetInMs = 100;
-
             int windowSize = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
             int offsetSize = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
 
@@ -251,7 +248,7 @@ namespace ChordsTest.Predictors
         {
             var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/wind_of_change.wav");
-            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor);
+            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 100);
             var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
             Assert.AreEqual(samples.Length, totalSampleLength);
             Assert.AreEqual(chords.Length, 9);
@@ -271,12 +268,23 @@ namespace ChordsTest.Predictors
         {
             var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/combined.wav");
-            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor);
+            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 100);
             var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
             Assert.AreEqual(samples.Length, totalSampleLength);
             Assert.AreEqual(chords.Length, 2);
             Assert.AreEqual(chords[0].Name, "C");
             Assert.AreEqual(chords[1].Name, "G");
+        }
+
+        [Ignore]
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionWithBorderDetection_Sweet()
+        {
+            var predictor = new AutoMlPredictor("./Resources/20200730032502S400L0.175406C0.043894.model");
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/sweet improved.mp3");
+            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 250);
+            var a = String.Join(" ", chords.Select(chord => chord.Name));
+            Assert.IsTrue(false); // Test not fully implemented yet
         }
     }
 }
