@@ -48,6 +48,9 @@
     <None Update="Resources\trainDataGeneratorFolder\placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\wind_of_change.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

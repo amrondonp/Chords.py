@@ -2,7 +2,9 @@
 using Chords.Predictors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace ChordsTest.Predictors
 {
@@ -170,6 +172,116 @@ namespace ChordsTest.Predictors
 
             Assert.IsTrue(predictions.Contains("G"));
             Assert.IsTrue(predictions.Contains("Em"));
+        }
+
+        private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor)
+        {
+            List<Chord> chords = new List<Chord>();
+            int windowSizeInMs = 500;
+            int offsetInMs = 100;
+
+            int windowSizeInSamples = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
+            int offsetSizeInSamples = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
+            
+            float[] window = new float[windowSizeInSamples];
+            string currentChordName = "";
+            int startOfChord = 0;
+            int i = 0;
+
+            while(i + windowSizeInSamples < samples.Length)
+            {
+                Array.Copy(samples, i, window, 0, windowSizeInSamples);
+
+                var chord = predictor.GetPredictionWithChord(window, sampleRate);
+                if (!currentChordName.Equals(chord.Name))
+                {
+                    if (currentChordName.Length > 0)
+                    {
+                        float[] chordSamples = new float[i - startOfChord];
+                        Array.Copy(samples, startOfChord, chordSamples, 0, chordSamples.Length);
+                        Chord chordToAdd = new Chord(chordSamples, sampleRate, currentChordName, null);
+                        chords.Add(chordToAdd);
+
+                        currentChordName = "";
+                        startOfChord = i;
+                    } else
+                    {
+                        currentChordName = chord.Name;
+                    }
+
+                    i += windowSizeInSamples;
+                } else
+                {
+                    i += offsetSizeInSamples;
+                }
+            }
+
+            if(currentChordName.Length > 0)
+            {
+                float[] chordSamples = new float[i - startOfChord];
+                Array.Copy(samples, startOfChord, chordSamples, 0, chordSamples.Length);
+                Chord chordToAdd = new Chord(chordSamples, sampleRate, currentChordName, null);
+                chords.Add(chordToAdd);
+            }
+
+            if(i < samples.Length)
+            {
+                float[] chordSamples = new float[samples.Length - i];
+                Array.Copy(samples, i, chordSamples, 0, chordSamples.Length);
+                Chord chordToAdd = new Chord(chordSamples, sampleRate, predictor.GetPrediction(chordSamples, sampleRate), null);
+                chords.Add(chordToAdd);
+            }
+
+            List<Chord> actual = new List<Chord>();
+
+            int a = 0;
+            int b = 0;
+
+            while(a < chords.Count())
+            {
+                if (b == chords.Count() || chords[b].Name != chords[a].Name)
+                {
+                    List<float> samplesW = new List<float>();
+                    for (int k = a; k < b; k++)
+                    {
+                        foreach (float s in chords[k].Samples)
+                        {
+                            samplesW.Add(s);
+                        }
+                    }
+
+                    var samplesWA = samplesW.ToArray();
+                    var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(samplesWA, sampleRate);
+                    actual.Add(new Chord(samplesWA, sampleRate, chords[a].Name, pcp));
+                    a = b;
+                }
+                else
+                {
+                    b++;
+                }
+            }
+
+            return actual.ToArray();
+        }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionWithBorderDetection()
+        {
+            var predictor = new AutoMlPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/wind_of_change.wav");
+            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor);
+            var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
+            Assert.AreEqual(samples.Length, totalSampleLength);
+            Assert.AreEqual(chords.Length, 9);
+            Assert.AreEqual(chords[0].Name, "F");
+            Assert.AreEqual(chords[1].Name, "Dm");
+            Assert.AreEqual(chords[2].Name, "F");
+            Assert.AreEqual(chords[3].Name, "Dm");
+            Assert.AreEqual(chords[4].Name, "Am");
+            Assert.AreEqual(chords[5].Name, "Dm");
+            Assert.AreEqual(chords[6].Name, "Am");
+            Assert.AreEqual(chords[7].Name, "G");
+            Assert.AreEqual(chords[8].Name, "Em");
         }
     }
 }
