@@ -21,6 +21,9 @@ namespace ChordsDesktop
         private Panel[] containerPanels;
         private PictureBox[] powers;
         private Chord[] chordsPredicted;
+        private int[] chordsIntervals;
+        private float[] samples;
+        private int sampleRate;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<(int, string)> trainProgress;
         private readonly IProgress<double> audioPlayProgress;
@@ -102,7 +105,13 @@ namespace ChordsDesktop
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = $@"Audio played up to {milliseconds} ms";
-            playedChord = (int)Math.Floor(Math.Round(milliseconds) / windowInMs);
+            milliseconds = Math.Round(milliseconds);
+
+            playedChord = Array.BinarySearch(chordsIntervals, (int)milliseconds);
+            if(playedChord < 0)
+            {
+                playedChord = ~playedChord;
+            }
 
             if (playedChord < chordButtons.Length)
             {
@@ -144,13 +153,22 @@ namespace ChordsDesktop
             var sw = new Stopwatch();
 
             sw.Start();
-            var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
+            (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
             this.samplesManager = new SamplesManager(sampleRate, samples);
 
             chordsPredicted = await Task.Run(() =>
                 predictor.GetPredictionsWithChords(samples, sampleRate,
                     windowInMs, chordProcessingProgress)
             );
+
+            chordsIntervals = new int[chordsPredicted.Length];
+            chordsIntervals[0] = (int)Math.Round((chordsPredicted[0].Samples.Length * 1000 + 0.0) / sampleRate);
+            for(int i = 1; i < chordsIntervals.Length; i++)
+            {
+                chordsIntervals[i] = chordsIntervals[i - 1] + (int)Math.Round((chordsPredicted[i].Samples.Length * 1000 + 0.0) / sampleRate);
+            }
+
+
             sw.Stop();
 
             progressLabel.Text =
