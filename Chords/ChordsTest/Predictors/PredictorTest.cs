@@ -209,7 +209,7 @@ namespace ChordsTest.Predictors
                 Interval interval = new Interval(intervalStart, intervalEnd, chord.Name);
                 int intervalExtension = 0;
 
-                while (chord.Name == interval.name && intervalStart + intervalExtension + windowSize < samples.Length)
+                while (chord.Name == interval.name && intervalStart + intervalExtension + windowSize + offsetSize < samples.Length)
                 {
                     intervalExtension += offsetSize;
                     Array.Copy(samples, intervalStart + intervalExtension, window, 0, windowSize);
@@ -264,6 +264,19 @@ namespace ChordsTest.Predictors
             Assert.AreEqual(chords[6].Name, "Am");
             Assert.AreEqual(chords[7].Name, "G");
             Assert.AreEqual(chords[8].Name, "Em");
+        }
+
+        [TestMethod]
+        public void AutoMlPredictor_GetPredictionWithBorderDetection_Combined()
+        {
+            var predictor = new AutoMlPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/combined.wav");
+            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor);
+            var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
+            Assert.AreEqual(samples.Length, totalSampleLength);
+            Assert.AreEqual(chords.Length, 2);
+            Assert.AreEqual(chords[0].Name, "C");
+            Assert.AreEqual(chords[1].Name, "G");
         }
     }
 }
