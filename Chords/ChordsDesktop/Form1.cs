@@ -212,7 +212,7 @@ namespace ChordsDesktop
                     }
 
                     audioPlayer.Stop();
-                    audioPlayer.SetPositionInMs(buttonIndex * windowInMs);
+                    audioPlayer.SetPositionInMs(chordsIntervals[buttonIndex]);
                 };
 
                 chordButtons[i] = button;
