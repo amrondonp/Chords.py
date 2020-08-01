@@ -8,6 +8,19 @@ using System.Net.Http.Headers;
 
 namespace ChordsTest.Predictors
 {
+    public class Interval
+    {
+        public int from, to;
+        public string name;
+
+        public Interval(int from, int to, string name)
+        {
+            this.from = from;
+            this.to = to;
+            this.name = name;
+        }
+    }
+
     [TestClass]
     public class PredictorTest
     {
@@ -176,83 +189,52 @@ namespace ChordsTest.Predictors
 
         private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor)
         {
-            List<Chord> chords = new List<Chord>();
             int windowSizeInMs = 500;
             int offsetInMs = 100;
 
-            int windowSizeInSamples = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
-            int offsetSizeInSamples = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
-            
-            float[] window = new float[windowSizeInSamples];
-            string currentChordName = "";
-            int startOfChord = 0;
-            int i = 0;
+            int windowSize = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
+            int offsetSize = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
 
-            while(i + windowSizeInSamples < samples.Length)
+            int intervalStart = 0, intervalEnd;
+            float[] window = new float[windowSize];
+            var intervals = new List<Interval>();
+
+            do
             {
-                Array.Copy(samples, i, window, 0, windowSizeInSamples);
+                intervalEnd = Math.Min(intervalStart + windowSize, samples.Length);
 
+                Array.Copy(samples, intervalStart, window, 0, intervalEnd - intervalStart);
                 var chord = predictor.GetPredictionWithChord(window, sampleRate);
-                if (!currentChordName.Equals(chord.Name))
-                {
-                    if (currentChordName.Length > 0)
-                    {
-                        float[] chordSamples = new float[i - startOfChord];
-                        Array.Copy(samples, startOfChord, chordSamples, 0, chordSamples.Length);
-                        Chord chordToAdd = new Chord(chordSamples, sampleRate, currentChordName, null);
-                        chords.Add(chordToAdd);
 
-                        currentChordName = "";
-                        startOfChord = i;
-                    } else
-                    {
-                        currentChordName = chord.Name;
-                    }
+                Interval interval = new Interval(intervalStart, intervalEnd, chord.Name);
+                int intervalExtension = 0;
 
-                    i += windowSizeInSamples;
-                } else
+                while (chord.Name == interval.name && intervalStart + intervalExtension + windowSize < samples.Length)
                 {
-                    i += offsetSizeInSamples;
+                    intervalExtension += offsetSize;
+                    Array.Copy(samples, intervalStart + intervalExtension, window, 0, windowSize);
+                    chord = predictor.GetPredictionWithChord(window, sampleRate);
                 }
-            }
 
-            if(currentChordName.Length > 0)
-            {
-                float[] chordSamples = new float[i - startOfChord];
-                Array.Copy(samples, startOfChord, chordSamples, 0, chordSamples.Length);
-                Chord chordToAdd = new Chord(chordSamples, sampleRate, currentChordName, null);
-                chords.Add(chordToAdd);
-            }
+                interval.to += intervalExtension;
+                intervals.Add(interval);
+                intervalStart = interval.to;
+            } while (intervalStart < samples.Length);
 
-            if(i < samples.Length)
-            {
-                float[] chordSamples = new float[samples.Length - i];
-                Array.Copy(samples, i, chordSamples, 0, chordSamples.Length);
-                Chord chordToAdd = new Chord(chordSamples, sampleRate, predictor.GetPrediction(chordSamples, sampleRate), null);
-                chords.Add(chordToAdd);
-            }
-
-            List<Chord> actual = new List<Chord>();
+            List <Chord> actual = new List<Chord>();
 
             int a = 0;
             int b = 0;
 
-            while(a < chords.Count())
+            while(a < intervals.Count())
             {
-                if (b == chords.Count() || chords[b].Name != chords[a].Name)
+                if (b == intervals.Count() || intervals[b].name != intervals[a].name)
                 {
-                    List<float> samplesW = new List<float>();
-                    for (int k = a; k < b; k++)
-                    {
-                        foreach (float s in chords[k].Samples)
-                        {
-                            samplesW.Add(s);
-                        }
-                    }
-
-                    var samplesWA = samplesW.ToArray();
-                    var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(samplesWA, sampleRate);
-                    actual.Add(new Chord(samplesWA, sampleRate, chords[a].Name, pcp));
+                    int rightEnd = b < intervals.Count() ? intervals[b].from : samples.Length;
+                    float[] intervalSamples = new float[rightEnd - intervals[a].from];
+                    Array.Copy(samples, intervals[a].from, intervalSamples, 0, intervalSamples.Length);
+                    var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(intervalSamples, sampleRate);
+                    actual.Add(new Chord(intervalSamples, sampleRate, intervals[a].name, pcp));
                     a = b;
                 }
                 else
