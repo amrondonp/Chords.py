@@ -103,75 +103,6 @@ namespace ChordsDesktop
             set { base.AutoSize = value; }
         }
 
-        public class Interval
-        {
-            public int from, to;
-            public string name;
-
-            public Interval(int from, int to, string name)
-            {
-                this.from = from;
-                this.to = to;
-                this.name = name;
-            }
-        }
-
-        private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor, int windowSizeInMs, int offsetInMs)
-        {
-            int windowSize = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
-            int offsetSize = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
-
-            int intervalStart = 0, intervalEnd;
-            float[] window = new float[windowSize];
-            var intervals = new List<Interval>();
-
-            do
-            {
-                intervalEnd = Math.Min(intervalStart + windowSize, samples.Length);
-
-                Array.Copy(samples, intervalStart, window, 0, intervalEnd - intervalStart);
-                var chord = predictor.GetPredictionWithChord(window, sampleRate);
-
-                Interval interval = new Interval(intervalStart, intervalEnd, chord.Name);
-                int intervalExtension = 0;
-
-                while (chord.Name == interval.name && intervalStart + intervalExtension + windowSize + offsetSize < samples.Length)
-                {
-                    intervalExtension += offsetSize;
-                    Array.Copy(samples, intervalStart + intervalExtension, window, 0, windowSize);
-                    chord = predictor.GetPredictionWithChord(window, sampleRate);
-                }
-
-                interval.to += intervalExtension;
-                intervals.Add(interval);
-                intervalStart = interval.to;
-            } while (intervalStart < samples.Length);
-
-            List<Chord> actual = new List<Chord>();
-
-            int a = 0;
-            int b = 0;
-
-            while (a < intervals.Count())
-            {
-                if (b == intervals.Count() || intervals[b].name != intervals[a].name)
-                {
-                    int rightEnd = b < intervals.Count() ? intervals[b].from : samples.Length;
-                    float[] intervalSamples = new float[rightEnd - intervals[a].from];
-                    Array.Copy(samples, intervals[a].from, intervalSamples, 0, intervalSamples.Length);
-                    var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(intervalSamples, sampleRate);
-                    actual.Add(new Chord(intervalSamples, sampleRate, intervals[a].name, pcp));
-                    a = b;
-                }
-                else
-                {
-                    b++;
-                }
-            }
-
-            return actual.ToArray();
-        }
-
         private void FocusChordPlayedAtTime(double milliseconds)
         {
             label1.Text = $@"Audio played up to {milliseconds} ms";
@@ -227,9 +158,8 @@ namespace ChordsDesktop
             this.samplesManager = new SamplesManager(sampleRate, samples);
 
             chordsPredicted = await Task.Run(() =>
-                //predictor.GetPredictionsWithChords(samples, sampleRate,
-                //    windowInMs, chordProcessingProgress)
-                GetPredictionWithBorderDetection(samples, sampleRate, predictor, windowInMs, 100)
+                predictor.GetPredictionWithBorderDetection(samples, sampleRate,
+                    windowInMs, 100, chordProcessingProgress)
             );
 
             chordsIntervals = new int[chordsPredicted.Length];
