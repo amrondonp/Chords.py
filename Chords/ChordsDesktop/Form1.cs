@@ -3,7 +3,6 @@ using Chords.Predictors;
 using Chords.Profiling;
 using Chords.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -19,8 +18,8 @@ namespace ChordsDesktop
             Color.FromArgb(0, 204, 102);
 
         private Button[] chordButtons;
-        private Panel[] containerPanels;
-        private PictureBox[] powers;
+        private readonly Panel[] containerPanels;
+        private readonly PictureBox[] powers;
         private Chord[] chordsPredicted;
         private int[] chordsIntervals;
         private float[] samples;
@@ -33,9 +32,8 @@ namespace ChordsDesktop
         private int windowInMs = 500;
         private string filePath;
         private IPredictor predictor;
-        private IChordRepository repository;
-        private SamplesManager samplesManager;
-        private string generatedModelsDirectory;
+        private readonly IChordRepository repository;
+        private readonly string generatedModelsDirectory;
 
         public Form1(IPredictor predictor, IChordRepository repository)
         {
@@ -70,7 +68,7 @@ namespace ChordsDesktop
 
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            this.toolStripMenuItem3.Click += new EventHandler(this.ChangeModel);
+            toolStripMenuItem3.Click += new EventHandler(ChangeModel);
 
             containerPanels = new Panel[12];
             powers = new PictureBox[12];
@@ -94,7 +92,7 @@ namespace ChordsDesktop
             
             this.predictor = predictor;
             this.repository = repository;
-            this.generatedModelsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "models");
+            generatedModelsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "models");
         }
 
         public sealed override bool AutoSize
@@ -155,7 +153,6 @@ namespace ChordsDesktop
 
             sw.Start();
             (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
-            this.samplesManager = new SamplesManager(sampleRate, samples);
 
             chordsPredicted = await Task.Run(() =>
                 predictor.GetPredictionWithBorderDetection(samples, sampleRate,
@@ -338,10 +335,10 @@ namespace ChordsDesktop
             if(newModelName.Split(".")[^1].Equals("onnx"))
             {
                 // TODO add propper change of onnx model
-                this.predictor = new ClassicPredictor();
+                predictor = new ClassicPredictor();
             } else
             {
-                this.predictor = new AutoMlPredictor(newModelName);
+                predictor = new AutoMlPredictor(newModelName);
             }
 
 
