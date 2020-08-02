@@ -22,8 +22,6 @@ namespace ChordsDesktop
         private readonly PictureBox[] powers;
         private Chord[] chordsPredicted;
         private int[] chordsIntervals;
-        private float[] samples;
-        private int sampleRate;
         private readonly IProgress<int> chordProcessingProgress;
         private readonly IProgress<(int, string)> trainProgress;
         private readonly IProgress<double> audioPlayProgress;
@@ -152,7 +150,7 @@ namespace ChordsDesktop
             var sw = new Stopwatch();
 
             sw.Start();
-            (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
+            var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(filePath));
 
             chordsPredicted = await Task.Run(() =>
                 predictor.GetPredictionWithBorderDetection(samples, sampleRate,
