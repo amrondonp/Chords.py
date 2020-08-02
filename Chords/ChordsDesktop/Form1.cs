@@ -189,6 +189,7 @@ namespace ChordsDesktop
             chordButtons = new Button[chordsPredicted.Length];
             var biggestButtonWidth = 0;
             var biggestButtonHeight = 0;
+            var minDurationChord = int.MaxValue;
 
             for (var i = 0; i < chordsPredicted.Length; i++)
             {
@@ -216,11 +217,13 @@ namespace ChordsDesktop
                     button.PreferredSize.Width);
                 biggestButtonHeight = Math.Max(biggestButtonHeight,
                     button.PreferredSize.Height);
+                minDurationChord = Math.Min(chord.DurationInMs(), minDurationChord);
             }
 
-            foreach (var button in chordButtons)
+            for(int i = 0; i<chordButtons.Length; i++)
             {
-                button.Width = biggestButtonWidth;
+                var button = chordButtons[i];
+                button.Width = (biggestButtonWidth * chordsPredicted[i].DurationInMs()) / minDurationChord;
                 button.Height = biggestButtonHeight;
             }
 
