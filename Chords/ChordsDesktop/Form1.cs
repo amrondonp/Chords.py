@@ -116,7 +116,7 @@ namespace ChordsDesktop
 
                 if (doAutoScroll.Checked)
                 {
-                    flowLayoutPanel1.ScrollControlIntoView(
+                    mainPanel.ScrollControlIntoView(
                         chordButtons[playedChord]);
                 }
 
@@ -185,7 +185,7 @@ namespace ChordsDesktop
 
         private void ShowChordButtons()
         {
-            flowLayoutPanel1.Controls.Clear();
+            mainPanel.Controls.Clear();
             chordButtons = new Button[chordsPredicted.Length];
             var biggestButtonWidth = 0;
             var biggestButtonHeight = 0;
@@ -227,7 +227,7 @@ namespace ChordsDesktop
                 button.Height = biggestButtonHeight;
             }
 
-            flowLayoutPanel1.Controls.AddRange(chordButtons.ToArray<Control>());
+            mainPanel.Controls.AddRange(chordButtons.ToArray<Control>());
         }
 
         private string GetOpenedFilePath()

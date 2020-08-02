@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.mainPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +55,7 @@
             this.correctedChordTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.trainSeconds = new System.Windows.Forms.NumericUpDown();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.selectedChordPanel = new System.Windows.Forms.Panel();
             this.chartPanel = new System.Windows.Forms.Panel();
             this.chartTable = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
@@ -78,30 +78,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.selectedChordPanel.SuspendLayout();
             this.chartPanel.SuspendLayout();
             this.chartTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(10, 538);
+            this.progressBar1.Location = new System.Drawing.Point(14, 579);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 24);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1661, 26);
+            this.progressBar1.Size = new System.Drawing.Size(1495, 26);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 3;
             // 
-            // flowLayoutPanel1
+            // mainPanel
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 37);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 12, 2);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(961, 382);
-            this.flowLayoutPanel1.TabIndex = 4;
+            this.mainPanel.AutoScroll = true;
+            this.mainPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainPanel.Location = new System.Drawing.Point(11, 37);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(2, 2, 12, 2);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(787, 382);
+            this.mainPanel.TabIndex = 4;
             // 
             // menuStrip1
             // 
@@ -113,7 +113,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1689, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1533, 28);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -150,7 +150,7 @@
             // 
             this.progressLabel.AutoSize = true;
             this.progressLabel.BackColor = System.Drawing.Color.Transparent;
-            this.progressLabel.Location = new System.Drawing.Point(10, 510);
+            this.progressLabel.Location = new System.Drawing.Point(14, 551);
             this.progressLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(175, 20);
@@ -160,7 +160,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 485);
+            this.label1.Location = new System.Drawing.Point(14, 526);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 20);
@@ -233,7 +233,7 @@
             this.flowLayoutPanel3.Controls.Add(this.numericUpDown1);
             this.flowLayoutPanel3.Controls.Add(this.label3);
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(544, 430);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(14, 473);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(427, 39);
@@ -382,21 +382,21 @@
             this.trainSeconds.Size = new System.Drawing.Size(70, 27);
             this.trainSeconds.TabIndex = 13;
             // 
-            // panel1
+            // selectedChordPanel
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(987, 37);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 14, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(254, 432);
-            this.panel1.TabIndex = 10;
+            this.selectedChordPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.selectedChordPanel.Controls.Add(this.tableLayoutPanel1);
+            this.selectedChordPanel.Location = new System.Drawing.Point(819, 37);
+            this.selectedChordPanel.Margin = new System.Windows.Forms.Padding(3, 3, 14, 3);
+            this.selectedChordPanel.Name = "selectedChordPanel";
+            this.selectedChordPanel.Size = new System.Drawing.Size(254, 432);
+            this.selectedChordPanel.TabIndex = 10;
             // 
             // chartPanel
             // 
             this.chartPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chartPanel.Controls.Add(this.chartTable);
-            this.chartPanel.Location = new System.Drawing.Point(1258, 37);
+            this.chartPanel.Location = new System.Drawing.Point(1097, 37);
             this.chartPanel.Margin = new System.Windows.Forms.Padding(3, 3, 14, 3);
             this.chartPanel.Name = "chartPanel";
             this.chartPanel.Size = new System.Drawing.Size(413, 431);
@@ -578,15 +578,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1689, 579);
+            this.ClientSize = new System.Drawing.Size(1533, 632);
             this.Controls.Add(this.chartPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.selectedChordPanel);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.menuStrip1);
             this.Location = new System.Drawing.Point(100, 100);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -602,7 +602,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trainSeconds)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.selectedChordPanel.ResumeLayout(false);
             this.chartPanel.ResumeLayout(false);
             this.chartTable.ResumeLayout(false);
             this.chartTable.PerformLayout();
@@ -613,7 +613,7 @@
 
         #endregion
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel mainPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenu;
@@ -639,7 +639,7 @@
         private System.Windows.Forms.Button retrainButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown trainSeconds;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel selectedChordPanel;
         private System.Windows.Forms.Panel chartPanel;
         private System.Windows.Forms.TableLayoutPanel chartTable;
         private System.Windows.Forms.Label label9;
