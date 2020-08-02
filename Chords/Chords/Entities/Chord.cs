@@ -16,5 +16,10 @@
             SampleRate = sampleRate;
             Pcp = pcp;
         }
+
+        public int DurationInMs()
+        {
+            return Samples.Length * 1000 / SampleRate;
+        }
     }
 }

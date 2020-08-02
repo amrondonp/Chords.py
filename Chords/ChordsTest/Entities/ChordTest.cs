@@ -36,5 +36,18 @@ namespace ChordsTest.Entities
             Assert.AreEqual(chord.SampleRate, 44100);
             Assert.AreEqual(chord.Samples, samples);
         }
+
+        [TestMethod]
+        public void GetDurationInMs()
+        {
+            var chord = ChordExample();
+            Assert.AreEqual(chord.DurationInMs(), 12340 * 1000 / 44100);
+
+            chord.Samples = new float[44100];
+            Assert.AreEqual(chord.DurationInMs(), 1000);
+
+            chord.Samples = new float[125850];
+            Assert.AreEqual(chord.DurationInMs(), 2853);
+        }
     }
 }
