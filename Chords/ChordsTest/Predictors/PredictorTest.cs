@@ -8,19 +8,6 @@ using System.Net.Http.Headers;
 
 namespace ChordsTest.Predictors
 {
-    public class Interval
-    {
-        public int from, to;
-        public string name;
-
-        public Interval(int from, int to, string name)
-        {
-            this.from = from;
-            this.to = to;
-            this.name = name;
-        }
-    }
-
     [TestClass]
     public class PredictorTest
     {
@@ -187,60 +174,17 @@ namespace ChordsTest.Predictors
             Assert.IsTrue(predictions.Contains("Em"));
         }
 
-        private Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, IPredictor predictor, int windowSizeInMs, int offsetInMs)
+        [TestMethod]
+        public void ClassicPredictor_GetPredictionWithBorderDetection()
         {
-            int windowSize = (int)Math.Floor((0.0 + windowSizeInMs * sampleRate) / 1000);
-            int offsetSize = (int)Math.Floor((0.0 + offsetInMs * sampleRate) / 1000);
-
-            int intervalStart = 0, intervalEnd;
-            float[] window = new float[windowSize];
-            var intervals = new List<Interval>();
-
-            do
-            {
-                intervalEnd = Math.Min(intervalStart + windowSize, samples.Length);
-
-                Array.Copy(samples, intervalStart, window, 0, intervalEnd - intervalStart);
-                var chord = predictor.GetPredictionWithChord(window, sampleRate);
-
-                Interval interval = new Interval(intervalStart, intervalEnd, chord.Name);
-                int intervalExtension = 0;
-
-                while (chord.Name == interval.name && intervalStart + intervalExtension + windowSize + offsetSize < samples.Length)
-                {
-                    intervalExtension += offsetSize;
-                    Array.Copy(samples, intervalStart + intervalExtension, window, 0, windowSize);
-                    chord = predictor.GetPredictionWithChord(window, sampleRate);
-                }
-
-                interval.to += intervalExtension;
-                intervals.Add(interval);
-                intervalStart = interval.to;
-            } while (intervalStart < samples.Length);
-
-            List <Chord> actual = new List<Chord>();
-
-            int a = 0;
-            int b = 0;
-
-            while(a < intervals.Count())
-            {
-                if (b == intervals.Count() || intervals[b].name != intervals[a].name)
-                {
-                    int rightEnd = b < intervals.Count() ? intervals[b].from : samples.Length;
-                    float[] intervalSamples = new float[rightEnd - intervals[a].from];
-                    Array.Copy(samples, intervals[a].from, intervalSamples, 0, intervalSamples.Length);
-                    var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(intervalSamples, sampleRate);
-                    actual.Add(new Chord(intervalSamples, sampleRate, intervals[a].name, pcp));
-                    a = b;
-                }
-                else
-                {
-                    b++;
-                }
-            }
-
-            return actual.ToArray();
+            var predictor = new ClassicPredictor();
+            var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/wind_of_change.wav");
+            var chords = predictor.GetPredictionWithBorderDetection(samples, sampleRate, 500, 100, new Progress<int>());
+            var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
+            Assert.AreEqual(samples.Length, totalSampleLength);
+            Assert.AreEqual(chords[0].Name, "F");
+            Assert.AreEqual(chords[1].Name, "Dm");
+            Assert.AreEqual(chords[2].Name, "F");
         }
 
         [TestMethod]
@@ -248,7 +192,7 @@ namespace ChordsTest.Predictors
         {
             var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/wind_of_change.wav");
-            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 100);
+            var chords = predictor.GetPredictionWithBorderDetection(samples, sampleRate, 500, 100, new Progress<int>());
             var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
             Assert.AreEqual(samples.Length, totalSampleLength);
             Assert.AreEqual(chords.Length, 9);
@@ -268,7 +212,7 @@ namespace ChordsTest.Predictors
         {
             var predictor = new AutoMlPredictor();
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/combined.wav");
-            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 100);
+            var chords = predictor.GetPredictionWithBorderDetection(samples, sampleRate, 500, 100, new Progress<int>());
             var totalSampleLength = chords.Select(chord => chord.Samples.Length).Aggregate((acc, val) => acc + val);
             Assert.AreEqual(samples.Length, totalSampleLength);
             Assert.AreEqual(chords.Length, 2);
@@ -282,7 +226,7 @@ namespace ChordsTest.Predictors
         {
             var predictor = new AutoMlPredictor("./Resources/20200730032502S400L0.175406C0.043894.model");
             var (sampleRate, samples) = Chords.Profiling.Profiling.GetSamples("./Resources/sweet improved.mp3");
-            var chords = GetPredictionWithBorderDetection(samples, sampleRate, predictor, 500, 250);
+            var chords = predictor.GetPredictionWithBorderDetection(samples, sampleRate, 500, 250, new Progress<int>());
             var a = String.Join(" ", chords.Select(chord => chord.Name));
             Assert.IsTrue(false); // Test not fully implemented yet
         }

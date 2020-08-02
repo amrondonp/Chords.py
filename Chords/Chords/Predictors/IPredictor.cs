@@ -15,6 +15,9 @@ namespace Chords.Predictors
         public Chord[] GetPredictionsWithChords(float[] samples,
             int sampleRate, int windowInMs, IProgress<int> progress);
 
+        public Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate,
+            int windowSizeInMs, int offsetInMs, IProgress<int> progress);
+
         public string[] GetPredictionForFile(
             string filePath,
             IProgress<int> progress, int windowInMs);

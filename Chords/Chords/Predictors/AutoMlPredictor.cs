@@ -78,5 +78,14 @@ namespace Chords.Predictors
                     (sampleRateLambda, samplesLambda) =>
                         GetPredictionWithChord(samplesLambda, sampleRateLambda));
         }
+
+        public Chord[] GetPredictionWithBorderDetection(float[] samples, int sampleRate, int windowSizeInMs, int offsetInMs, IProgress<int> progress)
+        {
+            return LongAudioProfiling
+                .PredictionWithBorderDetection(sampleRate,
+                    samples, windowSizeInMs, offsetInMs, progress,
+                    (sampleRateLambda, samplesLambda) =>
+                        GetPredictionWithChord(samplesLambda, sampleRateLambda));
+        }
     }
 }
