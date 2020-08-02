@@ -129,7 +129,7 @@ namespace Chords.Profiling
 
             do
             {
-                progress.Report( (intervalStart*100) / samples.Length);
+                progress.Report( (intervalStart*50) / samples.Length);
                 intervalEnd = Math.Min(intervalStart + windowSize, samples.Length);
 
                 Array.Copy(samples, intervalStart, window, 0, intervalEnd - intervalStart);
@@ -160,6 +160,7 @@ namespace Chords.Profiling
                 if (b == intervals.Count() || intervals[b].name != intervals[a].name)
                 {
                     int rightEnd = b < intervals.Count() ? intervals[b].from : samples.Length;
+                    progress.Report(50 + (rightEnd * 50) / samples.Length);
                     float[] intervalSamples = new float[rightEnd - intervals[a].from];
                     Array.Copy(samples, intervals[a].from, intervalSamples, 0, intervalSamples.Length);
                     var pcp = Chords.Profiling.Profiling.PitchClassProfileForSamples(intervalSamples, sampleRate);
