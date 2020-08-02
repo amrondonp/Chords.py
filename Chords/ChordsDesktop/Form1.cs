@@ -197,7 +197,7 @@ namespace ChordsDesktop
                 var button = new Button
                 {
                     Text = chord.Name,
-                    Font = new Font(Font.FontFamily, 15),
+                    Font = new Font(Font.FontFamily, 13),
                 };
 
                 var buttonIndex = i;
