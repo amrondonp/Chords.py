@@ -160,10 +160,10 @@ namespace ChordsDesktop
             );
 
             chordsIntervals = new int[chordsPredicted.Length];
-            chordsIntervals[0] = (int)Math.Round((chordsPredicted[0].Samples.Length * 1000 + 0.0) / sampleRate);
+            chordsIntervals[0] = chordsPredicted[0].DurationInMs();
             for(int i = 1; i < chordsIntervals.Length; i++)
             {
-                chordsIntervals[i] = chordsIntervals[i - 1] + (int)Math.Round((chordsPredicted[i].Samples.Length * 1000 + 0.0) / sampleRate);
+                chordsIntervals[i] = chordsIntervals[i - 1] + chordsPredicted[i].DurationInMs();
             }
 
 
