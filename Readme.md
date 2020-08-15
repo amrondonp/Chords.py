@@ -6,11 +6,11 @@ The demo application is written in C# with .NETCore. As of July 9, 2020, the onl
 
 Installing the application.
 
-The demo app uses [ONNX runtime](https://github.com/microsoft/onnxruntime) to run the exported model created on python and keras and it needs [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) to be installed on the machine that is going to run the app.
+The demo app uses AutoML .NET as the default prediction engine and [ONNX runtime](https://github.com/microsoft/onnxruntime) as the legacy prediction engine to run the exported model created on python and keras and it needs [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) to be installed on the machine that is going to run the app.
 
 Steps.
 
-1. Install [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) from the Microsoft web site
+1. (Optional, only if you are interested on using ONNX runtime) Install [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) from the Microsoft web site
 2. Download the application from our [Releases](https://github.com/amrondonp/Chords.py/releases/)
 3. Extract the folder and run `Chords.exe`
 
