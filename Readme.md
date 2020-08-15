@@ -21,9 +21,6 @@ Steps.
 - Load any .WAV or .MP3 file and it will try to predict the chords for each half a second
 - Play, Pause and Stop audio controls
 - Seek to any chord in particular and resume the reproduction from there.
-
-### Incoming features.
-
 - Ability to change the length of the window for analyzing the chords
 - Ability to correct the model prediction
 - Retrain the model based on your corrections
