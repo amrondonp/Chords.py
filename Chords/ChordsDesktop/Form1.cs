@@ -189,7 +189,7 @@ namespace ChordsDesktop
             chordButtons = new Button[chordsPredicted.Length];
             var biggestButtonWidth = 0;
             var biggestButtonHeight = 0;
-            var minDurationChord = int.MaxValue;
+            var maxDurationChord = 0;
 
             for (var i = 0; i < chordsPredicted.Length; i++)
             {
@@ -197,6 +197,7 @@ namespace ChordsDesktop
                 var button = new Button
                 {
                     Text = chord.Name,
+                    AutoEllipsis = true,
                     Font = new Font(Font.FontFamily, 13),
                 };
 
@@ -217,13 +218,14 @@ namespace ChordsDesktop
                     button.PreferredSize.Width);
                 biggestButtonHeight = Math.Max(biggestButtonHeight,
                     button.PreferredSize.Height);
-                minDurationChord = Math.Min(chord.DurationInMs(), minDurationChord);
+                maxDurationChord = Math.Max(chord.DurationInMs(), maxDurationChord);
             }
 
             for(int i = 0; i<chordButtons.Length; i++)
             {
                 var button = chordButtons[i];
-                button.Width = (biggestButtonWidth * chordsPredicted[i].DurationInMs()) / minDurationChord;
+                double coefficient = (chordsPredicted[i].DurationInMs() * 4.0) / maxDurationChord;
+                button.Width = (int)Math.Round(biggestButtonWidth * coefficient);
                 button.Height = biggestButtonHeight;
             }
 
