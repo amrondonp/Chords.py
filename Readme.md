@@ -18,7 +18,7 @@ Steps.
 
 ### Current Features
 
-- Load any .WAV or .MP3 file and it will try to predict the chords for each half a second
+- Load any .WAV or .MP3 file and it will split your file in different chords
 - Play, Pause and Stop audio controls
 - Seek to any chord in particular and resume the reproduction from there.
 - Ability to change the length of the window for analyzing the chords
