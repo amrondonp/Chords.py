@@ -12,7 +12,7 @@ Steps.
 
 1. (Optional, only if you are interested on using ONNX runtime) Install [Visual C++](https://aka.ms/vs/16/release/vc_redist.x64.exe) from the Microsoft web site
 2. Download the application from our [Releases](https://github.com/amrondonp/Chords.py/releases/)
-3. Extract the folder and run `Chords.exe`
+3. Extract the folder and run `ChordsDesktop.exe`
 
 ![title](final_project/images/demoapp.png)
 
