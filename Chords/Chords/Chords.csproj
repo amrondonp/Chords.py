@@ -39,6 +39,9 @@
     <None Update="models\model1595137632S120L0.004830031641869656.model">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="storedChords\big-in-japan.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="storedChords\placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
