@@ -20,14 +20,13 @@ namespace ChordsWebAPI.Controllers
         public PredictionsController(PredictionContext predictionContext)
         {
             _predictionContext = predictionContext;
-            //"./models/model1595137632S120L0.004830031641869656.model"
             predictor = new AutoMlPredictor();
         }
 
         [HttpGet]
         public async Task<List<Prediction>> GetAll()
         {
-            return await _predictionContext.Predictions.Include(prediction => prediction.Chords).ToListAsync();
+            return await _predictionContext.Predictions.ToListAsync();
         }
 
         [HttpPost, DisableRequestSizeLimit]
@@ -45,7 +44,6 @@ namespace ChordsWebAPI.Controllers
             var chordProcessingProgress = new Progress<int>((v) =>
             {
                 prediction.Progress = v;
-                //await _predictionContext.SaveChangesAsync();
             });
 
             var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(prediction.FilePath));
@@ -74,15 +72,6 @@ namespace ChordsWebAPI.Controllers
             var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
             await _predictionContext.SaveChangesAsync();
             await dbResult.ReloadAsync();
-            //_ = RunPrediction(dbResult.Entity.Id);
-
-            //var prediction = await _predictionContext.Predictions.FindAsync(predictionId);
-            // var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
-
-
-
-            await _predictionContext.SaveChangesAsync();
-
 
             return dbResult.Entity.Id;
         }
