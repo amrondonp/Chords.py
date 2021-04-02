@@ -17,4 +17,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Chords\Chords.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="tmp\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tmp\en_algun_lugar.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

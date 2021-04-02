@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChordsWebAPI.Models
+namespace ChordsWebAPI.Entities
 {
     public class Prediction
     {

@@ -1,11 +1,11 @@
-﻿using ChordsWebAPI.Models;
+﻿using ChordsWebAPI.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChordsWebAPI.Models
+namespace ChordsWebAPI.Entities
 {
     public class PredictionContext: DbContext
     {
