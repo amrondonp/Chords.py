@@ -12,6 +12,10 @@ namespace ChordsWebAPI.Models
         [Key]
         public int Id { get; set; }
         public int Progress { get; set; }
+        public string FilePath { get; set; }
+        public int WindowInMs { get; set; }
+        public bool AutoBorder { get; set; }
+        public string ModelName { get; set; }
         public ChordWithKey[] Chords { get; set; }
     }
 }

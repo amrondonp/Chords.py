@@ -3,15 +3,17 @@ using System;
 using ChordsWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ChordsWebAPI.Migrations
 {
     [DbContext(typeof(PredictionContext))]
-    partial class PredictionContextModelSnapshot : ModelSnapshot
+    [Migration("20210402203619_fix-model-no-huge-storage")]
+    partial class fixmodelnohugestorage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

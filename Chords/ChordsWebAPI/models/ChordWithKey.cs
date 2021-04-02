@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace ChordsWebAPI.Models
 {
-    public class ChordWithKey: Chord
+    public class ChordWithKey
     {
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+        public int SampleLength { get; set; }
+        public int SampleRate { get; set; }
     }
 }
