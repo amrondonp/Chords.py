@@ -29,6 +29,14 @@ namespace ChordsWebAPI.Controllers
             return await _predictionContext.Predictions.ToListAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<Prediction> Get(int id)
+        {
+            return await _predictionContext.Predictions
+                .Include(prediction => prediction.Chords)
+                .SingleAsync(prediction => prediction.Id == id);
+        }
+
         [HttpPost, DisableRequestSizeLimit]
         public async Task<int> Create()
         {
