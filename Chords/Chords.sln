@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordTrainer", "ChordTraine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordsDesktop", "ChordsDesktop\ChordsDesktop.csproj", "{59E78C24-9864-4A36-8A42-E68E0E49E6FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordsConsole", "ChordsConsole\ChordsConsole.csproj", "{60796C2E-28BC-4E9B-984B-395886E32EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChordsConsole", "ChordsConsole\ChordsConsole.csproj", "{60796C2E-28BC-4E9B-984B-395886E32EE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChordsWebAPI", "ChordsWebAPI\ChordsWebAPI.csproj", "{2437C8BF-CA95-4AF1-A5E8-A49D8FF04D8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{60796C2E-28BC-4E9B-984B-395886E32EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60796C2E-28BC-4E9B-984B-395886E32EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60796C2E-28BC-4E9B-984B-395886E32EE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2437C8BF-CA95-4AF1-A5E8-A49D8FF04D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2437C8BF-CA95-4AF1-A5E8-A49D8FF04D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2437C8BF-CA95-4AF1-A5E8-A49D8FF04D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2437C8BF-CA95-4AF1-A5E8-A49D8FF04D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
