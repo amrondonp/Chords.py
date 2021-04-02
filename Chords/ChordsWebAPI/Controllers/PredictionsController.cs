@@ -20,13 +20,14 @@ namespace ChordsWebAPI.Controllers
         public PredictionsController(PredictionContext predictionContext)
         {
             _predictionContext = predictionContext;
-            predictor = new AutoMlPredictor("./models/model1595137632S120L0.004830031641869656.model");
+            //"./models/model1595137632S120L0.004830031641869656.model"
+            predictor = new AutoMlPredictor();
         }
 
         [HttpGet]
         public async Task<List<Prediction>> GetAll()
         {
-            return await _predictionContext.Predictions.ToListAsync();
+            return await _predictionContext.Predictions.Include(prediction => prediction.Chords).ToListAsync();
         }
 
         [HttpPost, DisableRequestSizeLimit]
@@ -43,18 +44,19 @@ namespace ChordsWebAPI.Controllers
             var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
             await _predictionContext.SaveChangesAsync();
             await dbResult.ReloadAsync();
-            _ = RunPrediction(prediction);
+            _ = RunPrediction(dbResult.Entity.Id);
             return dbResult.Entity.Id;
         }
 
-        private async Task RunPrediction(Prediction prediction)
+        private async Task RunPrediction(int predictionId)
         {
-            var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
+            var prediction = await _predictionContext.Predictions.FindAsync(predictionId);
+            // var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
             
-            var chordProcessingProgress = new Progress<int>(async (v) =>
+            var chordProcessingProgress = new Progress<int>((v) =>
             {
                 prediction.Progress = v;
-                await _predictionContext.SaveChangesAsync();
+                //await _predictionContext.SaveChangesAsync();
             });
 
             var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(prediction.FilePath));
@@ -69,7 +71,12 @@ namespace ChordsWebAPI.Controllers
                 Name = chord.Name,
                 SampleLength = chord.Samples.Length,
                 SampleRate = chord.SampleRate
-            }).ToArray();
+            }).ToList();
+
+            prediction.Chords.ToList().ForEach(chord =>
+            {
+                _predictionContext.Entry(chord).State = EntityState.Modified;
+            });
 
             await _predictionContext.SaveChangesAsync();
         }

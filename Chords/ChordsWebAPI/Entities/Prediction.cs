@@ -18,6 +18,6 @@ namespace ChordsWebAPI.Entities
         public int WindowInMs { get; set; }
         public bool AutoBorder { get; set; }
         public string ModelName { get; set; }
-        public ChordWithKey[] Chords { get; set; }
+        public List<ChordWithKey> Chords { get; set; }
     }
 }

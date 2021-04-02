@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="models\model1595137632S120L0.004830031641869656.model">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="tmp\en_algun_lugar.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
