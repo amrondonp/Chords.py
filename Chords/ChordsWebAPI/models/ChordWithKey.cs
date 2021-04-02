@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace ChordsWebAPI.Models
 {
-    public class Prediction
+    public class ChordWithKey: Chord
     {
         [Key]
         public int Id { get; set; }
-        public int Progress { get; set; }
-        public ChordWithKey[] Chords { get; set; }
     }
 }
