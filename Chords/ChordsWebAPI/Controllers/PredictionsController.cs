@@ -24,5 +24,22 @@ namespace ChordsWebAPI.Controllers
         {
             return await _predictionContext.Predictions.ToListAsync();
         }
+
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<int> Create()
+        {
+            string fileName = "./tmp/example.wav";
+            var prediction = new Prediction
+            {
+                AutoBorder = false,
+                FilePath = fileName,
+                WindowInMs = 500
+            };
+
+            var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
+            await _predictionContext.SaveChangesAsync();
+            await dbResult.ReloadAsync();
+            return dbResult.Entity.Id;
+        }
     }
 }
