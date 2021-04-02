@@ -41,10 +41,49 @@ namespace ChordsWebAPI.Controllers
                 WindowInMs = 500
             };
 
+
+            var chordProcessingProgress = new Progress<int>((v) =>
+            {
+                prediction.Progress = v;
+                //await _predictionContext.SaveChangesAsync();
+            });
+
+            var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(prediction.FilePath));
+
+            var chordsPredicted = await Task.Run(() =>
+                predictor.GetPredictionsWithChords(samples, sampleRate,
+                    prediction.WindowInMs, chordProcessingProgress)
+            );
+
+            prediction.ModelName = "some-model";
+
+            prediction.Chords = chordsPredicted.Select(chord => new ChordWithKey
+            {
+                Name = chord.Name,
+                SampleLength = chord.Samples.Length,
+                SampleRate = chord.SampleRate
+            }).ToList();
+
+            prediction.Chords.ToList().ForEach(chord =>
+            {
+                _predictionContext.Add(chord);
+            });
+
+
+
             var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
             await _predictionContext.SaveChangesAsync();
             await dbResult.ReloadAsync();
-            _ = RunPrediction(dbResult.Entity.Id);
+            //_ = RunPrediction(dbResult.Entity.Id);
+
+            //var prediction = await _predictionContext.Predictions.FindAsync(predictionId);
+            // var dbResult = await _predictionContext.Predictions.AddAsync(prediction);
+
+
+
+            await _predictionContext.SaveChangesAsync();
+
+
             return dbResult.Entity.Id;
         }
 
@@ -66,6 +105,8 @@ namespace ChordsWebAPI.Controllers
                     prediction.WindowInMs, chordProcessingProgress)
             );
 
+            prediction.ModelName = "some-model";
+
             prediction.Chords = chordsPredicted.Select(chord => new ChordWithKey
             {
                 Name = chord.Name,
@@ -75,7 +116,7 @@ namespace ChordsWebAPI.Controllers
 
             prediction.Chords.ToList().ForEach(chord =>
             {
-                _predictionContext.Entry(chord).State = EntityState.Modified;
+                _predictionContext.Add(chord);
             });
 
             await _predictionContext.SaveChangesAsync();
