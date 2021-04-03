@@ -48,7 +48,6 @@ namespace ChordsWebAPI.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            //string fileName = "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\final_project\\songs\\sweet improved.mp3";
 
             var prediction = new Prediction
             {

@@ -15,6 +15,7 @@ namespace ChordsWebAPI.Entities
         public int Id { get; set; }
         public int Progress { get; set; }
         public string FilePath { get; set; }
+        public string FileName { get; set; }
         public int WindowInMs { get; set; }
         public bool AutoBorder { get; set; }
         public string ModelName { get; set; }
