@@ -20,7 +20,7 @@ export function PredictionView() {
       .catch((error) => {
         setError(error);
       });
-  }, []);
+  }, [id]);
 
   if (error) {
     return <div>{error}</div>;

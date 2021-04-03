@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   flex-direction: column;
-  width: 800px;
+  width: 100%;
 }
 
 .listRow {

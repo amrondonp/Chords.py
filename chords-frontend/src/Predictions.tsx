@@ -39,7 +39,6 @@ export function Predictions() {
 
   return (
     <>
-      <h2>Predictions</h2>
       <div className={styles.list}>
         <h3>id</h3>
         <h3>Name</h3>
