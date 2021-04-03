@@ -61,7 +61,7 @@ namespace ChordsWebAPI.Controllers
                     prediction.WindowInMs, chordProcessingProgress)
             );
 
-            prediction.ModelName = "some-model";
+            prediction.ModelName = "AutoMlPredictor";
 
             prediction.Chords = chordsPredicted.Select(chord => new ChordWithKey
             {
