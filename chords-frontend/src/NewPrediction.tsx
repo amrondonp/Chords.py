@@ -21,7 +21,6 @@ export function NewPrediction() {
         body: formData,
         method: "post",
       }).then(() => {
-        alert("Chord created successfully the page will reload");
         window.location.reload();
       });
     }
