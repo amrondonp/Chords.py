@@ -53,6 +53,7 @@ namespace ChordsWebAPI.Controllers
             {
                 AutoBorder = false,
                 FilePath = filePath,
+                FileName = file.FileName,
                 WindowInMs = 500
             };
 

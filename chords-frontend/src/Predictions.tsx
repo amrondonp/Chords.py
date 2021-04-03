@@ -6,6 +6,7 @@ export interface Prediction {
   id: number;
   progress: number;
   filePath: string;
+  fileName: string;
   windowInMs: number;
   autoBorder: boolean;
   modelName: string;
@@ -53,7 +54,7 @@ export function Predictions() {
                   </Link>
                 }
               </div>
-              <div className={styles.listRow}>{prediction.filePath}</div>
+              <div className={styles.listRow}>{prediction.fileName}</div>
               <div className={styles.listRow}>{prediction.progress}%</div>
             </>
           );
