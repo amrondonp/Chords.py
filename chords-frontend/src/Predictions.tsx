@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Predictions.module.css";
 
 interface Prediction {
@@ -46,7 +47,13 @@ export function Predictions() {
         {predictions.map((prediction) => {
           return (
             <>
-              <div className={styles.listRow}>{prediction.id}</div>
+              <div className={styles.listRow}>
+                {
+                  <Link to={`/predictions/${prediction.id}`}>
+                    {prediction.id}
+                  </Link>
+                }
+              </div>
               <div className={styles.listRow}>{prediction.filePath}</div>
               <div className={styles.listRow}>{prediction.progress}%</div>
             </>
