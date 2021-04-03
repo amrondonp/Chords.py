@@ -13,7 +13,16 @@ export function NewPrediction() {
     setFile(event.target?.files && event.target?.files[0]);
   };
 
-  const onFileCommitted = () => {};
+  const onFileCommitted = () => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      fetch("http://localhost:25026/api/predictions", {
+        body: formData,
+        method: "post",
+      });
+    }
+  };
 
   return (
     <div className={styles.container}>

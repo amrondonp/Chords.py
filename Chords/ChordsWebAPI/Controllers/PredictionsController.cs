@@ -1,10 +1,12 @@
 ﻿using Chords.Predictors;
 using Chords.Profiling;
 using ChordsWebAPI.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,13 +40,20 @@ namespace ChordsWebAPI.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<int> Create()
+        public async Task<int> Create(IFormFile file)
         {
-            string fileName = "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\final_project\\songs\\sweet improved.mp3";
+            var filePath = Path.GetTempFileName();
+            using(var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            //string fileName = "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\final_project\\songs\\sweet improved.mp3";
+
             var prediction = new Prediction
             {
                 AutoBorder = false,
-                FilePath = fileName,
+                FilePath = filePath,
                 WindowInMs = 500
             };
 
