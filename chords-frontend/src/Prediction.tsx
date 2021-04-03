@@ -80,6 +80,7 @@ export function PredictionView() {
           <div
             className={styles.chordContainer}
             style={{ width: getChordWidth(chord) }}
+            key={chord.id}
           >
             <div className={styles.time}>{intervals[i].start}s</div>
             <div
