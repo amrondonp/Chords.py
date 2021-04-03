@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Predictions.module.css";
 
 interface Prediction {
   id: number;
@@ -36,15 +37,22 @@ export function Predictions() {
   }
 
   return (
-    <div>
-      {predictions.map((prediction) => {
-        return (
-          <div>
-            <div>{prediction.filePath}</div>
-            <div>{prediction.progress}</div>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <h2>Predictions</h2>
+      <div className={styles.list}>
+        <h3>id</h3>
+        <h3>Name</h3>
+        <h3>Progress</h3>
+        {predictions.map((prediction) => {
+          return (
+            <>
+              <div className={styles.listRow}>{prediction.id}</div>
+              <div className={styles.listRow}>{prediction.filePath}</div>
+              <div className={styles.listRow}>{prediction.progress}%</div>
+            </>
+          );
+        })}
+      </div>
+    </>
   );
 }
