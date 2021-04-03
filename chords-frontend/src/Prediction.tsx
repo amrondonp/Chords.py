@@ -4,6 +4,9 @@ import { useParams } from "react-router-dom";
 import { Prediction } from "./Predictions";
 import styles from "./Prediction.module.css";
 import { ChangeEvent } from "react";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 export function PredictionView() {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +28,6 @@ export function PredictionView() {
   }, [id]);
 
   const audioPlayerRef = React.useRef<HTMLAudioElement>(null);
-  // const inputFile = React.useRef<HTMLInputElement | null>(null);
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
     const audioPlayer = audioPlayerRef.current;
@@ -49,6 +51,12 @@ export function PredictionView() {
     };
   }, []);
 
+  const intervals = React.useMemo(
+    () =>
+      prediction?.chords ? getChordsTimeIntervalInS(prediction.chords) : [],
+    [prediction?.chords]
+  );
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -69,14 +77,50 @@ export function PredictionView() {
       <p>{currentTime}</p>
       <div className={styles.chordList}>
         {prediction.chords?.map((chord, i) => (
-          <div className={styles.chordContainer}>
-            <div className={styles.time}>
-              {(i * chord.sampleLength) / chord.sampleRate}s
+          <div
+            className={styles.chordContainer}
+            style={{ width: getChordWidth(chord) }}
+          >
+            <div className={styles.time}>{intervals[i].start}s</div>
+            <div
+              className={
+                isInInterval(intervals[i], currentTime)
+                  ? cx("chord", "playedChord")
+                  : styles.chord
+              }
+            >
+              {chord.name}
             </div>
-            <div className={styles.chord}>{chord.name}</div>
           </div>
         ))}
       </div>
     </div>
   );
+}
+
+function getChordWidth(chord: any) {
+  return 160 * getChordDuration(chord);
+}
+
+function getChordDuration(chord: any) {
+  return chord.sampleLength / chord.sampleRate;
+}
+
+function getChordsTimeIntervalInS(
+  chords: any[]
+): { start: number; end: number }[] {
+  return chords.reduce((intervals, chord, i) => {
+    const start = i === 0 ? 0 : intervals[i - 1].end;
+    return intervals.concat({
+      start,
+      end: start + getChordDuration(chord),
+    });
+  }, []);
+}
+
+function isInInterval(
+  { start, end }: { start: number; end: number },
+  value: number
+): boolean {
+  return value >= start && value <= end;
 }

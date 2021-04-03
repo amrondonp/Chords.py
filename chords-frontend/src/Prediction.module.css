@@ -3,14 +3,13 @@
   flex-direction: row;
   flex-wrap: nowrap;
   overflow-x: scroll;
+  height: 400px;
 }
 
 .chordContainer {
   display: flex;
   flex-direction: column;
   flex: none;
-  height: 400px;
-  width: 80px;
   font-size: 30px;
   font-weight: bold;
   margin-right: 5px;
@@ -25,6 +24,16 @@
   height: 100%;
   border: 1px solid darkgray;
   border-radius: 5px;
+}
+
+.playedChord {
+  background-color: lightblue;
+}
+
+.playBarTime {
+  border-left: 2px solid darkblue;
+  height: 385px;
+  position: absolute;
 }
 
 .time {
