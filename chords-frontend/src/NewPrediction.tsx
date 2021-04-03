@@ -20,6 +20,9 @@ export function NewPrediction() {
       fetch("http://localhost:25026/api/predictions", {
         body: formData,
         method: "post",
+      }).then(() => {
+        alert("Chord created successfully the page will reload");
+        window.location.reload();
       });
     }
   };
