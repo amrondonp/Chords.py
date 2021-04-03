@@ -1,4 +1,4 @@
-import { Prediction } from "./Prediction";
+import { PredictionView } from "./Prediction";
 import { Predictions } from "./Predictions";
 import styles from "./App.module.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -9,7 +9,7 @@ function App() {
       <div className={styles.appContainer}>
         <Switch>
           <Route path="/predictions/:id">
-            <Prediction />
+            <PredictionView />
           </Route>
           <Route path="/">
             <Predictions />

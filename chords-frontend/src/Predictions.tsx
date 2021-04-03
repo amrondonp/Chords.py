@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Predictions.module.css";
 
-interface Prediction {
+export interface Prediction {
   id: number;
   progress: number;
   filePath: string;
