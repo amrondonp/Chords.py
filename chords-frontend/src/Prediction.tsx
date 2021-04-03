@@ -33,7 +33,9 @@ export function PredictionView() {
   return (
     <div className={styles.chordList}>
       {prediction.chords?.map((chord) => (
-        <div className={styles.chord}>{chord.name}</div>
+        <div className={styles.chordContainer}>
+          <div className={styles.chord}>{chord.name}</div>
+        </div>
       ))}
     </div>
   );

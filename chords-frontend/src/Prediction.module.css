@@ -5,17 +5,23 @@
   overflow-x: scroll;
 }
 
-.chord {
+.chordContainer {
   display: flex;
   flex: none;
   height: 300px;
-  background-color: #eeeeee;
-  border: 1px solid darkgray;
   width: 300px;
-  justify-content: center;
-  align-items: center;
   font-size: 40px;
   font-weight: bold;
+}
+
+.chord {
+  display: flex;
+  background-color: #eeeeee;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid darkgray;
   border-radius: 5px;
   margin-right: 2px;
 }

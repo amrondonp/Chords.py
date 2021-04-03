@@ -40,7 +40,7 @@ namespace ChordsWebAPI.Controllers
         [HttpPost, DisableRequestSizeLimit]
         public async Task<int> Create()
         {
-            string fileName = "./tmp/en_algun_lugar.wav";
+            string fileName = "C:\\Users\\anrondon\\Desktop\\Coding\\Chords.py\\final_project\\songs\\sweet improved.mp3";
             var prediction = new Prediction
             {
                 AutoBorder = false,
