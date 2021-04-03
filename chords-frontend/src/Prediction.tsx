@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Prediction } from "./Predictions";
+import styles from "./Prediction.module.css";
 
 export function PredictionView() {
   const { id } = useParams<{ id: string }>();
@@ -29,5 +30,11 @@ export function PredictionView() {
     return <div>Loading...</div>;
   }
 
-  return <div>Prediction with id {JSON.stringify(prediction.chords)}</div>;
+  return (
+    <div className={styles.chordList}>
+      {prediction.chords?.map((chord) => (
+        <div className={styles.chord}>{chord.name}</div>
+      ))}
+    </div>
+  );
 }
