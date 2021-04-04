@@ -69,15 +69,14 @@ export function PredictionView() {
 
   return (
     <div>
-      <input
-        id="audio_file"
-        type="file"
-        accept="audio/*"
-        onChange={onChangeFile}
-      />
-      <audio ref={audioPlayerRef} />
-      <p>{currentTime}</p>
+      <h3>Prediction for '{prediction.fileName}'</h3>
       <div className={styles.timeLineScrollContainer}>
+        <div
+          className={styles.timeTracker}
+          style={{
+            width: secondInPixels * currentTime,
+          }}
+        ></div>
         <div className={styles.timeLineContainer}>
           <div
             className={styles.timeRuler}
@@ -119,6 +118,14 @@ export function PredictionView() {
           </div>
         </div>
       </div>
+      <input
+        id="audio_file"
+        type="file"
+        accept="audio/*"
+        onChange={onChangeFile}
+      />
+      <audio ref={audioPlayerRef} />
+      <p>{currentTime}</p>
     </div>
   );
 }
