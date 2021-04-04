@@ -13,8 +13,8 @@
 
 .timeTracker {
   height: 10px;
-  background-color: #4e252b;
-  border-right: 10px solid #d91902;
+  background-color: #f8f3f3;
+  border-right: 10px solid #4e252b;
 }
 
 .timeLineContainer {
@@ -77,18 +77,18 @@ h3 {
 
 .chord {
   display: flex;
-  background-color: #f1be57;
+  background-color: #f8f3f3;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   border: 2px solid white;
   border-radius: 10px;
-  color: #4e252b;
+  /* color: white; */
 }
 
 .playedChord {
-  background-color: #dd9907;
+  background-color: #e3d0d2;
 }
 
 .playBarTime {
@@ -103,19 +103,20 @@ h3 {
 }
 
 ::-webkit-scrollbar {
-  width: 1px;
+  /* width: 1px; */
+  height: 15px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 0px grey;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #dd9907;
-  border-radius: 5px;
+  background: #e3d0d2;
+  border-radius: 2px;
 }
 
 /* Handle on hover */
