@@ -1,3 +1,14 @@
 .appContainer {
-  padding: 50px;
+  padding: 0px 50px;
+}
+
+.navBar {
+  background-color: #d91902;
+  padding: 12px 24px;
+  height: 40px;
+}
+
+h2 {
+  color: white;
+  margin: 0;
 }

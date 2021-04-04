@@ -69,7 +69,7 @@ export function PredictionView() {
 
   return (
     <div>
-      <h3>Prediction for '{prediction.fileName}'</h3>
+      <h3>Chords of '{prediction.fileName}'</h3>
       <div className={styles.timeLineScrollContainer}>
         <div
           className={styles.timeTracker}

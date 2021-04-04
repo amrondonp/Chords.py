@@ -45,6 +45,10 @@
   border-right: 1px solid black;
 }
 
+h3 {
+  text-align: center;
+}
+
 .chordList {
   display: flex;
   flex-direction: row;
