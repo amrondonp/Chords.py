@@ -5,6 +5,7 @@ import { Prediction } from "./Predictions";
 import styles from "./Prediction.module.css";
 import { ChangeEvent } from "react";
 import classNames from "classnames/bind";
+import { times } from "lodash-es";
 
 const cx = classNames.bind(styles);
 const secondInPixels = 160;
@@ -81,9 +82,16 @@ export function PredictionView() {
           <div
             className={styles.timeRuler}
             style={{
-              width: secondInPixels * intervals[intervals.length - 1].end,
+              width: rulerWidth(intervals),
             }}
-          ></div>
+          >
+            {times(numberOfSeconds(intervals), (i) => (
+              <div className={styles.secondBox}>
+                <span>{i > 0 ? i.toFixed(2) : ""}</span>
+                <div className={styles.secondMark}></div>
+              </div>
+            ))}
+          </div>
           <div className={styles.chordList}>
             {prediction.chords?.map((chord, i) => (
               <div
@@ -91,7 +99,6 @@ export function PredictionView() {
                 style={{ width: getChordWidth(chord) }}
                 key={chord.id}
               >
-                <div className={styles.time}>{intervals[i].start}s</div>
                 <div
                   className={
                     isInInterval(intervals[i], currentTime)
@@ -108,6 +115,14 @@ export function PredictionView() {
       </div>
     </div>
   );
+}
+
+function numberOfSeconds(intervals: { start: number; end: number }[]) {
+  return Math.ceil(intervals[intervals.length - 1].end);
+}
+
+function rulerWidth(intervals: { start: number; end: number }[]) {
+  return secondInPixels * numberOfSeconds(intervals);
 }
 
 function getChordWidth(chord: any) {

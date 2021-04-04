@@ -9,8 +9,29 @@
 }
 
 .timeRuler {
-  background-color: lightblue;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  justify-content: space-between;
   height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
+.secondBox {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.secondBox > span {
+  font-size: 14px;
+  margin-left: -14px;
+  flex: 1;
+}
+
+.secondMark {
+  height: 50%;
+  border-right: 1px solid black;
 }
 
 .chordList {
