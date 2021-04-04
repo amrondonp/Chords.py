@@ -85,12 +85,18 @@ export function PredictionView() {
               width: rulerWidth(intervals),
             }}
           >
-            {times(numberOfSeconds(intervals), (i) => (
-              <div className={styles.secondBox}>
-                <span>{i > 0 ? i.toFixed(2) : ""}</span>
-                <div className={styles.secondMark}></div>
-              </div>
-            ))}
+            {times(2 * numberOfSeconds(intervals), (i) => {
+              return (
+                <div className={styles.secondBox}>
+                  <span>{i > 0 && i % 2 === 0 ? (i / 2).toFixed(2) : ""}</span>
+                  <div
+                    className={
+                      i % 2 === 1 ? styles.secondMark : styles.halfSecondMark
+                    }
+                  ></div>
+                </div>
+              );
+            })}
           </div>
           <div className={styles.chordList}>
             {prediction.chords?.map((chord, i) => (

@@ -30,7 +30,12 @@
 }
 
 .secondMark {
-  height: 50%;
+  height: 40%;
+  border-right: 1px solid black;
+}
+
+.halfSecondMark {
+  height: 20%;
   border-right: 1px solid black;
 }
 
