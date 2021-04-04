@@ -1,8 +1,22 @@
+.timeLineScrollContainer {
+  overflow-y: scroll;
+}
+
+.timeLineContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeRuler {
+  background-color: lightblue;
+  height: 40px;
+}
+
 .chordList {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow-x: scroll;
   height: 400px;
 }
 
@@ -12,7 +26,6 @@
   flex: none;
   font-size: 30px;
   font-weight: bold;
-  margin-right: 5px;
 }
 
 .chord {

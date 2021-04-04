@@ -7,6 +7,7 @@ import { ChangeEvent } from "react";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
+const secondInPixels = 160;
 
 export function PredictionView() {
   const { id } = useParams<{ id: string }>();
@@ -75,32 +76,42 @@ export function PredictionView() {
       />
       <audio ref={audioPlayerRef} />
       <p>{currentTime}</p>
-      <div className={styles.chordList}>
-        {prediction.chords?.map((chord, i) => (
+      <div className={styles.timeLineScrollContainer}>
+        <div className={styles.timeLineContainer}>
           <div
-            className={styles.chordContainer}
-            style={{ width: getChordWidth(chord) }}
-            key={chord.id}
-          >
-            <div className={styles.time}>{intervals[i].start}s</div>
-            <div
-              className={
-                isInInterval(intervals[i], currentTime)
-                  ? cx("chord", "playedChord")
-                  : styles.chord
-              }
-            >
-              {chord.name}
-            </div>
+            className={styles.timeRuler}
+            style={{
+              width: secondInPixels * intervals[intervals.length - 1].end,
+            }}
+          ></div>
+          <div className={styles.chordList}>
+            {prediction.chords?.map((chord, i) => (
+              <div
+                className={styles.chordContainer}
+                style={{ width: getChordWidth(chord) }}
+                key={chord.id}
+              >
+                <div className={styles.time}>{intervals[i].start}s</div>
+                <div
+                  className={
+                    isInInterval(intervals[i], currentTime)
+                      ? cx("chord", "playedChord")
+                      : styles.chord
+                  }
+                >
+                  {chord.name}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 }
 
 function getChordWidth(chord: any) {
-  return 160 * getChordDuration(chord);
+  return secondInPixels * getChordDuration(chord);
 }
 
 function getChordDuration(chord: any) {
