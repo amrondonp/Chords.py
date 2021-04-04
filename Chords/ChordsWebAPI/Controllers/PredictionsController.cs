@@ -22,13 +22,15 @@ namespace ChordsWebAPI.Controllers
         public PredictionsController(PredictionContext predictionContext)
         {
             _predictionContext = predictionContext;
-            predictor = new AutoMlPredictor();
+            predictor = new ClassicPredictor();
         }
 
         [HttpGet]
         public async Task<List<Prediction>> GetAll()
         {
-            return await _predictionContext.Predictions.ToListAsync();
+            return await _predictionContext.Predictions
+                .OrderByDescending(prediction => prediction.Id)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -66,8 +68,8 @@ namespace ChordsWebAPI.Controllers
             var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(prediction.FilePath));
 
             var chordsPredicted = await Task.Run(() =>
-                predictor.GetPredictionWithBorderDetection(samples, sampleRate,
-                    prediction.WindowInMs, 100, chordProcessingProgress)
+                predictor.GetPredictionsWithChords(samples, sampleRate,
+                    prediction.WindowInMs, chordProcessingProgress)
             );
 
             prediction.ModelName = "AutoMlPredictor";
