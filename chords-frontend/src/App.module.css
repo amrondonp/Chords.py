@@ -1,3 +1,17 @@
+.navBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+  padding: 12px 0px 0px 24px;
+  background-color: var(--themeLighterAlt);
+}
+
+.navBar > h3 {
+  margin-top: 8px;
+  margin-right: 32px;
+}
+
 .appContainer {
   display: flex;
   flex-direction: row;
