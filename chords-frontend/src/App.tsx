@@ -2,7 +2,7 @@ import { PredictionView } from "./Prediction";
 import { Predictions } from "./Predictions";
 import { NewPrediction } from "./NewPrediction";
 import styles from "./App.module.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@fluentui/react";
 import { guitarTheme } from "./Themes";
 

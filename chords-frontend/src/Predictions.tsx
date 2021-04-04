@@ -1,6 +1,11 @@
+import {
+  DetailsList,
+  SelectionMode,
+  Spinner,
+  SpinnerSize,
+} from "@fluentui/react";
 import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./Predictions.module.css";
+import { useHistory } from "react-router-dom";
 
 export interface Prediction {
   id: number;
@@ -13,11 +18,31 @@ export interface Prediction {
   chords?: any[];
 }
 
+const columns = [
+  {
+    key: "name",
+    name: "Name",
+    fieldName: "name",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+  {
+    key: "progress",
+    name: "Progress",
+    fieldName: "progress",
+    minWidth: 100,
+    maxWidth: 200,
+    isResizable: true,
+  },
+];
+
 export function Predictions() {
   const [predictions, setPredictions] = React.useState<
     Prediction[] | undefined
   >(undefined);
   const [error, setError] = React.useState(undefined);
+  const history = useHistory();
 
   React.useEffect(() => {
     fetch("http://localhost:25026/api/predictions")
@@ -35,31 +60,26 @@ export function Predictions() {
   }
 
   if (!predictions) {
-    return <div>Loading...</div>;
+    return <Spinner size={SpinnerSize.large} />;
   }
 
+  const listItems = predictions.map((prediction) => ({
+    key: prediction.id,
+    name: prediction.fileName,
+    progress: prediction.progress,
+    id: prediction.id,
+  }));
+
+  const onItemClicked = (item?: any, index?: number, ev?: Event) => {
+    history.push(`predictions/${item.id}`);
+  };
+
   return (
-    <>
-      <div className={styles.list}>
-        <h3>id</h3>
-        <h3>Name</h3>
-        <h3>Progress</h3>
-        {predictions.map((prediction) => {
-          return (
-            <>
-              <div className={styles.listRow}>
-                {
-                  <Link to={`/predictions/${prediction.id}`}>
-                    {prediction.id}
-                  </Link>
-                }
-              </div>
-              <div className={styles.listRow}>{prediction.fileName}</div>
-              <div className={styles.listRow}>{prediction.progress}%</div>
-            </>
-          );
-        })}
-      </div>
-    </>
+    <DetailsList
+      columns={columns}
+      items={listItems}
+      selectionMode={SelectionMode.none}
+      onItemInvoked={onItemClicked}
+    ></DetailsList>
   );
 }
