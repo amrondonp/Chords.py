@@ -4,7 +4,7 @@
   align-items: center;
   height: 50px;
   padding: 12px 0px 0px 24px;
-  background-color: var(--themeLighterAlt);
+  background-color: var(--themeLighter);
 }
 
 .navBar > h3 {

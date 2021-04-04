@@ -24,8 +24,8 @@
 }
 
 .timeRuler {
-  color: var(--themePrimary);
-  border: 1px solid var(--themePrimary);
+  color: var(--neutralDark);
+  border: 1px solid var(--neutralDark);
   justify-content: space-between;
   height: 40px;
   display: flex;
@@ -46,7 +46,7 @@
 
 .secondMark {
   height: 40%;
-  border-right: 1px solid var(--themePrimary);
+  border-right: 1px solid var(--neutralDark);
 }
 
 .halfSecondMark {
@@ -75,7 +75,7 @@ h3 {
 
 .chord {
   display: flex;
-  background-color: var(--themeLighterAlt);
+  background-color: var(--themeLighter);
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -85,7 +85,7 @@ h3 {
 }
 
 .playedChord {
-  background-color: var(--themeLighter);
+  background-color: var(--themeLight);
 }
 
 .playBarTime {
