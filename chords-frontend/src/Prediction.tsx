@@ -6,6 +6,7 @@ import styles from "./Prediction.module.css";
 import { ChangeEvent } from "react";
 import classNames from "classnames/bind";
 import { times } from "lodash-es";
+import { PrimaryButton } from "@fluentui/react";
 
 const cx = classNames.bind(styles);
 const secondInPixels = 160;
@@ -30,6 +31,11 @@ export function PredictionView() {
   }, [id]);
 
   const audioPlayerRef = React.useRef<HTMLAudioElement>(null);
+  const inputFile = React.useRef<HTMLInputElement | null>(null);
+
+  const onLoadFileClick = () => {
+    inputFile.current?.click();
+  };
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
     const audioPlayer = audioPlayerRef.current;
@@ -69,7 +75,30 @@ export function PredictionView() {
 
   return (
     <div>
-      <h3>Chords of '{prediction.fileName}'</h3>
+      <div className={styles.container}>
+        <h3>Chords of '{prediction.fileName}'</h3>
+        <PrimaryButton
+          text="Choose file to play along"
+          styles={{
+            root: {
+              backgroundColor: "#f1be57",
+              color: "#4e252b",
+              borderColor: "#4e252b",
+            },
+            rootHovered: {
+              backgroundColor: "#dd9907",
+              color: "#4e252b",
+              borderColor: "#4e252b",
+            },
+            rootPressed: {
+              backgroundColor: "#a16f01",
+              color: "#4e252b",
+              borderColor: "#4e252b",
+            },
+          }}
+          onClick={onLoadFileClick}
+        />
+      </div>
       <div className={styles.timeLineScrollContainer}>
         <div
           className={styles.timeTracker}
@@ -123,9 +152,10 @@ export function PredictionView() {
         type="file"
         accept="audio/*"
         onChange={onChangeFile}
+        style={{ display: "none" }}
+        ref={inputFile}
       />
       <audio ref={audioPlayerRef} />
-      <p>{currentTime}</p>
     </div>
   );
 }
