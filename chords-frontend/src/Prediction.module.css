@@ -4,8 +4,8 @@
 
 .timeTracker {
   height: 10px;
-  background-color: lightsalmon;
-  border-right: 10px solid salmon;
+  background-color: #4e252b;
+  border-right: 10px solid #d91902;
 }
 
 .timeLineContainer {
@@ -15,8 +15,9 @@
 }
 
 .timeRuler {
-  border: 2px solid lightgray;
-  border-radius: 5px;
+  color: #4e252b;
+  border: 1px solid #4e252b;
+  /* border-radius: 5px; */
   justify-content: space-between;
   height: 40px;
   display: flex;
@@ -37,7 +38,7 @@
 
 .secondMark {
   height: 40%;
-  border-right: 1px solid black;
+  border-right: 1px solid #4e252b;
 }
 
 .halfSecondMark {
@@ -47,6 +48,7 @@
 
 h3 {
   text-align: center;
+  color: #4e252b;
 }
 
 .chordList {
@@ -66,17 +68,18 @@ h3 {
 
 .chord {
   display: flex;
-  background-color: #eeeeee;
+  background-color: #f1be57;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  border: 1px solid darkgray;
-  border-radius: 5px;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: #4e252b;
 }
 
 .playedChord {
-  background-color: lightblue;
+  background-color: #dd9907;
 }
 
 .playBarTime {
@@ -96,17 +99,17 @@ h3 {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 1px grey;
+  box-shadow: inset 0 0 0px grey;
   border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #eeeeee;
+  background: #dd9907;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: darkgray;
+  background: #4e252b;
 }
