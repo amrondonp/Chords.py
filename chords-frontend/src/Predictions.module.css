@@ -1,16 +1,4 @@
-.list {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  flex-direction: column;
-  width: 100%;
-}
-
-.listRow {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 12px;
-}
-
-.listRow:hover {
-  background-color: lightgrey;
+.container {
+  width: 350px;
+  margin-right: 10px;
 }

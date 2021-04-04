@@ -16,8 +16,8 @@ function App() {
               <PredictionView />
             </Route>
             <Route path="/">
-              <NewPrediction />
               <Predictions />
+              <NewPrediction />
             </Route>
           </Switch>
         </div>

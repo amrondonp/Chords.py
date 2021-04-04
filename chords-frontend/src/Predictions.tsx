@@ -6,6 +6,7 @@ import {
 } from "@fluentui/react";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import styles from "./Predictions.module.css";
 
 export interface Prediction {
   id: number;
@@ -19,6 +20,14 @@ export interface Prediction {
 }
 
 const columns = [
+  {
+    key: "id",
+    name: "ID",
+    fieldName: "id",
+    minWidth: 50,
+    maxWidth: 200,
+    isResizable: true,
+  },
   {
     key: "name",
     name: "Name",
@@ -75,11 +84,14 @@ export function Predictions() {
   };
 
   return (
-    <DetailsList
-      columns={columns}
-      items={listItems}
-      selectionMode={SelectionMode.none}
-      onItemInvoked={onItemClicked}
-    ></DetailsList>
+    <div className={styles.container}>
+      <h3>Predictions</h3>
+      <DetailsList
+        columns={columns}
+        items={listItems}
+        selectionMode={SelectionMode.none}
+        onItemInvoked={onItemClicked}
+      ></DetailsList>
+    </div>
   );
 }

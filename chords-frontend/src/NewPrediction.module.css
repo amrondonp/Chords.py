@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 800px;
 }
 
 .container > * {
-  margin-right: 20px;
+  margin-right: 15px;
 }

@@ -28,6 +28,7 @@ export function NewPrediction() {
 
   return (
     <div className={styles.container}>
+      <h3>Create new prediction</h3>
       <input
         type="file"
         id="file"
