@@ -79,23 +79,6 @@ export function PredictionView() {
         <h3>Chords of '{prediction.fileName}'</h3>
         <PrimaryButton
           text="Choose file to play along"
-          styles={{
-            root: {
-              backgroundColor: "#f1be57",
-              color: "#4e252b",
-              borderColor: "#4e252b",
-            },
-            rootHovered: {
-              backgroundColor: "#dd9907",
-              color: "#4e252b",
-              borderColor: "#4e252b",
-            },
-            rootPressed: {
-              backgroundColor: "#a16f01",
-              color: "#4e252b",
-              borderColor: "#4e252b",
-            },
-          }}
           onClick={onLoadFileClick}
         />
       </div>

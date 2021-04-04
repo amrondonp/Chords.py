@@ -7,6 +7,7 @@
 }
 
 .timeLineScrollContainer {
+  width: 90vw;
   overflow-x: scroll;
 }
 
