@@ -54,7 +54,7 @@ export function Predictions() {
   const history = useHistory();
 
   React.useEffect(() => {
-    fetch("http://localhost:25026/api/predictions")
+    fetch("http://chords-app.azurewebsites.net/api/predictions")
       .then(async (response) => {
         const data = await response.json();
         setPredictions(data);

@@ -20,7 +20,7 @@ export function PredictionView() {
   );
 
   React.useEffect(() => {
-    fetch(`http://localhost:25026/api/predictions/${id}`)
+    fetch(`http://chords-app.azurewebsites.net/api/predictions/${id}`)
       .then(async (response) => {
         const data = await response.json();
         setPrediction(data);
