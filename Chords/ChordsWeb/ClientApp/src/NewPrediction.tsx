@@ -17,7 +17,7 @@ export function NewPrediction() {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      fetch("http://chords-app.azurewebsites.net/api/predictions", {
+      fetch("/api/predictions", {
         body: formData,
         method: "post",
       }).then(() => {
