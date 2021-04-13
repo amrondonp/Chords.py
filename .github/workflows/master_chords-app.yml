@@ -12,6 +12,9 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
 
+    env:
+      DOTNET_ROOT: Chords
+
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -27,7 +30,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/ChordsWebAPI
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
@@ -35,5 +38,5 @@ jobs:
         app-name: chords-app
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4EFDFDAC606949C288B506985E938A42 }}
-        package: ${{env.DOTNET_ROOT}}/myapp
+        package: ${{env.DOTNET_ROOT}}/ChordsWebAPI
 
