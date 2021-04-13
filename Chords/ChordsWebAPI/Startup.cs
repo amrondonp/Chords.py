@@ -26,8 +26,13 @@ namespace ChordsWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PredictionContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            // PostgresSQL configuration
+            //services.AddDbContext<PredictionContext>(options =>
+            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
+            //);
+
+            services.AddDbContext<PredictionContext>(options => 
+                options.UseInMemoryDatabase(databaseName: "Predictions")
             );
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
