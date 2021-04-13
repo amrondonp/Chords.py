@@ -25,11 +25,11 @@ jobs:
 
     - name: Build with dotnet
       working-directory: .\Chords
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release --runtime win-x64 ChordsWebAPI
 
     - name: dotnet publish
       working-directory: .\Chords
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/ChordsWebAPI
+      run: dotnet publish -c Release --runtime win-x64 -o ${{env.DOTNET_ROOT}}/ChordsWebAPI ChordsWebAPI
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
