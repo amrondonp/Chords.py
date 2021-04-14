@@ -68,8 +68,8 @@ namespace ChordsWeb.Controllers
             var (sampleRate, samples) = await Task.Run(() => Profiling.GetSamples(prediction.FilePath));
 
             var chordsPredicted = await Task.Run(() =>
-                predictor.GetPredictionsWithChords(samples, sampleRate,
-                    prediction.WindowInMs, chordProcessingProgress)
+                predictor.GetPredictionWithBorderDetection(samples, sampleRate,
+                    prediction.WindowInMs, 100, chordProcessingProgress)
             );
 
             prediction.ModelName = "AutoMlPredictor";

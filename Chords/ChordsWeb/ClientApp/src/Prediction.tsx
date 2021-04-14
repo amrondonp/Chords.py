@@ -31,10 +31,11 @@ export function PredictionView() {
   }, [id]);
 
   const audioPlayerRef = React.useRef<HTMLAudioElement>(null);
-  const inputFile = React.useRef<HTMLInputElement | null>(null);
+  const inputFileRef = React.useRef<HTMLInputElement | null>(null);
+  const timeLineContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   const onLoadFileClick = () => {
-    inputFile.current?.click();
+    inputFileRef.current?.click();
   };
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,8 +51,16 @@ export function PredictionView() {
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      audioPlayerRef.current &&
-        setCurrentTime(audioPlayerRef.current?.currentTime);
+      const currentTimeAudioPlayer =
+        audioPlayerRef.current && audioPlayerRef.current?.currentTime;
+
+      if (currentTimeAudioPlayer) {
+        setCurrentTime(currentTimeAudioPlayer);
+        if (timeLineContainerRef.current) {
+          timeLineContainerRef.current.scrollLeft =
+            secondInPixels * Math.max(currentTimeAudioPlayer - 3, 0);
+        }
+      }
     }, 100);
 
     return () => {
@@ -82,7 +91,7 @@ export function PredictionView() {
           onClick={onLoadFileClick}
         />
       </div>
-      <div className={styles.timeLineScrollContainer}>
+      <div className={styles.timeLineScrollContainer} ref={timeLineContainerRef}>
         <div
           className={styles.timeTracker}
           style={{
@@ -136,7 +145,7 @@ export function PredictionView() {
         accept="audio/*"
         onChange={onChangeFile}
         style={{ display: "none" }}
-        ref={inputFile}
+        ref={inputFileRef}
       />
       <audio ref={audioPlayerRef} />
     </div>

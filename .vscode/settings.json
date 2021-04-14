@@ -1,5 +1,5 @@
 {
     "python.pythonPath": "my_env/bin/python",
     "python.linting.pylintEnabled": false,
-    "files.autoSave": "onFocusChange"
+    "files.autoSave": "off"
 }
