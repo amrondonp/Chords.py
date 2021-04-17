@@ -8,6 +8,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: ChordsWeb\published
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.CHORDS_APP_FFFF }}
   CONFIGURATION: Release
+  RUNTIME: win-x86
   DOTNET_CORE_VERSION: 5.0.x
   WORKING_DIRECTORY: Chords.net\ChordsWeb
 jobs:
@@ -22,11 +23,11 @@ jobs:
       - name: Restore
         run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
       - name: Build
-        run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+        run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --runtime ${{env.RUNTIME}} --no-restore
       - name: Test
         run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
       - name: Publish
-        run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+        run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --runtime ${{env.RUNTIME}} --no-build --no-self-contained --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
       - name: Deploy to Azure WebApp
         uses: azure/webapps-deploy@v2
         with:
