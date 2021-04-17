@@ -1,9 +1,17 @@
 import styles from "./NewPrediction.module.css";
-import { PrimaryButton, DefaultButton } from "@fluentui/react";
+import { PrimaryButton, DefaultButton, Spinner } from "@fluentui/react";
 import { url } from "./urls";
 import React, { ChangeEvent } from "react";
 
-export function NewPrediction() {
+interface NewPredictionProps {
+  onPredictionCreated?: () => void;
+}
+
+export function NewPrediction({ onPredictionCreated }: NewPredictionProps) {
+  const [loadingState, setLoadingState] = React.useState<"loading" | "loaded">(
+    "loaded"
+  );
+
   const [file, setFile] = React.useState<File | null>(null);
   const inputFile = React.useRef<HTMLInputElement | null>(null);
   const onClick = () => {
@@ -16,16 +24,22 @@ export function NewPrediction() {
 
   const onFileCommitted = () => {
     if (file) {
+      setLoadingState("loading");
       const formData = new FormData();
       formData.append("file", file);
       fetch(url("/api/predictions"), {
         body: formData,
         method: "post",
       }).then(() => {
-        window.location.reload();
+        setLoadingState("loaded");
+        if (onPredictionCreated) {
+          onPredictionCreated();
+        }
       });
     }
   };
+
+  const isLoading = loadingState === "loading";
 
   return (
     <div className={styles.container}>
@@ -38,8 +52,17 @@ export function NewPrediction() {
         onChange={onChangeFile}
       />
       <span>{file ? file.name : "No file selected"}</span>
-      <DefaultButton text="Select File" onClick={onClick} />
-      <PrimaryButton text="Get the chords" onClick={onFileCommitted} />
+      <DefaultButton
+        text="Select File"
+        onClick={onClick}
+        disabled={isLoading}
+      />
+      <PrimaryButton
+        text="Get the chords"
+        onClick={onFileCommitted}
+        disabled={isLoading}
+      />
+      {isLoading && <Spinner />}
     </div>
   );
 }
