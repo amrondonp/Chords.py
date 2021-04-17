@@ -7,6 +7,8 @@ import {
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./Predictions.module.css";
+import { url } from "./urls";
+
 
 export interface Prediction {
   id: number;
@@ -54,7 +56,7 @@ export function Predictions() {
   const history = useHistory();
 
   React.useEffect(() => {
-    fetch("/api/predictions")
+    fetch(url("/api/predictions"))
       .then(async (response) => {
         const data = await response.json();
         setPredictions(data);

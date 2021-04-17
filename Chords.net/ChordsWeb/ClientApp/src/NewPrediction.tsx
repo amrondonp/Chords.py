@@ -1,5 +1,6 @@
 import styles from "./NewPrediction.module.css";
 import { PrimaryButton, DefaultButton } from "@fluentui/react";
+import { url } from "./urls";
 import React, { ChangeEvent } from "react";
 
 export function NewPrediction() {
@@ -17,7 +18,7 @@ export function NewPrediction() {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      fetch("/api/predictions", {
+      fetch(url("/api/predictions"), {
         body: formData,
         method: "post",
       }).then(() => {

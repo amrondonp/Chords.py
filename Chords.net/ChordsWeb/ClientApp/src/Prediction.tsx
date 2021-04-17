@@ -7,6 +7,8 @@ import { ChangeEvent } from "react";
 import classNames from "classnames/bind";
 import { times } from "lodash-es";
 import { PrimaryButton } from "@fluentui/react";
+import { url } from "./urls";
+
 
 const cx = classNames.bind(styles);
 const secondInPixels = 160;
@@ -20,7 +22,7 @@ export function PredictionView() {
   );
 
   React.useEffect(() => {
-    fetch(`/api/predictions/${id}`)
+    fetch(url(`/api/predictions/${id}`))
       .then(async (response) => {
         const data = await response.json();
         setPrediction(data);
