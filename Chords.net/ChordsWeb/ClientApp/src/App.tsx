@@ -37,7 +37,7 @@ function App() {
 
   React.useEffect(() => {
     fetchPredictions();
-  }, []);
+  }, [fetchPredictions]);
 
   return (
     <ThemeProvider
@@ -65,7 +65,7 @@ function App() {
             </Route>
             <Route path="/">
               <Predictions predictions={predictions} error={error} />
-              <NewPrediction onPredictionCreated={fetchPredictions}/>
+              <NewPrediction onPredictionCreated={fetchPredictions} />
             </Route>
           </Switch>
         </div>
