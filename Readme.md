@@ -50,7 +50,7 @@ At this point you have the environment ready to use several entry points.
 
 - `python predict.py` or `python predict.py path/to/song.wav` will give you a prediction of the chord present in that sound file, by default it goes to `songs/d.wav` which is the D chord. It will show a window similar to this one.
 
-![title](final_project/images/predict.png)
+![title](Chords.py/images/predict.png)
 
 - `python split.py songs/guitar/about_a_girl.wav` is an example of the `split.py` entry point that takes a longer song, **splits** it and runs the prediction for each song piece. The results are saved in a filed called `spliter_result.txt`
 
