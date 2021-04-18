@@ -9,7 +9,7 @@ env:
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.CHORDS_APP_FFFF }}
   CONFIGURATION: Release
   RUNTIME: win-x86
-  DOTNET_CORE_VERSION: 3.1.13
+  DOTNET_CORE_VERSION: 3.1.x
   WORKING_DIRECTORY: Chords.net\ChordsWeb
 jobs:
   build:
