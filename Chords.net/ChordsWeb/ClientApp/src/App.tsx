@@ -1,5 +1,5 @@
 import { PredictionView } from "./Prediction";
-import { Predictions } from "./Predictions";
+import { Prediction, Predictions } from "./Predictions";
 import { NewPrediction } from "./NewPrediction";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider, Toggle } from "@fluentui/react";
@@ -8,9 +8,25 @@ import { blueTheme, guitarTheme } from "./Themes";
 import styles from "./App.module.css";
 import "./Theme.css";
 import React from "react";
+import { url } from "./urls";
 
 function App() {
   const [isGuitarTheme, setIsGuitarTheme] = React.useState(true);
+  const [predictions, setPredictions] = React.useState<
+    Prediction[] | undefined
+  >(undefined);
+  const [error, setError] = React.useState(undefined);
+
+  const fetchPredictions = React.useCallback(() => {
+    fetch(url("/api/predictions"))
+      .then(async (response) => {
+        const data = await response.json();
+        setPredictions(data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
 
   React.useEffect(() => {
     document.documentElement.setAttribute(
@@ -18,6 +34,10 @@ function App() {
       isGuitarTheme ? "guitar" : "blue"
     );
   }, [isGuitarTheme]);
+
+  React.useEffect(() => {
+    fetchPredictions();
+  }, []);
 
   return (
     <ThemeProvider
@@ -44,8 +64,8 @@ function App() {
               <PredictionView />
             </Route>
             <Route path="/">
-              <Predictions />
-              <NewPrediction />
+              <Predictions predictions={predictions} error={error} />
+              <NewPrediction onPredictionCreated={fetchPredictions}/>
             </Route>
           </Switch>
         </div>

@@ -4,11 +4,8 @@ import {
   Spinner,
   SpinnerSize,
 } from "@fluentui/react";
-import React from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./Predictions.module.css";
-import { url } from "./urls";
-
 
 export interface Prediction {
   id: number;
@@ -48,23 +45,13 @@ const columns = [
   },
 ];
 
-export function Predictions() {
-  const [predictions, setPredictions] = React.useState<
-    Prediction[] | undefined
-  >(undefined);
-  const [error, setError] = React.useState(undefined);
-  const history = useHistory();
+interface PredictionProps {
+  predictions?: Prediction[];
+  error?: any;
+}
 
-  React.useEffect(() => {
-    fetch(url("/api/predictions"))
-      .then(async (response) => {
-        const data = await response.json();
-        setPredictions(data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
+export function Predictions({ predictions, error }: PredictionProps) {
+  const history = useHistory();
 
   if (error) {
     return <div>{error}</div>;
