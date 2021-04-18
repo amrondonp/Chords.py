@@ -29,11 +29,12 @@ Steps.
 
 NOTE this was tested using the following setup:
 
-```
-os: Ubuntu 18.04
+```bash
+uname -mrs
+Linux 5.4.72-microsoft-standard-WSL2 x86_64 # WSL2 Ubuntu 20.04
 
 python --version
-Python 3.6.9
+Python 3.8.5
 ```
 
 This program is a university project on the introductory course to artificial intelligence.
